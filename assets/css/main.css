@@ -13598,7 +13598,7 @@ Primary style
   height: 100%;
 }
 .bs-team-5-member .content {
-  margin-top: -71px;
+  margin-top: -151px;
   text-align: center;
   background: var(--bs-clr-h-4);
   max-width: 224px;
@@ -20351,6 +20351,26 @@ Primary style
     flex-shrink: 0;
 }
 }
+
+
+.property-category-filter button{
+    border: 1px solid #f16218;
+
+  height: 40px;
+  width: 120px;
+  &:hover{
+    border-radius: 10px;
+    transition: .3s ease-in;
+      background-color: #f16218;
+  color: white;
+  }
+
+}
+.project-filter-btns button{
+  border: 1px solid #f16218;
+}
+
+
 /* 
     footer-5-end
 */
