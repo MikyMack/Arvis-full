@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <title>Arvies - Admin RealEstate</title>
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="admin-css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="admin-css/animation.css">
+    <link rel="stylesheet" type="text/css" href="admin-css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="admin-css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="admin-css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- Font -->
+    <link rel="stylesheet" href="admin-font/fonts.css">
+
+    <!-- Icon -->
+    <link rel="stylesheet" href="admin-icon/style.css">
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="/img/arvies/footer-logo.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/arvies/footer-logo.png">
+    <style>
+        .wg-table {
+            width: 100%;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .table-title {
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .category-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .category-details img,
+        .subcategory-item img {
+            border-radius: 4px;
+        }
+
+        .subcategory-list {
+            margin-left: 20px;
+        }
+
+        .actions button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .toggle-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal.active {
+    display: block;
+}
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 50%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Switch styles */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch.small {
+            width: 40px;
+            height: 20px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        .switch.small .slider:before {
+            height: 12px;
+            width: 12px;
+            left: 4px;
+            bottom: 4px;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        .switch.small input:checked+.slider:before {
+            transform: translateX(20px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* Button styles */
+        .edit-btn,
+        .delete-btn,
+        .add-sub-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .add-sub-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .edit-btn.small,
+        .delete-btn.small {
+            padding: 3px 6px;
+            font-size: 12px;
+        }
+
+        .subcategory-actions {
+            margin-left: auto;
+        }
+    </style>
+</head>
+
+<body class="body">
+
+    <!-- #wrapper -->
+    <div id="wrapper">
+        <!-- #page -->
+        <div id="page" class="">
+            <!-- layout-wrap -->
+            <div class="layout-wrap loader-off">
+                <!-- preload -->
+                <div id="preload" class="preload-container">
+                    <div class="preloading">
+                        <span></span>
+                    </div>
+                </div>
+                <!-- /preload -->
+                <!-- section-menu-left -->
+                <div class="section-menu-left">
+                    <div class="box-logo">
+                        <a href="/dashboard" id="site-logo-inner">
+                            <h4>ARVIES</h4>
+                         </a>
+                        <div class="button-show-hide">
+                            <i class="icon-chevron-left"></i>
+                        </div>
+                    </div>
+                    <div class="section-menu-left-wrap">
+                        <div class="center">
+                            <div class="center-item">
+                                <ul>
+                                    <li class="menu-item ">
+                                        <a href="/dashboard">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.2652 3.57566C12.1187 3.42921 11.8813 3.42921 11.7348 3.57566L5.25 10.0605V19.8748C5.25 20.0819 5.41789 20.2498 5.625 20.2498H9V16.1248C9 15.0893 9.83947 14.2498 10.875 14.2498H13.125C14.1605 14.2498 15 15.0893 15 16.1248V20.2498H18.375C18.5821 20.2498 18.75 20.0819 18.75 19.8748V10.0605L12.2652 3.57566ZM20.25 11.5605L21.2197 12.5302C21.5126 12.8231 21.9874 12.8231 22.2803 12.5302C22.5732 12.2373 22.5732 11.7624 22.2803 11.4695L13.3258 2.51499C12.5936 1.78276 11.4064 1.78276 10.6742 2.515L1.71967 11.4695C1.42678 11.7624 1.42678 12.2373 1.71967 12.5302C2.01256 12.8231 2.48744 12.8231 2.78033 12.5302L3.75 11.5605V19.8748C3.75 20.9104 4.58947 21.7498 5.625 21.7498H18.375C19.4105 21.7498 20.25 20.9104 20.25 19.8748V11.5605ZM13.5 20.2498H10.5V16.1248C10.5 15.9177 10.6679 15.7498 10.875 15.7498H13.125C13.3321 15.7498 13.5 15.9177 13.5 16.1248V20.2498Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Architecture Management</div>
+                                        </a>
+                                    </li>                          
+                              
+                                    <li class="menu-item active">
+                                        <a href="/admin-realEstate" class="menu-item-button">
+                                            <div class="icon">
+                                                <svg width="24" height="22" viewBox="0 0 22 18" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M0.5 1.875C0.5 0.839466 1.33947 0 2.375 0H19.625C20.6605 0 21.5 0.839466 21.5 1.875V3.375C21.5 4.29657 20.8351 5.06285 19.9589 5.22035L19.3733 15.1762C19.28 16.7619 17.9669 18 16.3785 18H5.62154C4.03311 18 2.71999 16.7619 2.62671 15.1762L2.04108 5.22035C1.16485 5.06285 0.5 4.29657 0.5 3.375V1.875ZM2.75659 3.75C2.75266 3.74997 2.74873 3.74997 2.74479 3.75H2.375C2.16789 3.75 2 3.58211 2 3.375V1.875C2 1.66789 2.16789 1.5 2.375 1.5H19.625C19.8321 1.5 20 1.66789 20 1.875V3.375C20 3.58211 19.8321 3.75 19.625 3.75H19.2552C19.2513 3.74997 19.2473 3.74997 19.2434 3.75H2.75659ZM3.54541 5.25L4.12412 15.0881C4.17076 15.8809 4.82732 16.5 5.62154 16.5H16.3785C17.1727 16.5 17.8292 15.8809 17.8759 15.0881L18.4546 5.25H3.54541ZM8.24976 8.25C8.24976 7.83579 8.58554 7.5 8.99976 7.5H12.9998C13.414 7.5 13.7498 7.83579 13.7498 8.25C13.7498 8.66421 13.414 9 12.9998 9H8.99976C8.58554 9 8.24976 8.66421 8.24976 8.25Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Realestate Management</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/admin-interiors" class="menu-item-button">
+                                            <div class="icon">
+                                                <svg width="24" height="22" viewBox="0 0 22 18" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M0.5 1.875C0.5 0.839466 1.33947 0 2.375 0H19.625C20.6605 0 21.5 0.839466 21.5 1.875V3.375C21.5 4.29657 20.8351 5.06285 19.9589 5.22035L19.3733 15.1762C19.28 16.7619 17.9669 18 16.3785 18H5.62154C4.03311 18 2.71999 16.7619 2.62671 15.1762L2.04108 5.22035C1.16485 5.06285 0.5 4.29657 0.5 3.375V1.875ZM2.75659 3.75C2.75266 3.74997 2.74873 3.74997 2.74479 3.75H2.375C2.16789 3.75 2 3.58211 2 3.375V1.875C2 1.66789 2.16789 1.5 2.375 1.5H19.625C19.8321 1.5 20 1.66789 20 1.875V3.375C20 3.58211 19.8321 3.75 19.625 3.75H19.2552C19.2513 3.74997 19.2473 3.74997 19.2434 3.75H2.75659ZM3.54541 5.25L4.12412 15.0881C4.17076 15.8809 4.82732 16.5 5.62154 16.5H16.3785C17.1727 16.5 17.8292 15.8809 17.8759 15.0881L18.4546 5.25H3.54541ZM8.24976 8.25C8.24976 7.83579 8.58554 7.5 8.99976 7.5H12.9998C13.414 7.5 13.7498 7.83579 13.7498 8.25C13.7498 8.66421 13.414 9 12.9998 9H8.99976C8.58554 9 8.24976 8.66421 8.24976 8.25Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Interior Management</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/admin-testimonials" class="menu-item-button">
+                                            <div class="icon"><i class="fa fa-star-o"></i></div>
+                                            <div class="text">Testimonials Management</div>
+                                        </a>
+                                    </li>
+                        
+                                    <li class="menu-item">
+                                        <a href="/admin-blogs" class="menu-item-button">
+                                            <div class="icon"><i class="icon-book-open"></i></div>
+                                            <div class="text">Blogs Management</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="/logout">
+                                            <div class="icon">
+                                                <svg width="24" height="22" viewBox="0 0 20 20" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M8.125 18.6875C8.125 18.903 8.0394 19.1097 7.88702 19.262C7.73465 19.4144 7.52799 19.5 7.3125 19.5H1.625C1.19402 19.5 0.780698 19.3288 0.475951 19.024C0.171205 18.7193 0 18.306 0 17.875V1.625C0 1.19402 0.171205 0.780698 0.475951 0.475951C0.780698 0.171205 1.19402 0 1.625 0H7.3125C7.52799 0 7.73465 0.0856026 7.88702 0.237976C8.0394 0.390349 8.125 0.597012 8.125 0.8125C8.125 1.02799 8.0394 1.23465 7.88702 1.38702C7.73465 1.5394 7.52799 1.625 7.3125 1.625H1.625V17.875H7.3125C7.52799 17.875 7.73465 17.9606 7.88702 18.113C8.0394 18.2653 8.125 18.472 8.125 18.6875ZM19.2623 9.17516L15.1998 5.11266C15.0474 4.9602 14.8406 4.87455 14.625 4.87455C14.4094 4.87455 14.2026 4.9602 14.0502 5.11266C13.8977 5.26511 13.812 5.47189 13.812 5.6875C13.812 5.90311 13.8977 6.10989 14.0502 6.26234L16.7263 8.9375H7.3125C7.09701 8.9375 6.89035 9.0231 6.73798 9.17548C6.5856 9.32785 6.5 9.53451 6.5 9.75C6.5 9.96549 6.5856 10.1722 6.73798 10.3245C6.89035 10.4769 7.09701 10.5625 7.3125 10.5625H16.7263L14.0502 13.2377C13.8977 13.3901 13.812 13.5969 13.812 13.8125C13.812 14.0281 13.8977 14.2349 14.0502 14.3873C14.2026 14.5398 14.4094 14.6255 14.625 14.6255C14.8406 14.6255 15.0474 14.5398 15.1998 14.3873L19.2623 10.3248C19.3379 10.2494 19.3978 10.1598 19.4387 10.0611C19.4796 9.9625 19.5006 9.85678 19.5006 9.75C19.5006 9.64322 19.4796 9.5375 19.4387 9.43886C19.3978 9.34023 19.3379 9.25062 19.2623 9.17516Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Log out</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /section-menu-left -->
+                <!-- section-content-right -->
+                <div class="section-content-right">
+                    <!-- header-dashboard -->
+                    <div class="header-dashboard">
+                        <div class="wrap">
+                            <div class="header-left">
+                                <a href="/dashboard" id="site-logo-inner">
+                                    <h4>ARVIES</h4>
+                                 </a>
+                                <div class="button-show-hide">
+                                    <i class="icon-chevron-left"></i>
+                                </div>
+                            </div>
+                            <div class="header-grid">
+                                <div class="header-item button-dark-light">
+                                    <i class="icon-moon"></i>
+                                </div>
+                                <div class="header-item button-zoom-maximize">
+                                    <div class="">
+                                        <i class="icon-maximize"></i>
+                                    </div>
+                                </div>
+                                <div class="popup-wrap user type-header">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="header-user wg-user">
+                                                <span class="image">
+                                                    <img src="admin-images/avatar/user-1.png" alt="">
+                                                </span>
+                                                <span class="flex flex-column">
+                                                    <span class="body-text text-main-dark">Arvies</span>
+                                                    <span class="text-tiny">Admin</span>
+                                                </span>
+                                            </span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end has-content"
+                                            aria-labelledby="dropdownMenuButton3">
+
+                                            <li>
+                                                <a href="#" class="user-item">
+                                                    <div class="icon">
+                                                        <i class="icon-headphones"></i>
+                                                    </div>
+                                                    <div class="body-title-2">Support</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/logout" class="user-item">
+                                                    <div class="icon">
+                                                        <i class="icon-log-out"></i>
+                                                    </div>
+                                                    <div class="body-title-2">Log out</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /header-dashboard -->
+                    <!-- main-content -->
+                    <div class="main-content">
+                        <div class="main-content-inner">
+                            <div class="main-content-wrap">
+                                <div class="flex items-center flex-wrap justify-between gap20 mb-30">
+                                    <h3>All Real Estate Listings</h3>
+                                    <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                                        <li>
+                                            <a href="/dashboard">
+                                                <div class="text-tiny">Dashboard</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-chevron-right"></i>
+                                        </li>
+                                        <li>
+                                            <a href="/admin-realEstate">
+                                                <div class="text-tiny">RealEstate</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-chevron-right"></i>
+                                        </li>
+                                        <li>
+                                            <div class="text-tiny">All RealEstate</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="wg-box">
+                                    <div class="flex items-center justify-between gap10 flex-wrap">
+                                        <button class="tf-button style-1 w208" onclick="showAddRealEstateModal()">
+                                            <i class="icon-plus"></i>Add Real Estate
+                                        </button>
+                                    </div>
+                                    <div class="wg-table table-all-category" style="overflow-x:auto;">
+                                        <table class="realestate-table" style="width:100%; min-width:1000px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Title</th>
+                                                    <th>Category</th>
+                                                    <th>Location</th>
+                                                    <th>Price</th>
+                                                    <th>Area</th>
+                                                    <th>Highlights</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="realestate-list">
+                                                <!-- Real estate rows will be injected here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="divider"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-page">
+                            <div class="body-text">Copyright © 2025 <a href="">Surya Holidays</a>.
+                                Developed by Trivlogic Private Limited All rights reserved</div>
+                        </div>
+                    </div>
+
+                    <!-- Add Real Estate Modal -->
+                    <div id="addRealEstateModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal('addRealEstateModal')">&times;</span>
+                            <h4>Add New Real Estate</h4>
+                            <form id="addRealEstateForm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="addTitle">Title</label>
+                                    <input type="text" id="addTitle" name="title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addDescription">Description</label>
+                                    <textarea id="addDescription" name="description" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addCategory">Category</label>
+                                    <select id="addCategory" name="category" required>
+                                        <option value="">Select</option>
+                                        <option value="Sale">Sale</option>
+                                        <option value="Rent">Rent</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addLocation">Location</label>
+                                    <input type="text" id="addLocation" name="location" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addPrice">Price</label>
+                                    <input type="text" id="addPrice" name="price" required placeholder="e.g. 1,00,00,000 or 50 Lakhs">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addArea">Area</label>
+                                    <input type="text" id="addArea" name="area" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="addHighlights">Highlights</label>
+                                    <div id="addHighlightsContainer" class="highlights-container">
+                                        <!-- Highlight chips will be shown here -->
+                                    </div>
+                                    <input type="text" id="addHighlightsInput" placeholder="Type highlight and press Enter" autocomplete="off">
+                                    <input type="hidden" id="addHighlights" name="highlights">
+                                </div>
+                                <div class="form-group">
+                                    <label for="addImages">Images</label>
+                                    <input type="file" id="addImages" name="images" accept="image/*" multiple required>
+                                </div>
+                                <button type="submit" class="tf-button style-1">Save</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Edit Real Estate Modal -->
+                    <div id="editRealEstateModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal('editRealEstateModal')">&times;</span>
+                            <h4>Edit Real Estate</h4>
+                            <form id="editRealEstateForm" enctype="multipart/form-data">
+                                <input type="hidden" id="editId" name="id">
+                                <div class="form-group">
+                                    <label for="editTitle">Title</label>
+                                    <input type="text" id="editTitle" name="title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editDescription">Description</label>
+                                    <textarea id="editDescription" name="description" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editCategory">Category</label>
+                                    <select id="editCategory" name="category" required>
+                                        <option value="">Select</option>
+                                        <option value="Sale">Sale</option>
+                                        <option value="Rent">Rent</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editLocation">Location</label>
+                                    <input type="text" id="editLocation" name="location" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editPrice">Price</label>
+                                    <input type="text" id="editPrice" name="price" required placeholder="e.g. 1,00,00,000 or 50 Lakhs">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editArea">Area</label>
+                                    <input type="text" id="editArea" name="area" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editHighlights">Highlights</label>
+                                    <div id="editHighlightsContainer" class="highlights-container">
+                                        <!-- Highlight chips will be shown here -->
+                                    </div>
+                                    <input type="text" id="editHighlightsInput" placeholder="Type highlight and press Enter" autocomplete="off">
+                                    <input type="hidden" id="editHighlights" name="highlights">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editImages">Add Images (optional)</label>
+                                    <input type="file" id="editImages" name="images" accept="image/*" multiple>
+                                </div>
+                                <div class="form-group" id="currentImagesContainer" style="margin-bottom:10px;">
+                                    <!-- Existing images will be shown here -->
+                                </div>
+                                <button type="submit" class="tf-button style-1">Update</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Delete Modal -->
+                    <div id="deleteRealEstateModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal('deleteRealEstateModal')">&times;</span>
+                            <h4>Delete Real Estate</h4>
+                            <p>Are you sure you want to delete this real estate listing?</p>
+                            <button class="tf-button style-1" id="confirmDeleteBtn">Yes, Delete</button>
+                            <button class="tf-button style-3" onclick="closeModal('deleteRealEstateModal')">Cancel</button>
+                        </div>
+                    </div>
+
+                  
+
+                    <script>
+                        let realEstates = <%- JSON.stringify(realEstate || []) %>;
+                        let selectedDeleteId = null;
+                        let selectedEditId = null;
+
+                        // --- Highlights UI logic ---
+                        function createHighlightsInput(containerId, inputId, hiddenInputId) {
+                            const container = document.getElementById(containerId);
+                            const input = document.getElementById(inputId);
+                            const hiddenInput = document.getElementById(hiddenInputId);
+
+                            let highlights = [];
+
+                            function renderChips() {
+                                container.innerHTML = '';
+                                highlights.forEach((h, idx) => {
+                                    const chip = document.createElement('span');
+                                    chip.className = 'highlight-chip';
+                                    chip.textContent = h;
+                                    const remove = document.createElement('span');
+                                    remove.className = 'remove-chip';
+                                    remove.innerHTML = '&times;';
+                                    remove.onclick = () => {
+                                        highlights.splice(idx, 1);
+                                        renderChips();
+                                        hiddenInput.value = JSON.stringify(highlights);
+                                    };
+                                    chip.appendChild(remove);
+                                    container.appendChild(chip);
+                                });
+                                hiddenInput.value = JSON.stringify(highlights);
+                            }
+
+                            input.addEventListener('keydown', function(e) {
+                                if (e.key === 'Enter' || e.key === ',') {
+                                    e.preventDefault();
+                                    let val = input.value.trim();
+                                    if (val && !highlights.includes(val)) {
+                                        highlights.push(val);
+                                        renderChips();
+                                    }
+                                    input.value = '';
+                                }
+                            });
+
+                            input.addEventListener('blur', function() {
+                                let val = input.value.trim();
+                                if (val && !highlights.includes(val)) {
+                                    highlights.push(val);
+                                    renderChips();
+                                }
+                                input.value = '';
+                            });
+
+                            return {
+                                set: (arr) => {
+                                    highlights = Array.isArray(arr) ? arr.filter(Boolean) : [];
+                                    renderChips();
+                                },
+                                get: () => highlights.slice()
+                            };
+                        }
+
+                        // Add Highlights UI
+                        const addHighlightsUI = createHighlightsInput('addHighlightsContainer', 'addHighlightsInput', 'addHighlights');
+                        // Edit Highlights UI
+                        const editHighlightsUI = createHighlightsInput('editHighlightsContainer', 'editHighlightsInput', 'editHighlights');
+
+                        function showModal(id) {
+                            document.getElementById(id).style.display = 'block';
+                        }
+                        function closeModal(id) {
+                            document.getElementById(id).style.display = 'none';
+                            if(id === 'editRealEstateModal') {
+                                document.getElementById('editRealEstateForm').reset();
+                                document.getElementById('currentImagesContainer').innerHTML = '';
+                                editHighlightsUI.set([]);
+                            }
+                            if(id === 'addRealEstateModal') {
+                                document.getElementById('addRealEstateForm').reset();
+                                addHighlightsUI.set([]);
+                            }
+                        }
+                        window.onclick = function(event) {
+                            ['addRealEstateModal','editRealEstateModal','deleteRealEstateModal'].forEach(function(id){
+                                let modal = document.getElementById(id);
+                                if(event.target === modal) modal.style.display = "none";
+                            });
+                        }
+
+                        function showAddRealEstateModal() {
+                            document.getElementById('addRealEstateForm').reset();
+                            addHighlightsUI.set([]);
+                            showModal('addRealEstateModal');
+                        }
+
+                        function showEditRealEstateModal(id) {
+                            const estate = realEstates.find(e => e._id === id);
+                            if (!estate) return;
+                            selectedEditId = id;
+                            document.getElementById('editId').value = estate._id;
+                            document.getElementById('editTitle').value = estate.title;
+                            document.getElementById('editDescription').value = estate.description;
+                            document.getElementById('editCategory').value = estate.category;
+                            document.getElementById('editLocation').value = estate.location;
+                            document.getElementById('editPrice').value = estate.price;
+                            document.getElementById('editArea').value = estate.area;
+                            editHighlightsUI.set(Array.isArray(estate.highlights) ? estate.highlights : []);
+                            // Show current images
+                            let html = '';
+                            if (estate.images && estate.images.length) {
+                                html += '<div style="margin-bottom:8px;">Current Images:</div>';
+                                estate.images.forEach(img => {
+                                    html += `<img src="${img.url}" alt="" class="realestate-img-thumb" style="margin-right:5px;margin-bottom:5px;">`;
+                                });
+                            }
+                            document.getElementById('currentImagesContainer').innerHTML = html;
+                            showModal('editRealEstateModal');
+                        }
+
+                        function showDeleteRealEstateModal(id) {
+                            selectedDeleteId = id;
+                            showModal('deleteRealEstateModal');
+                        }
+
+                        function renderHighlightsChips(highlights) {
+                            if (!Array.isArray(highlights) || !highlights.length) return '';
+                            return `<div class="highlights-container" style="margin-bottom:0;">` +
+                                highlights.map(h => `<span class="highlight-chip">${h}</span>`).join('') +
+                                `</div>`;
+                        }
+
+                        function renderRealEstates() {
+                            const tbody = document.getElementById('realestate-list');
+                            tbody.innerHTML = '';
+                            if (!realEstates.length) {
+                                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;">No real estate listings found.</td></tr>`;
+                                return;
+                            }
+                            realEstates.forEach(estate => {
+                     
+                                let img = '';
+                                if (estate.images && Array.isArray(estate.images) && estate.images.length > 0) {
+                                    const firstImg = estate.images[0];
+                            
+                                    if (firstImg && typeof firstImg.url === 'string' && firstImg.url.trim() !== '') {
+                   
+                                        let altText = firstImg.seoAlt && firstImg.seoAlt.trim() !== '' ? firstImg.seoAlt : (estate.title || 'Real Estate Image');
+                                        img = `<img src="${firstImg.url}" class="realestate-img-thumb" alt="${altText}">`;
+                                    } else {
+                                        img = `<span style="color:#aaa;">No Image</span>`;
+                                    }
+                                } else {
+                                    img = `<span style="color:#aaa;">No Image</span>`;
+                                }
+                                let highlightsHtml = renderHighlightsChips(estate.highlights);
+                                let statusBtn = `<button class="style-3" onclick="toggleActive('${estate._id}')">${estate.isActive ? 'Active' : 'Inactive'}</button>`;
+                                let actions = `
+                                    <div class="action-btns" style="display: flex; gap: 8px;">
+                                        <button class="style-1" onclick="showEditRealEstateModal('${estate._id}')"><i class="fa fa-pencil"></i></button>
+                                        <button class="style-3" onclick="showDeleteRealEstateModal('${estate._id}')"><i class="fa fa-trash"></i></button>
+                                        ${statusBtn}
+                                    </div>
+                                `;
+                                tbody.innerHTML += `
+                                    <tr>
+                                        <td>${img}</td>
+                                        <td>${estate.title}</td>
+                                        <td>${estate.category}</td>
+                                        <td>${estate.location}</td>
+                                        <td>${estate.price ? estate.price : ''}</td>
+                                        <td>${estate.area}</td>
+                                        <td>${highlightsHtml}</td>
+                                        <td>${estate.isActive ? '<span style="color:green;">Active</span>' : '<span style="color:red;">Inactive</span>'}</td>
+                                        <td>${actions}</td>
+                                    </tr>
+                                `;
+                            });
+                        }
+
+                        // Add Real Estate
+                        document.getElementById('addRealEstateForm').addEventListener('submit', async function(e){
+                            e.preventDefault();
+                            const form = e.target;
+                            const formData = new FormData(form);
+                            // Highlights as JSON string
+                            let highlights = addHighlightsUI.get();
+                            formData.set('highlights', JSON.stringify(highlights));
+                            // Price as string (already string from input)
+                            formData.set('price', formData.get('price') ? formData.get('price').toString() : '');
+
+                            try {
+                                const res = await fetch('/createRealEstate', {
+                                    method: 'POST',
+                                    body: formData
+                                });
+                                if (!res.ok) throw new Error('Failed to add');
+                                const data = await res.json();
+                                realEstates.push(data);
+                                renderRealEstates();
+                                closeModal('addRealEstateModal');
+                            } catch (err) {
+                                alert('Failed to add real estate.');
+                            }
+                        });
+
+                        // Edit Real Estate
+                        document.getElementById('editRealEstateForm').addEventListener('submit', async function(e){
+                            e.preventDefault();
+                            const form = e.target;
+                            const id = document.getElementById('editId').value;
+                            const formData = new FormData(form);
+                            // Highlights as JSON string
+                            let highlights = editHighlightsUI.get();
+                            formData.set('highlights', JSON.stringify(highlights));
+                            // Price as string (already string from input)
+                            formData.set('price', formData.get('price') ? formData.get('price').toString() : '');
+
+                            try {
+                                const res = await fetch(`/editRealEstate/${id}`, {
+                                    method: 'PUT',
+                                    body: formData
+                                });
+                                if (!res.ok) throw new Error('Failed to update');
+                                const data = await res.json();
+                                // Update in local array
+                                const idx = realEstates.findIndex(e => e._id === id);
+                                if (idx !== -1) realEstates[idx] = data;
+                                renderRealEstates();
+                                closeModal('editRealEstateModal');
+                            } catch (err) {
+                                alert('Failed to update real estate.');
+                            }
+                        });
+
+                        // Delete Real Estate
+                        document.getElementById('confirmDeleteBtn').addEventListener('click', async function(){
+                            if (!selectedDeleteId) return;
+                            try {
+                                const res = await fetch(`/deleteRealEstate/${selectedDeleteId}`, {
+                                    method: 'DELETE'
+                                });
+                                if (!res.ok) throw new Error('Failed to delete');
+                                realEstates = realEstates.filter(e => e._id !== selectedDeleteId);
+                                renderRealEstates();
+                                closeModal('deleteRealEstateModal');
+                                selectedDeleteId = null;
+                            } catch (err) {
+                                alert('Failed to delete real estate.');
+                            }
+                        });
+
+                        // Toggle Active/Inactive
+                        async function toggleActive(id) {
+                            try {
+                                const res = await fetch(`/toggleRealEstate/${id}/toggle`, {
+                                    method: 'PATCH'
+                                });
+                                if (!res.ok) throw new Error('Failed to toggle');
+                                const data = await res.json();
+                                const idx = realEstates.findIndex(e => e._id === id);
+                                if (idx !== -1) realEstates[idx].isActive = data.isActive;
+                                renderRealEstates();
+                            } catch (err) {
+                                alert('Failed to toggle status.');
+                            }
+                        }
+
+                        // Initial render
+                        renderRealEstates();
+                    </script>
+                    <!-- /main-content -->
+                </div>
+                <!-- /section-content-right -->
+            </div>
+            <!-- /layout-wrap -->
+        </div>
+        <!-- /#page -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- Javascript -->
+    <script src="admin-js/jquery.min.js"></script>
+    <script src="admin-js/bootstrap.min.js"></script>
+    <script src="admin-js/bootstrap-select.min.js"></script>
+    <script src="admin-js/zoom.js"></script>
+    <script src="admin-js/switcher.js"></script>
+    <script defer src="admin-js/theme-settings.js"></script>
+    <script defer src="admin-js/main.js"></script>
+
+</body>
+
+</html>

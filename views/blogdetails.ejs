@@ -1,0 +1,641 @@
+<!Doctype html>
+<html class="no-js" lang="zxx">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= blog && blog.metaTitle ? blog.metaTitle : (blog && blog.title ? blog.title : 'ARVIES | BLOG DETAILS') %></title>
+    <meta name="description" content="<%= blog && blog.metaDescription ? blog.metaDescription : '' %>">
+    <meta name="keywords" content="<%= blog && blog.metaKeywords ? blog.metaKeywords.join(', ') : '' %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/arvies/footer-logo.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- all-CSS-link-here -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/flaticon_barsi.css">
+    <link rel="stylesheet" href="/css/nice-select.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <div class="main-wrapper wa-fix">
+
+        <!-- start preloader -->
+        <div class="lw-preloader">
+            <div class="loader"><img src="/img/arvies/footer-logo.png" alt="arvies"></div>
+        </div>
+        <!-- end preloader -->
+
+        <!-- header-start -->
+        <header class="bs-header-4-area ">
+            <div class="bs-header-4-row d-flex  justify-content-between">
+
+                <!-- logo -->
+                <a href="/" aria-label="name" class="bs-header-4-logo">
+                    <img src="/img/arvies/footer-logo.png" alt="arvies">
+                </a>
+
+                <div class="bs-header-4-right">
+
+                    <!-- main-header -->
+                    <div class="bs-header-4-main">
+
+                        <!-- menu -->
+                        <nav class="bs-main-navigation  d-none d-lg-block">
+                            <ul id="main-nav" class="nav navbar-nav pt-10 ">
+
+                                <li class="">
+                                    <a href="/">home</a>
+
+                                </li>
+                                <li class="dropdown">
+                                    <a href="/architecture">Architecture</a>
+                                    <ul class="dropdown-menu clearfix">
+                                        <li><a href="/architectureDesigns?category=Residential">Residential</a></li>
+                                        <li><a href="/architectureDesigns?category=Commercial">Commercial</a></li>
+                                        <li><a href="/architectureDesigns?category=Industrial">Industrial</a></li>
+                                        <li><a href="/architectureDesigns?category=Hospitality">Hospitality</a></li>
+                                        <li><a href="/architectureDesigns?category=Urban%20Design">Urban Design</a></li>
+                                    </ul>
+                                </li>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="/interior">Interior</a>
+                                    <ul class="dropdown-menu clearfix">
+                                        <li><a href="/interiorDesign">Design</a></li>
+                                        <li><a href="/interiorExecution">Execution</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="/realEstate">Real Estate</a>
+                                    <ul class="dropdown-menu clearfix">
+                                        <!-- <li><a href="siteDevelopment.html">Site Development</a></li> -->
+                                        <li><a href="/projects">Project Sales
+                                            </a></li>
+                                        <!-- <li><a href="/projects">Rental Properties</a></li> -->
+                                        <!-- <li><a href="purchaseDivision.html">Purchase Division
+</a></li>
+   <li><a href="consultancy.html">Consultancy</a></li> -->
+
+                                    </ul>
+                                </li>
+                                <li><a href="/about">about us </a></li>
+                                <li><a style="color: #f16520;" href="/blogs">Blogs </a></li>
+                            </ul>
+                        </nav>
+
+                        <!-- action-link -->
+                        <div class="bs-header-4-action-link d-flex align-items-center ">
+                            <!-- offcanvas-btn -->
+                            <button type="button" aria-label="name" class="bs-offcanvas-btn-3  offcanvas_toggle">
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                                <span class="line"></span>
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+        </header>
+        <!-- header-end -->
+
+        <!-- breadcrumb-start -->
+        <section class="breadcrumb-area has-blog-details wa-p-relative">
+            <div class="breadcrumb-bg-img wa-fix wa-img-cover">
+                <img class="wa-parallax-img" src="/img/breadcrumb/blog-details.png" alt="arvies">
+            </div>
+
+            <div class="container bs-container-1">
+                <div class="breadcrumb-wrap">
+                    <a href="/blogs" aria-label="name" class="breadcrumb-back-page-btn">
+                        <i class="fa-solid fa-angle-left"></i>
+                        Back To Blogs
+                    </a>
+
+                    <h1 class="breadcrumb-title wa-split-right wa-capitalize" data-split-delay="1.1s">
+                        <%= blog.title %>
+                    </h1>
+
+                    <div class="bs-blog-details-meta">
+                        <span class="meta-item bs-p-1">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_2155_3933)">
+                                    <path
+                                        d="M15.364 2.63605C13.6641 0.936176 11.404 0 9 0C6.59602 0 4.33593 0.936176 2.63602 2.63605C0.936176 4.33593 0 6.59602 0 9C0 11.404 0.936176 13.6641 2.63602 15.3639C4.33593 17.0638 6.59602 18 9 18C11.404 18 13.6641 17.0638 15.364 15.3639C17.0638 13.6641 18 11.404 18 9C18 6.59602 17.0638 4.33593 15.364 2.63605ZM9 16.9453C6.64914 16.9453 4.53386 15.9187 3.07786 14.2906C3.9805 11.8976 6.29114 10.1953 9 10.1953C7.25252 10.1953 5.83594 8.77873 5.83594 7.03125C5.83594 5.28377 7.25252 3.86719 9 3.86719C10.7475 3.86719 12.1641 5.28377 12.1641 7.03125C12.1641 8.77873 10.7475 10.1953 9 10.1953C11.7089 10.1953 14.0195 11.8976 14.9221 14.2906C13.4661 15.9187 11.3509 16.9453 9 16.9453Z"
+                                        fill="black"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_2155_3933">
+                                        <rect width="18" height="18" fill="white"></rect>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <%= blog.author || 'admin' %>
+                        </span>
+                        <span class="meta-item bs-p-1">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_2155_3897)">
+                                    <rect width="18" height="18" fill="white"></rect>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_2155_3897">
+                                        <rect width="18" height="18" fill="white"></rect>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <%= blog.date ? blog.date : '' %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb-end -->
+
+        <!-- blog-details-start -->
+        <section class="bs-blog-details-area wa-p-relative pt-80 pb-50">
+            <div class="container bs-container-1">
+
+                <div class="bs-blog-details-content ">
+
+                    <% if (blog.image) { %>
+                    <div class="bs-blog-details-content-img wa-fix wa-img-cover">
+                        <img src="<%= blog.image %>" alt="<%= blog.title %>">
+                    </div>
+                    <% } %>
+
+                    <% if (blog.content) { %>
+                        <%- blog.content %>
+                    <% } %>
+
+                    <div class="bs-blog-details-tag-share ">
+                        <div class="bs-blog-tag ">
+                            <h6 class="title bs-h-1  ">Tags:</h6>
+                            <% if (blog.tags && blog.tags.length) { %>
+                                <% blog.tags.forEach(function(tag) { %>
+                                    <a class="tag" aria-label="tags" href="#"><%= tag %></a>
+                                <% }); %>
+                            <% } %>
+                        </div>
+
+                        <div class="bs-blog-share">
+                            <h6 class="title bs-h-1  ">Share:</h6>
+                            <a href="#" class="link" aria-label="Share on Facebook" id="share-facebook">
+                                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18 0C21.3526 0.0382568 24.3813 0.862213 27.0861 2.47187C29.7587 4.04939 31.9819 6.28618 33.5431 8.96835C35.143 11.6895 35.962 14.7365 36.0001 18.1095C35.9051 22.7245 34.4495 26.6662 31.6333 29.9345C28.817 33.2029 25.2101 35.2249 21.4763 36V23.0609H25.0063L25.8046 17.9762H20.4593V14.6458C20.4296 13.9554 20.648 13.2771 21.0749 12.7337C21.5023 12.1888 22.2551 11.9023 23.3332 11.8744H26.561V7.42031C26.5147 7.40541 26.0753 7.34649 25.2426 7.24354C24.2983 7.13306 23.3488 7.07404 22.3981 7.06676C20.2463 7.07669 18.5446 7.68365 17.2929 8.88764C16.0411 10.0913 15.4017 11.8327 15.3746 14.1119V17.9762H11.3068V23.0609H15.3746V36C10.79 35.2249 7.18304 33.2029 4.36681 29.9345C1.55058 26.6662 0.0950269 22.7245 0 18.1095C0.0380195 14.7364 0.856995 11.6893 2.45693 8.96835C4.01815 6.28618 6.24136 4.04939 8.91397 2.47187C11.6187 0.862523 14.6474 0.0385667 18 0Z"
+                                        fill="#3A5897"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="link" aria-label="Share on Instagram" id="share-instagram">
+                                <svg width="37" height="36" viewBox="0 0 37 36" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_68_1258)">
+                                        <path
+                                            d="M18.5703 0C8.62953 0 0.570312 8.05922 0.570312 18C0.570312 27.9408 8.62953 36 18.5703 36C28.5111 36 36.5703 27.9408 36.5703 18C36.5703 8.05922 28.5111 0 18.5703 0Z"
+                                            fill="black"></path>
+                                        <path
+                                            d="M20.5412 16.371L28.2468 7.41394H26.4209L19.7301 15.1913L14.3862 7.41394H8.22266L16.3036 19.1746L8.22266 28.5676H10.0487L17.1144 20.3544L22.7579 28.5676H28.9214L20.5408 16.371H20.5412ZM10.7067 8.7886H13.5114L26.4217 27.2554H23.6169L10.7067 8.7886Z"
+                                            fill="white"></path>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_68_1258">
+                                            <rect width="36" height="36" fill="white" transform="translate(0.570312)">
+                                            </rect>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                            <a href="#" class="link" aria-label="Share on Twitter" id="share-twitter">
+                                <svg width="37" height="36" viewBox="0 0 37 36" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M18.189 0C8.23344 0 0.144531 8.02935 0.144531 18.0002C0.144531 27.9706 8.23344 36 18.189 36C28.1446 36 36.1446 27.9706 36.1446 18.0002C36.1446 8.02935 28.1446 0 18.189 0ZM19.6112 22.8531C18.2779 22.7647 17.7446 22.0591 16.6779 21.4414C16.1446 24.4411 15.4335 27.2645 13.389 28.7646C12.7668 24.2648 14.2779 20.912 14.989 17.2941C13.7446 15.2647 15.1668 11.0296 17.7446 12.0882C20.9446 13.3237 14.989 19.8529 18.989 20.6469C23.2557 21.5293 24.9446 13.3237 22.3668 10.6765C18.5445 6.8823 11.3446 10.5881 12.2335 16.0587C12.5001 17.3825 13.8335 17.8235 12.8557 19.6766C10.3668 19.1473 9.65568 17.2057 9.74454 14.7354C9.92231 10.5881 13.4779 7.67627 17.1224 7.23534C21.6557 6.70601 25.9224 8.91173 26.4557 13.1469C27.1668 18.0002 24.4113 23.2061 19.6112 22.8531Z"
+                                        fill="#E8170E"></path>
+                                </svg>
+                            </a>
+                            <a href="#" class="link" aria-label="Share on Pinterest" id="share-pinterest">
+                                <svg width="37" height="36" viewBox="0 0 37 36" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_68_1252)">
+                                        <path
+                                            d="M18.7109 0C15.1509 0 11.6708 1.05568 8.71068 3.03355C5.7506 5.01141 3.44349 7.82263 2.08111 11.1117C0.718737 14.4008 0.362277 18.02 1.05681 21.5116C1.75134 25.0033 3.46568 28.2106 5.98302 30.7279C8.50037 33.2453 11.7077 34.9596 15.1993 35.6541C18.691 36.3487 22.3102 35.9922 25.5992 34.6298C28.8883 33.2675 31.6995 30.9603 33.6774 28.0003C35.6553 25.0402 36.7109 21.5601 36.7109 18C36.7109 13.2261 34.8145 8.64773 31.4389 5.27208C28.0632 1.89642 23.4848 0 18.7109 0ZM13.4767 27.4737H9.54989V14.8239H13.4767V27.4737ZM11.5109 13.0974C11.059 13.0992 10.6167 12.9671 10.2398 12.7176C9.86301 12.4681 9.5686 12.1125 9.39382 11.6958C9.21904 11.279 9.17174 10.8198 9.2579 10.3761C9.34406 9.93249 9.55981 9.52435 9.87788 9.2033C10.1959 8.88225 10.6021 8.66271 11.0449 8.57241C11.4877 8.48212 11.9473 8.52514 12.3657 8.69603C12.7841 8.86692 13.1424 9.158 13.3954 9.5325C13.6484 9.90699 13.7847 10.3481 13.787 10.8C13.7883 11.406 13.5496 11.9879 13.123 12.4184C12.6965 12.8489 12.1169 13.093 11.5109 13.0974ZM28.1846 27.4737H24.2602V21.3158C24.2602 19.8474 24.2317 17.9645 22.2186 17.9645C20.2054 17.9645 19.8502 19.5608 19.8502 21.2092V27.4737H15.9399V14.8239H19.708V16.5482H19.7625C20.2859 15.5534 21.5673 14.5042 23.4786 14.5042C27.4528 14.5042 28.1846 17.1237 28.1846 20.5247V27.4737Z"
+                                            fill="#007BB5"></path>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_68_1252">
+                                            <rect width="36" height="36" fill="white" transform="translate(0.710938)">
+                                            </rect>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Copy link" class="copylink" id="copy-link-btn">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.88176 15.9999C2.85964 16 1.89439 15.5949 1.14967 14.8503C0.369892 14.0705 -0.0374194 13.0487 0.00270552 11.9733C0.0441742 10.8626 0.545954 9.79558 1.45383 8.88771L3.08845 7.24643C3.33201 7.00184 3.72773 7.00103 3.97232 7.24462C4.21688 7.48818 4.21773 7.88393 3.97413 8.12849L2.33864 9.77071C1.0133 11.0961 0.888235 12.821 2.03361 13.9664C3.17901 15.1119 4.90398 14.9868 6.22835 13.6623L8.47481 11.4158C9.15572 10.7349 9.53122 9.95746 9.56069 9.16752C9.58772 8.44346 9.31009 7.75218 8.77897 7.22106C8.601 7.04312 8.40409 6.89212 8.19369 6.77228C7.89375 6.60143 7.7891 6.21978 7.95994 5.91987C8.13081 5.61994 8.51247 5.51531 8.81234 5.68612C9.11978 5.86125 9.40594 6.08031 9.66287 6.33722C10.4427 7.117 10.85 8.13871 10.8098 9.21418C10.7684 10.3249 10.2666 11.3919 9.35872 12.2997L7.11225 14.5462C6.20435 15.4541 5.13741 15.9558 4.0267 15.9973C3.97832 15.999 3.92992 15.9999 3.88176 15.9999ZM8.04013 10.0801C8.21097 9.78015 8.10628 9.39849 7.80638 9.22768C7.59597 9.10784 7.39903 8.95684 7.2211 8.77893C6.07572 7.63353 6.20079 5.90856 7.52522 4.58413L9.77169 2.33769C11.0962 1.01329 12.8211 0.888196 13.9664 2.03357C15.1118 3.17894 14.9867 4.90391 13.6614 6.22925L12.0259 7.87146C11.7823 8.11603 11.7831 8.51178 12.0277 8.75534C12.2723 8.99893 12.668 8.99805 12.9116 8.75352L14.5462 7.11222C15.4541 6.20434 15.9558 5.13738 15.9973 4.02669C16.0375 2.95122 15.6301 1.92948 14.8504 1.1497C14.0706 0.369885 13.0483 -0.0373646 11.9734 0.00269782C10.8627 0.0441665 9.79569 0.545947 8.88784 1.45382L6.64135 3.70025C5.73348 4.60813 5.23173 5.67509 5.19023 6.78578C5.1501 7.86125 5.55741 8.88299 6.33719 9.6628C6.5941 9.91968 6.88025 10.1387 7.18772 10.3139C7.28535 10.3695 7.3916 10.3959 7.49647 10.3959C7.71375 10.3959 7.92488 10.2824 8.04013 10.0801Z"
+                                        fill="black"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <script>
+            // Get current page URL
+            const pageUrl = encodeURIComponent(window.location.href);
+            const pageTitle = encodeURIComponent(document.title);
+
+            // Facebook
+            document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+            document.getElementById('share-facebook').target = "_blank";
+
+            // Instagram (Instagram does not support direct sharing via URL, so open Instagram homepage)
+            document.getElementById('share-instagram').href = `https://www.instagram.com/`;
+            document.getElementById('share-instagram').target = "_blank";
+
+            // Twitter (now X)
+            document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+            document.getElementById('share-twitter').target = "_blank";
+
+            // Pinterest
+            document.getElementById('share-pinterest').href = `https://pinterest.com/pin/create/button/?url=${pageUrl}&description=${pageTitle}`;
+            document.getElementById('share-pinterest').target = "_blank";
+
+            // Copy link
+            document.getElementById('copy-link-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                navigator.clipboard.writeText(window.location.href).then(function() {
+                    // Optionally show a tooltip or alert
+                    alert('Link copied to clipboard!');
+                });
+            });
+        </script>
+        <!-- blog-details-end -->
+
+
+        <!-- footer-start -->
+        <footer class="bs-footer-1-area bg-black wa-fix wa-p-relative pt-80">
+            <div class="bs-footer-1-bg-img">
+                <img src="/img/footer/f2-bg-1.png" alt="arvies">
+            </div>
+            <div class="container bs-container-1">
+                <div class="bs-footer-1-wrap mb-40">
+
+                    <!-- single-widget -->
+                    <div class="bs-footer-1-widget">
+                        <a href="/" aria-label="name" class="bs-footer-1-logo" data-cursor="-opaque">
+                            <img class="footer-logo" src="/img/arvies/footer-logo.png" alt="arvies">
+                        </a>
+                        <p class="bs-p-1 bs-footer-1-disc">Arvies specializes in architecture, interior design, urban
+                            designing, and real estate crafting spaces with purpose and style.</p>
+                    </div>
+
+                    <!-- single-widget -->
+                    <div class="bs-footer-1-widget">
+                        <h5 class="bs-footer-1-widget-title">Quick Links</h5>
+                        <ul class="bs-footer-1-menu wa-list-style-none">
+                            <li>
+                                <a href="/">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    home
+                                </a>
+                            </li>
+
+
+
+                            <li>
+                                <a href="/blogs">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    blogs
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/about">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    about us
+                                </a>
+                            </li>
+                            <li>
+                                <a href="contact-us.html">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    contact us
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- single-widget -->
+
+
+                    <!-- single-widget -->
+                    <div class="bs-footer-1-widget">
+                        <h5 class="bs-footer-1-widget-title">More Links</h5>
+                        <ul class="bs-footer-1-menu wa-list-style-none">
+                            <li>
+                                <a href="/architecture">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    architecture
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/interior">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    interior
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/realEstate">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    real estate
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/projects">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                    Project Sales
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                    <!-- single-widget -->
+                    <div class="bs-footer-1-widget">
+                        <h5 class="bs-footer-1-widget-title">contact</h5>
+                        <ul class="bs-footer-1-menu wa-list-style-none">
+                            <li>
+                                <a href="tel:+916360425940">
+                                    <i class="fa-solid fa-phone"></i>
+                                    +91 6360 425 940
+                                </a>
+                            </li>
+                            <li>
+                                <a style="text-transform: none;" href="mailto:arviesgroup@gmail.com">
+                                    <i class="fa-solid fa-mail-bulk"></i>
+                                    arviesgroup@gmail.com
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa-solid fa-location"></i>
+                                    Arvies, kochi , kerala
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                </div>
+
+
+                <!-- copyright -->
+                <div class="bs-footer-4-copyright">
+                    <div class="container bs-container-2">
+                        <div class="bs-footer-4-copyright-flex">
+                            <p class="bs-p-4 bs-footer-4-copyright-text">
+                                ©<span class="copyright-year"></span>, <a href="#">Arvis</a> All Rights Reserved |
+                                Developed By <a href="https://trivlogic.com/">Trivlogic Private Limited</a>
+                            </p>
+
+                            <div class="bs-footer-4-copyright-social">
+                                <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                    facebook
+                                </a>
+                                <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                    <i class="fa-brands fa-instagram"></i>
+                                    instagram
+                                </a>
+                                <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                    twitter
+                                </a>
+                                <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                    linkedin
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer-end -->
+
+        <!-- offcanvas-start -->
+        <div class="wa-offcanvas-area has-home-2  offcanvas_box_active lenis lenis-smooth">
+            <div class="wa-offcanvas-wrap ">
+
+                <!-- top -->
+                <div class="wa-offcanvas-top">
+
+                    <!-- logo -->
+                    <a href="/" aria-label="name" class="wa-offcanvas-top-logo">
+                        <img src="/img/arvies/footer-logo.png" alt="arvies">
+                    </a>
+
+                    <!-- close-btn -->
+                    <button class="wa-offcanvas-close offcanvas_box_close" aria-label="name">
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                </div>
+
+
+                <!-- mobile-menu-list -->
+                <nav class="mobile-main-navigation mb-50 d-block d-lg-none">
+                    <ul class="navbar-nav">
+                        <li class="">
+                            <a href="/">home</a>
+
+                        </li>
+
+                        <li><a href="/about">about Us</a></li>
+
+                        <li class="dropdown">
+                            <a href="/architecture">Architecture</a>
+                            <ul class="dropdown-menu clearfix">
+                                <li><a href="/architectureDesigns?category=Residential">Residential</a></li>
+                                <li><a href="/architectureDesigns?category=Commercial">Commercial</a></li>
+                                <li><a href="/architectureDesigns?category=Industrial">Industrial</a></li>
+                                <li><a href="/architectureDesigns?category=Hospitality">Hospitality</a></li>
+                                <li><a href="/architectureDesigns?category=Urban%20Design">Urban Design</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="/interior">Interior</a>
+                            <ul class="dropdown-menu clearfix">
+                                <li><a href="/interiorDesign">Design</a></li>
+                                <li><a href="/interiorExecution">Execution</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="/realEstate">Real Estate</a>
+                            <ul class="dropdown-menu clearfix">
+                                <!-- <li><a href="siteDevelopment.html">Site Development</a></li> -->
+                                <li><a href="/projects">Project Sales
+                                    </a></li>
+                                <!-- <li><a href="/projects">Rental Properties</a></li> -->
+                                <!-- <li><a href="purchaseDivision.html">Purchase Division
+</a></li>
+   <li><a href="consultancy.html">Consultancy</a></li> -->
+                            </ul>
+                        </li>
+
+
+
+                        <li><a style="color: #f16520;" href="/blogs">Blogs </a></li>
+                        <li><a href="contact-us.html">Contact </a></li>
+                    </ul>
+                </nav>
+                <div>
+
+                    <p>Arvies is a creative firm specializing in architecture, interior design, urban designing, and
+                        real estate. We create thoughtful spaces that blend aesthetic vision with practical excellence.
+                    </p>
+                    <a class="sidebar-btn" href="tel:+916360425940"> <button
+                            style="height: 40px; width: 100%; margin-bottom: 15px;"> Free consultation</button></a>
+                </div>
+
+                <div class="wa-offcanvas-gallery">
+                    <h6 class="wa-offcanvas-gallery-title bs-h-1 ">Stay Inspired with Instagram</h6>
+
+                    <div class="wa-offcanvas-gallery-grid">
+                        <a href="/img/gallery/g2-img-1.png" aria-label="name"
+                            class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
+                            <img src="/img/gallery/g2-img-1.png" alt="arvies">
+                        </a>
+                        <a href="/img/gallery/g2-img-2.png" aria-label="name"
+                            class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
+                            <img src="/img/gallery/g2-img-2.png" alt="arvies">
+                        </a>
+                        <a href="/img/gallery/g2-img-3.png" aria-label="name"
+                            class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
+                            <img src="/img/gallery/g2-img-3.png" alt="arvies">
+                        </a>
+                        <a href="/img/gallery/g2-img-4.png" aria-label="name"
+                            class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
+                            <img src="/img/gallery/g2-img-4.png" alt="arvies">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- social -->
+                <div class="wa-offcanvas-social">
+                    <h6 class="wa-offcanvas-social-title bs-h-1 ">we're on social media:</h6>
+
+                    <div class="wa-offcanvas-social-flex d-flex flex-wrap">
+                        <a href="#" class="wa-offcanvas-social-link " aria-label="name">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="wa-offcanvas-social-link " aria-label="name">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="wa-offcanvas-social-link " aria-label="name">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a href="#" class="wa-offcanvas-social-link" aria-label="name">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="wa-overly"></div>
+        <!-- offcanvas-end -->
+        <nav class="premium-mobile-navbar">
+            <div class="premium-navbar-container">
+                <a href="/" class="premium-nav-link ">
+                    <img class="mob-nav-icon" src="/img/icon/menu.svg" alt="arvies">
+                    <span class="premium-nav-text">Home</span>
+                </a>
+                <a href="/architecture" class="premium-nav-link">
+                    <img class="mob-nav-icon" src="/img/icon/architec.svg" alt="arvies">
+                    <span class="premium-nav-text">Archi</span>
+                </a>
+                <a href="/interior" class="premium-nav-link">
+                    <img class="mob-nav-icon" src="/img/icon/inder.svg" alt="arvies">
+                    <span class="premium-nav-text">Interior</span>
+                </a>
+
+                <a href="/projects" class="premium-nav-link active-premium-nav">
+                    <img class="mob-nav-icon" src="/img/icon/real.svg" alt="arvies">
+                    <span class="premium-nav-text">real Estate</span>
+                </a>
+
+                <a href="/projects" class="premium-nav-link active-premium-nav">
+                    <img class="mob-nav-icon" src="/img/icon/phone.svg" alt="arvies">
+                    <span class="premium-nav-text">Contact</span>
+                </a>
+
+
+
+
+
+
+            </div>
+        </nav>
+        <!-- back-to-top-button-start -->
+        <div class="wa-back-to-top ">
+            <span class="wa-back-to-top-text">Top</span>
+        </div>
+        <!-- back-to-top-button-end -->
+
+    </div>
+
+
+
+    <!-- all-JS-link-here -->
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/swiper-bundle.min.js"></script>
+    <script src="/js/wow.js"></script>
+    <script src="/js/magiccursor.js"></script>
+    <script src="/js/nice-select.min.js"></script>
+    <script src="/js/marquee.min.js"></script>
+    <script src="/js/magnific-popup.min.js"></script>
+    <script src="/js/SplitText.min.js"></script>
+    <script src="/js/gsap.min.js"></script>
+    <script src="/js/CustomEase.min.js"></script>
+    <script src="/js/counterup.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/lenis.min.js"></script>
+    <script src="/js/ScrollTrigger.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>
