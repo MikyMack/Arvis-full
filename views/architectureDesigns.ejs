@@ -88,7 +88,7 @@
                                 </li>
 
                                 <li><a href="/about">about us </a></li>
-                                <li><a href="/blogs">Blogs </a></li>
+                                <li><a href="/contact">contact </a></li>
                             </ul>
                         </nav>
 
@@ -155,7 +155,7 @@
             <div class="container bs-container-1">
                 <form id="architecture-filters-form" method="get" action="/architectureDesigns" class="row g-3 align-items-center justify-content-center">
                     <div class="col-auto">
-                        <select name="category" class="form-select" onchange="this.form.submit()">
+                        <select style="color: #f16520;  border: 1px solid #f16520;"  name="category" class="form-select" onchange="this.form.submit()">
                             <option value="">All Categories</option>
                             <% categories.forEach(function(cat) { %>
                                 <option value="<%= cat %>" <%= selectedCategory === cat ? 'selected' : '' %>><%= cat %></option>
@@ -163,7 +163,7 @@
                         </select>
                     </div>
                     <div class="col-auto">
-                        <select name="location" class="form-select" onchange="this.form.submit()">
+                        <select style="color: #f16520; border: 1px solid #f16520;" name="location" class="form-select" onchange="this.form.submit()">
                             <option value="">All Locations</option>
                             <% locations.forEach(function(loc) { %>
                                 <option value="<%= loc %>" <%= selectedLocation === loc ? 'selected' : '' %>><%= loc %></option>
@@ -278,9 +278,9 @@
         </section>
         <!-- project-end -->
         <!-- footer-start -->
-        <footer class="bs-footer-1-area bg-black wa-fix wa-p-relative pt-80">
+      <footer class="bs-footer-1-area bg-black wa-fix wa-p-relative pt-80">
             <div class="bs-footer-1-bg-img">
-                <img src="/img/footer/f2-bg-1.png" altarvies="">
+                <img src="/img/footer/f2-bg-1.png" alt="arvies">
             </div>
             <div class="container bs-container-1">
                 <div class="bs-footer-1-wrap mb-40">
@@ -288,8 +288,8 @@
                     <!-- single-widget -->
                     <div class="bs-footer-1-widget">
                         <a href="/" aria-label="name" class="bs-footer-1-logo" data-cursor="-opaque">
-                            <img class="footer-logo" src="/img/arvies/footer-logo.png" alt="">
-     arvies                   </a>
+                            <img class="footer-logo" src="/img/arvies/footer-logo.png" alt="arvies">
+                        </a>
                         <p class="bs-p-1 bs-footer-1-disc">Arvies specializes in architecture, interior design, urban
                             designing, and real estate crafting spaces with purpose and style.</p>
                     </div>
@@ -383,7 +383,7 @@
                             <li>
                                 <a href="#">
                                     <i class="fa-solid fa-location"></i>
-                                    Arvies, kochi , kerala
+                                    A9, CPGP Lane, Jawahar Nagar, <br>  Sasthamangalam, Trivandrum <br> 695010
                                 </a>
                             </li>
 
@@ -408,13 +408,13 @@
                                     <i class="fa-brands fa-facebook-f"></i>
                                     facebook
                                 </a>
-                                <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln" aria-label="name" class="elm-link bs-p-4">
                                     <i class="fa-brands fa-instagram"></i>
                                     instagram
                                 </a>
                                 <a href="#" aria-label="name" class="elm-link bs-p-4">
                                     <i class="fa-brands fa-x-twitter"></i>
-                                    twitter
+                                  X
                                 </a>
                                 <a href="#" aria-label="name" class="elm-link bs-p-4">
                                     <i class="fa-brands fa-linkedin-in"></i>
@@ -542,7 +542,7 @@
                         <a href="#" class="wa-offcanvas-social-link " aria-label="name">
                             <i class="fa-brands fa-x-twitter"></i>
                         </a>
-                        <a href="#" class="wa-offcanvas-social-link" aria-label="name">
+                        <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln" class="wa-offcanvas-social-link" aria-label="name">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
                     </div>
