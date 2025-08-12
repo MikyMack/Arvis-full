@@ -7,6 +7,10 @@ const testimonialController = require('../controllers/testimonialController');
 const architectureController = require('../controllers/architectureController');
 const realEstateController = require('../controllers/realEstateController');
 const interiorController = require('../controllers/interiorController');
+const mainBannerCtrl = require('../controllers/mainBannerController');
+const bannerTwoCtrl = require('../controllers/bannerTwoController');
+const bannerThreeCtrl = require('../controllers/bannerThreeController');
+const bannerFourCtrl = require('../controllers/bannerFourController');
 const upload = require('../utils/multer');
 
 
@@ -79,6 +83,32 @@ router.post("/send-realestate-form", async (req, res) => {
         res.status(500).json({ success: false, error: "Email failed to send" });
     }
 });
+
+router.get('/main', mainBannerCtrl.getAll);
+router.post('/main', upload.single('image'), mainBannerCtrl.create);
+router.put('/main/:id', upload.single('image'), mainBannerCtrl.update);
+router.delete('/main/:id', mainBannerCtrl.delete);
+router.patch('/main/:id/toggle', mainBannerCtrl.toggleStatus);
+
+// Banner Two Routes
+router.get('/two', bannerTwoCtrl.getAll);
+router.post('/two', upload.single('image'), bannerTwoCtrl.create);
+router.put('/two/:id', upload.single('image'), bannerTwoCtrl.update);
+router.delete('/two/:id', bannerTwoCtrl.delete);
+router.patch('/two/:id/toggle', bannerTwoCtrl.toggleStatus);
+
+// Banner Three Routes
+router.get('/three', bannerThreeCtrl.getAll);
+router.post('/three', upload.single('image'), bannerThreeCtrl.create);
+router.put('/three/:id', upload.single('image'), bannerThreeCtrl.update);
+router.delete('/three/:id', bannerThreeCtrl.delete);
+router.patch('/three/:id/toggle', bannerThreeCtrl.toggleStatus);
+
+router.get('/four', bannerFourCtrl.getAll);
+router.post('/four', upload.single('image'), bannerFourCtrl.create);
+router.put('/four/:id', upload.single('image'), bannerFourCtrl.update);
+router.delete('/four/:id', bannerFourCtrl.delete);
+router.patch('/four/:id/toggle', bannerFourCtrl.toggleStatus);
 
 
 module.exports = router;

@@ -70,5 +70,9 @@ app.get('/admin-testimonials',authMiddleware, (req, res) => {
   res.render('admin-testimonials');
 });
 
+app.get('/admin-banners',authMiddleware, (req, res) => {
+    res.render('admin-banner');
+  });
+
 
 module.exports = app;
