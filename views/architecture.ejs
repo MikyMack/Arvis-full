@@ -120,53 +120,84 @@
         </header>
         <!-- header-end -->
 
-        <section class="bs-hero-5-area wa-bg-default wa-p-relative wa-fix wa-bg-parallax"
-            data-background="/img/hero/h5-bg-img-1.png">
-            <div class="container bs-container-2">
-                <div class="bs-hero-5-wrap">
+  <div class="arvies-slider-wrapper">
+        <!-- Company Branding -->
+        <div class="arvies-brand">
+            <div class="arvies-logo">Arvies</div>
+            <div class="arvies-tagline">Architecture Excellence</div>
+        </div>
 
-                    <!-- left-img -->
-                    <div class="bs-hero-5-img wa-img-cover wa-fix slider-container">
-                        <div class="slider">
-                            <img src="/img/arvies/clint5.jpg" alt="Interior">
-                            <img src="/img/arvies/clint1.jpg" alt="Image 2">
-                            <img src="/img/arvies/clint2.jpeg" alt="Image 3">
-                            <img src="/img/arvies/clint3.jpg" alt="Image 4">
-                        </div>
-                    </div>
-
-                    <div class="bs-hero-5-right">
-                        <h1 class="bs-hero-5-title-1 bs-h-4 wa-split-right " data-split-delay="1.5s">Architecture</h1>
-
-                        <div class="inner-div-1">
-                            <p class="bs-p-4 bs-hero-5-disc">Shaping structures that blend innovation, purpose, and
-                                aesthetic appeal. At Arvies, our architectural approach transforms ideas into enduring
-                                spaces through strategic planning, creative vision, and expert execution.</p>
-
-
-                        </div>
-
-                        <div class="inner-div-2">
-                            <a class="bs-hero-5-btn wa-magnetic" href="architectureDesigns" aria-label="name">
-                                <span class="icon wa-bg-default" data-background="/img/hero/h5-img-3.png">
-                                    <i class="flaticon-next-1 flaticon"></i>
-                                </span>
-                                <span class="btn-border has-border-1"></span>
-                                <span class="btn-border has-border-2"></span>
-                                <span class="btn-border has-border-3"></span>
-                            </a>
-                            <h3 class="bs-hero-5-title-3 bs-h-4 wa-split-right " data-split-delay="2.5s">Solutions</h3>
-                        </div>
-                    </div>
+        <!-- Slides Container -->
+        <div class="arvies-slides-container" id="arviesSlides">
+            <!-- Slide 1 -->
+            <div style="background-image: url('/img/arvies/inti-1.jpg');" class="arvies-slide arvies-slide-1">
+                <div class="arvies-slide-content">
+                    <h1 class="arvies-slide-title">Modern Architecture</h1>
+                    <h2 class="arvies-slide-subtitle">Designing Tomorrow's Landmarks</h2>
+                    <p class="arvies-slide-description">Creating innovative architectural solutions that blend contemporary design with sustainable practices for the modern world.</p>
+                    <a href="#projects" class="arvies-cta-button">View Projects</a>
                 </div>
             </div>
 
-            <div class="bs-hero-5-bg-img">
-                <img src="/img/hero/h5-img-1.png" alt="arvies">
+            <!-- Slide 2 -->
+            <div style="background-image: url('/img/arvies/inti-2.jpg');" class="arvies-slide arvies-slide-2">
+                <div class="arvies-slide-content">
+                    <h1 class="arvies-slide-title">Contemporary Design</h1>
+                    <h2 class="arvies-slide-subtitle">Where Vision Meets Reality</h2>
+                    <p class="arvies-slide-description">Transforming spaces through thoughtful design that reflects your unique vision and enhances everyday living.</p>
+                    <a href="#services" class="arvies-cta-button">Our Services</a>
+                </div>
             </div>
 
-            <div class="bs-hero-5-bg-circle"></div>
-        </section>
+            <!-- Slide 3 -->
+            <div style="background-image: url('/img/arvies/inti-3.jpg');" class="arvies-slide arvies-slide-3">
+                <div class="arvies-slide-content">
+                    <h1 class="arvies-slide-title">Innovative Spaces</h1>
+                    <h2 class="arvies-slide-subtitle">Redefining Architectural Boundaries</h2>
+                    <p class="arvies-slide-description">Pushing the limits of design to create spaces that inspire, function beautifully, and stand the test of time.</p>
+                    <a href="#portfolio" class="arvies-cta-button">Explore Portfolio</a>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div style="background-image: url('/img/arvies/inti-4.jpg');" class="arvies-slide arvies-slide-4">
+                <div class="arvies-slide-content">
+                    <h1 class="arvies-slide-title">Sustainable Building</h1>
+                    <h2 class="arvies-slide-subtitle">Building for the Future</h2>
+                    <p class="arvies-slide-description">Commitment to environmental responsibility through energy-efficient designs and sustainable building practices.</p>
+                    <a href="#sustainability" class="arvies-cta-button">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div style="background-image: url('/img/arvies/inti-5.jpg');" class="arvies-slide arvies-slide-5">
+                <div class="arvies-slide-content">
+                    <h1 class="arvies-slide-title">Urban Planning</h1>
+                    <h2 class="arvies-slide-subtitle">Shaping Communities</h2>
+                    <p class="arvies-slide-description">Comprehensive urban planning solutions that create vibrant, livable communities for generations to come.</p>
+                    <a href="#contact" class="arvies-cta-button">Get Started</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
+        <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
+
+        <!-- Navigation Dots -->
+        <div class="arvies-nav-container">
+            <div class="arvies-nav-dot arvies-active" onclick="arviesSlider.currentSlide(1)"></div>
+            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(2)"></div>
+            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(3)"></div>
+            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(4)"></div>
+            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(5)"></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="arvies-progress-container">
+            <div class="arvies-progress-bar" id="arviesProgressBar"></div>
+        </div>
+    </div>
 
         <!-- work-start -->
         <div class="bs-work-1-area wa-p-relative">
@@ -545,9 +576,10 @@
 
     <!-- footer-start -->
       <footer class="bs-footer-1-area bg-black wa-fix wa-p-relative pt-80">
-            <div class="bs-footer-1-bg-img">
-                <img src="/img/footer/f2-bg-1.png" alt="arvies">
-            </div>
+                <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none;">
+            <img src="/img/arvies/footer.png" alt="arvies"
+                style="width:100%; height:100%; object-fit:cover; opacity:0.18;">
+        </div>
             <div class="container bs-container-1">
                 <div class="bs-footer-1-wrap mb-40">
 
@@ -914,6 +946,172 @@
             // Optional hover pause
             slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
             slider.addEventListener('mouseleave', () => slideInterval = setInterval(autoSlide, 2000));
+        });
+    </script>
+
+
+ <script>
+        // Arvies Slider Controller - Unique namespace
+        const arviesSlider = {
+            currentSlideIndex: 0,
+            totalSlides: 5,
+            slideInterval: null,
+            autoSlideDelay: 5000, // 5 seconds
+            progressInterval: null,
+            
+            init() {
+                this.setupEventListeners();
+                this.startAutoSlide();
+                this.updateNavDots();
+            },
+            
+            setupEventListeners() {
+                // Touch/Swipe functionality
+                let startX = 0;
+                let endX = 0;
+                const slidesContainer = document.getElementById('arviesSlides');
+                
+                slidesContainer.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+                
+                slidesContainer.addEventListener('touchend', (e) => {
+                    endX = e.changedTouches[0].clientX;
+                    this.handleSwipe(startX, endX);
+                });
+                
+                // Mouse drag functionality
+                let isDragging = false;
+                
+                slidesContainer.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    startX = e.clientX;
+                });
+                
+                slidesContainer.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                });
+                
+                slidesContainer.addEventListener('mouseup', (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    endX = e.clientX;
+                    this.handleSwipe(startX, endX);
+                });
+                
+                // Pause auto-slide on hover
+                const sliderWrapper = document.querySelector('.arvies-slider-wrapper');
+                sliderWrapper.addEventListener('mouseenter', () => this.pauseAutoSlide());
+                sliderWrapper.addEventListener('mouseleave', () => this.startAutoSlide());
+            },
+            
+            handleSwipe(startX, endX) {
+                const threshold = 50;
+                const diff = startX - endX;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        this.nextSlide();
+                    } else {
+                        this.prevSlide();
+                    }
+                }
+            },
+            
+            updateSlidePosition() {
+                const slidesContainer = document.getElementById('arviesSlides');
+                const translateX = -(this.currentSlideIndex * (100 / this.totalSlides));
+                slidesContainer.style.transform = `translateX(${translateX}%)`;
+                this.updateNavDots();
+            },
+            
+            updateNavDots() {
+                const dots = document.querySelectorAll('.arvies-nav-dot');
+                dots.forEach((dot, index) => {
+                    if (index === this.currentSlideIndex) {
+                        dot.classList.add('arvies-active');
+                    } else {
+                        dot.classList.remove('arvies-active');
+                    }
+                });
+            },
+            
+            nextSlide() {
+                this.currentSlideIndex = (this.currentSlideIndex + 1) % this.totalSlides;
+                this.updateSlidePosition();
+                this.resetAutoSlide();
+            },
+            
+            prevSlide() {
+                this.currentSlideIndex = (this.currentSlideIndex - 1 + this.totalSlides) % this.totalSlides;
+                this.updateSlidePosition();
+                this.resetAutoSlide();
+            },
+            
+            currentSlide(slideIndex) {
+                this.currentSlideIndex = slideIndex - 1;
+                this.updateSlidePosition();
+                this.resetAutoSlide();
+            },
+            
+            startAutoSlide() {
+                this.pauseAutoSlide();
+                this.startProgressBar();
+                this.slideInterval = setInterval(() => {
+                    this.nextSlide();
+                }, this.autoSlideDelay);
+            },
+            
+            pauseAutoSlide() {
+                if (this.slideInterval) {
+                    clearInterval(this.slideInterval);
+                    this.slideInterval = null;
+                }
+                this.pauseProgressBar();
+            },
+            
+            resetAutoSlide() {
+                this.startAutoSlide();
+            },
+            
+            startProgressBar() {
+                const progressBar = document.getElementById('arviesProgressBar');
+                let progress = 0;
+                const increment = 100 / (this.autoSlideDelay / 100);
+                
+                this.pauseProgressBar();
+                this.progressInterval = setInterval(() => {
+                    progress += increment;
+                    if (progress >= 100) {
+                        progress = 0;
+                    }
+                    progressBar.style.width = progress + '%';
+                }, 100);
+            },
+            
+            pauseProgressBar() {
+                if (this.progressInterval) {
+                    clearInterval(this.progressInterval);
+                    this.progressInterval = null;
+                }
+                const progressBar = document.getElementById('arviesProgressBar');
+                progressBar.style.width = '0%';
+            }
+        };
+        
+        // Initialize slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            arviesSlider.init();
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                arviesSlider.prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                arviesSlider.nextSlide();
+            }
         });
     </script>
 </body>
