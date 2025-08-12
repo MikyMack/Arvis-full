@@ -88,7 +88,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="/about">about us </a></li>
-                                <li><a  href="/contact">contact </a></li>
+                                <li><a href="/contact">contact </a></li>
                             </ul>
                         </nav>
 
@@ -121,57 +121,62 @@
         <!-- header-end -->
 
         <!-- hero-start -->
-      <!-- Slides Container -->
-  <div class="arvies-slider-wrapper">
-        <!-- Company Branding -->
- 
-
         <!-- Slides Container -->
-        <div class="arvies-slides-container" id="arviesSlides">
-            <!-- Slide 1 -->
-            <div style="background-image: url('/img/arvies/inti-1.jpg');" class="arvies-slide arvies-slide-1">
-           
+        <div class="arvies-slider-wrapper">
+            <!-- Slides Container -->
+            <div class="arvies-slides-container" id="arviesSlides">
+                <%
+                    var banners = Array.isArray(interiorBanner)
+                        ? interiorBanner.filter(function(b) { return b && b.image && b.image.trim() !== ''; })
+                        : [];
+                %>
+                <% if (banners.length > 0) { %>
+                    <% banners.forEach(function(banner, idx) { %>
+                        <div
+                            class="arvies-slide arvies-slide-<%= idx+1 %>"
+                            style="background-image: url('<%= banner.image %>');"
+                        >
+                            <img
+                                src="<%= banner.image %>"
+                                alt="<%= banner.title ? banner.title : 'Interior Banner' %>"
+                                style="display:none;"
+                            />
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="arvies-slide" style="background-image: url('/img/arvies/inti-4.jpg');">
+                        <img src="/img/arvies/inti-4.jpg" alt="No banner available" style="display:none;" />
+                    </div>
+                <% } %>
             </div>
 
-            <!-- Slide 2 -->
-            <div style="background-image: url('/img/arvies/inti-2.jpg');" class="arvies-slide arvies-slide-2">
-         
+            <!-- Navigation Arrows -->
+            <% if (banners.length > 1) { %>
+                <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
+                <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
+            <% } %>
+
+            <!-- Navigation Dots -->
+            <div class="arvies-nav-container">
+                <% if (banners.length > 1) { %>
+                    <% for (var i = 0; i < banners.length; i++) { %>
+                        <div
+                            class="arvies-nav-dot<%= (i === 0 ? ' arvies-active' : '') %>"
+                            onclick="arviesSlider.currentSlide(<%= (i+1) %>)"
+                        ></div>
+                    <% } %>
+                <% } else if (banners.length === 1) { %>
+                    <div class="arvies-nav-dot arvies-active"></div>
+                <% } else { %>
+                    <div class="arvies-nav-dot arvies-active"></div>
+                <% } %>
             </div>
 
-            <!-- Slide 3 -->
-            <div style="background-image: url('/img/arvies/inti-3.jpg');" class="arvies-slide arvies-slide-3">
-          
-            </div>
-
-            <!-- Slide 4 -->
-            <div style="background-image: url('/img/arvies/inti-4.jpg');" class="arvies-slide arvies-slide-4">
-       
-            </div>
-
-            <!-- Slide 5 -->
-            <div style="background-image: url('/img/arvies/inti-5.jpg');" class="arvies-slide arvies-slide-5">
-              
+            <!-- Progress Bar -->
+            <div class="arvies-progress-container">
+                <div class="arvies-progress-bar" id="arviesProgressBar"></div>
             </div>
         </div>
-
-        <!-- Navigation Arrows -->
-        <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
-        <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
-
-        <!-- Navigation Dots -->
-        <div class="arvies-nav-container">
-            <div class="arvies-nav-dot arvies-active" onclick="arviesSlider.currentSlide(1)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(2)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(3)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(4)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(5)"></div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="arvies-progress-container">
-            <div class="arvies-progress-bar" id="arviesProgressBar"></div>
-        </div>
-    </div>
         <!-- hero-end -->
 
         <!-- about-start -->
@@ -292,260 +297,290 @@
 
                 <div class="project-grid">
                     <% if (interiors && interiors.length) { %>
-                        <% interiors.forEach(function(interior, idx) { 
-                            const sliderId = 'slider' + (idx + 1);
-                        %>
-                        <div class="project-card">
-                            <div class="image-slider-wrapper">
-                                <div class="image-slider-container" data-slider="<%= sliderId %>">
-                                    <% if (interior.images && interior.images.length) { %>
-                                        <% interior.images.forEach(function(img) { %>
-                                            <img src="<%= img.url %>" alt="<%= img.seoAlt && img.seoAlt.trim() !== '' ? img.seoAlt : interior.title %>" class="slider-image">
-                                        <% }) %>
-                                    <% } %>
+                        <% interiors.forEach(function(interior, idx) { const sliderId='slider' + (idx + 1); %>
+                            <div class="project-card">
+                                <div class="image-slider-wrapper">
+                                    <div class="image-slider-container" data-slider="<%= sliderId %>">
+                                        <% if (interior.images && interior.images.length) { %>
+                                            <% interior.images.forEach(function(img) { %>
+                                                <img src="<%= img.url %>"
+                                                    alt="<%= img.seoAlt && img.seoAlt.trim() !== '' ? img.seoAlt : interior.title %>"
+                                                    class="slider-image">
+                                                <% }) %>
+                                                    <% } %>
+                                    </div>
+                                    <button class="slider-nav-buttons slider-prev"
+                                        data-target="<%= sliderId %>">‹</button>
+                                    <button class="slider-nav-buttons slider-next"
+                                        data-target="<%= sliderId %>">›</button>
+                                    <div class="slider-indicators" data-indicators="<%= sliderId %>">
+                                        <% if (interior.images && interior.images.length) { %>
+                                            <% interior.images.forEach(function(img, i) { %>
+                                                <div class="indicator-dot<%= i === 0 ? ' active-indicator' : '' %>"
+                                                    data-slide="<%= i %>"></div>
+                                                <% }) %>
+                                                    <% } %>
+                                    </div>
                                 </div>
-                                <button class="slider-nav-buttons slider-prev" data-target="<%= sliderId %>">‹</button>
-                                <button class="slider-nav-buttons slider-next" data-target="<%= sliderId %>">›</button>
-                                <div class="slider-indicators" data-indicators="<%= sliderId %>">
-                                    <% if (interior.images && interior.images.length) { %>
-                                        <% interior.images.forEach(function(img, i) { %>
-                                            <div class="indicator-dot<%= i === 0 ? ' active-indicator' : '' %>" data-slide="<%= i %>"></div>
-                                        <% }) %>
-                                    <% } %>
+                                <div class="project-details">
+                                    <a href="/interior/<%= interior._id %>">
+                                        <h3 class="project-name">
+                                            <%= interior.title %>
+                                        </h3>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="project-details">
-                                <a href="/interior/<%= interior._id %>">
-                                    <h3 class="project-name"><%= interior.title %></h3>
-                                </a>
-                            </div>
-                        </div>
-                        <% }) %>
-                    <% } else { %>
-                        <div class="no-projects-message">
-                            <p>No projects to display at this time.</p>
-                        </div>
-                    <% } %>
+                            <% }) %>
+                                <% } else { %>
+                                    <div class="no-projects-message">
+                                        <p>No projects to display at this time.</p>
+                                    </div>
+                                    <% } %>
                 </div>
             </div>
     </div>
     </section>
-        <!-- counter-start -->
-        <section class="bs-core-feature-5-area mb-160">
-            <div class="container bs-container-2">
-                <div class="bs-core-feature-4-line wa-scaleXInUp"></div>
-                <div class="bs-core-feature-4-wrap has-5">
+    <!-- counter-start -->
+    <section class="bs-core-feature-5-area mb-160">
+        <div class="container bs-container-2">
+            <div class="bs-core-feature-4-line wa-scaleXInUp"></div>
+            <div class="bs-core-feature-4-wrap has-5">
 
-                    <!-- single-item -->
-                    <div class="bs-core-feature-4-item wow fadeInRight">
-                        <h4 class="bs-h-4 item-title">
-                            Projects Completed
-                        </h4>
-                        <h5 class="bs-h-4 item-counter" data-cursor="-opaque">
-                            <span class="counter wa-counter">10</span>
-                            k+
-                        </h5>
-                        <p class="bs-p-4 item-disc">Milestones that reflect our design excellence and client trust.</p>
-                    </div>
-
-                    <!-- single-item -->
-                    <div class="bs-core-feature-4-item wow fadeInRight" data-wow-delay="0.2s">
-                        <h4 class="bs-h-4 item-title">
-                            Years of Experience
-                        </h4>
-                        <h5 class="bs-h-4 item-counter" data-cursor="-opaque">
-                            <span class="counter wa-counter">10</span>
-
-                            +
-                        </h5>
-                        <p class="bs-p-4 item-disc">Years of creating meaningful spaces across diverse sectors.</p>
-                    </div>
-
-                    <!-- single-item -->
-                    <div class="bs-core-feature-4-item wow fadeInRight" data-wow-delay="0.4s">
-                        <h4 class="bs-h-4 item-title">
-                            Client Satisfaction Rate
-                        </h4>
-                        <h5 class="bs-h-4 item-counter" data-cursor="-opaque">
-                            <span class="counter wa-counter">99</span>
-                            %
-                        </h5>
-                        <p class="bs-p-4 item-disc">Reflecting our commitment to quality, trust, and lasting
-                            relationships.</p>
-                    </div>
-
-                    <!-- single-item -->
-                    <div class="bs-core-feature-4-item wow fadeInRight" data-wow-delay="0.6s">
-                        <h4 class="bs-h-4 item-title">
-                            Iconic Designs
-                        </h4>
-                        <h5 class="bs-h-4 item-counter" data-cursor="-opaque">
-                            <span class="counter wa-counter">1000</span>
-                            +
-                        </h5>
-                        <p class="bs-p-4 item-disc">Crafted spaces known for their innovation, elegance, and lasting
-                            impact.</p>
-                    </div>
-
+                <!-- single-item -->
+                <div class="bs-core-feature-4-item wow fadeInRight">
+                    <h4 class="bs-h-4 item-title">
+                        Projects Completed
+                    </h4>
+                    <h5 class="bs-h-4 item-counter" data-cursor="-opaque">
+                        <span class="counter wa-counter">10</span>
+                        k+
+                    </h5>
+                    <p class="bs-p-4 item-disc">Milestones that reflect our design excellence and client trust.</p>
                 </div>
-                <div class="bs-core-feature-4-line wa-scaleXInUp"></div>
-            </div>
-        </section>
-        <!-- counter-end -->
 
-        <!-- services-start -->
-        <section class="bs-services-5-area wa-fix wa-p-relative pb-100">
-            <div class="container bs-container-2">
-                <div class="bs-services-5-wrap">
+                <!-- single-item -->
+                <div class="bs-core-feature-4-item wow fadeInRight" data-wow-delay="0.2s">
+                    <h4 class="bs-h-4 item-title">
+                        Years of Experience
+                    </h4>
+                    <h5 class="bs-h-4 item-counter" data-cursor="-opaque">
+                        <span class="counter wa-counter">10</span>
 
-                    <!-- left -->
-                    <div class="bs-services-5-left wa-p-relative">
-
-                        <div class="bg-color"></div>
-
-                        <div class="bs-services-5-left-icon">
-                            <i class="flaticon-star flaticon"></i>
-                        </div>
-
-                        <!-- section-title -->
-                        <div class="bs-services-5-sec-title mb-125">
-                            <h6 class="bs-subtitle-5 wa-capitalize">
-
-                                <span class="wa-split-right ">Our Services</span>
-                            </h6>
-                            <h2 class="bs-sec-title-4 wa-split-right wa-capitalize" data-cursor="-opaque">We provide end
-                                to end interior solutions from concept to completion.</h2>
-                        </div>
-
-                        <div class="inner-div">
-                            <div class="inner-div-left">
-                                <p class="bs-p-4 disc wa-fadeInUp">From concept to completion, we create interiors that
-                                    reflect your style, elevate comfort, and ensure flawless execution.
-
-                                    .</p>
-                                <div class="btn-wrap wa-fadeInUp">
-                                    <a href="/contact" aria-label="name" class="bs-pr-btn-3">
-                                        <span class="text">Contact Us <i class="fa-solid fa-angle-right"></i></span>
-                                        <span class="text">Contact Us <i class="fa-solid fa-angle-right"></i></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="bs-services-5-img-1 wa-fix wa-img-cover wa-fadeInUp">
-                                <video autoplay loop muted src="/img/arvies/new.mp4"></video>
-                            </div>
-                        </div>
-
-                        <div class="bs-services-5-item">
-
-                            <!-- single-item -->
-                            <a href="/interiorDesign" aria-label="name"
-                                class="bs-h-4 bs-services-5-item-single wa-fadeInUp" data-cursor-text="View">
-                                <span class="number">01</span>
-                                <span class="title">
-                                    Interior design
-                                </span>
-                                <div class="icon">
-                                    <i class="flaticon-next-1 flaticon"></i>
-                                </div>
-
-                                <span class="item-img wa-img-cover">
-                                    <img src="/img/services/s5-card-img-1.png" alt="arvies">
-                                </span>
-                            </a>
-
-                            <!-- single-item -->
-                            <a href="/interiorExecution" aria-label="name"
-                                class="bs-h-4 bs-services-5-item-single wa-fadeInUp" data-cursor-text="View">
-                                <span class="number">02</span>
-                                <span class="title">
-                                    Interior Execution
-                                </span>
-                                <div class="icon">
-                                    <i class="flaticon-next-1 flaticon"></i>
-                                </div>
-
-                                <span class="item-img wa-img-cover">
-                                    <img src="/img/arvies/exe.jpg" alt="arvies">
-                                </span>
-                            </a>
-
-                            <!-- single-item -->
-
-
-                            <!-- single-item -->
-
-
-                        </div>
-
-                    </div>
-
-
-
-
-
-
-                    <!-- right-img -->
-                    <div class="bs-services-5-slider wa-p-relative wa-fix" data-cursor="-opaque">
-                        <div class="swiper-container wa-fix bs-s5-active">
-                            <div class="swiper-wrapper">
-
-                                <!-- single-item -->
-                                <div class="swiper-slide">
-                                    <div class="bs-services-5-slider-single">
-                                        <div class="bs-services-5-img wa-fix wa-img-cover">
-                                            <img src="/img/arvies/inti-3.jpg" alt="arvies">
-                                        </div>
-                                        <div class="bs-services-5-img-border-1"></div>
-                                        <div class="bs-services-5-img-border-2"></div>
-                                        <div class="bs-services-5-img-border-3"></div>
-                                    </div>
-                                </div>
-
-                                <!-- single-item -->
-                                <div class="swiper-slide">
-                                    <div class="bs-services-5-slider-single">
-                                        <div class="bs-services-5-img wa-fix wa-img-cover">
-                                            <img src="/img/arvies/inti-4.jpg" alt="arvies">
-                                        </div>
-                                        <div class="bs-services-5-img-border-1"></div>
-                                        <div class="bs-services-5-img-border-2"></div>
-                                        <div class="bs-services-5-img-border-3"></div>
-                                    </div>
-                                </div>
-
-                                <!-- single-item -->
-                                <div class="swiper-slide">
-                                    <div class="bs-services-5-slider-single">
-                                        <div class="bs-services-5-img wa-fix wa-img-cover">
-                                            <img src="/img/arvies/inti-5.jpg" alt="arvies">
-                                        </div>
-                                        <div class="bs-services-5-img-border-1"></div>
-                                        <div class="bs-services-5-img-border-2"></div>
-                                        <div class="bs-services-5-img-border-3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
+                        +
+                    </h5>
+                    <p class="bs-p-4 item-disc">Years of creating meaningful spaces across diverse sectors.</p>
                 </div>
-            </div>
-        </section>
-        <!-- services-end -->
-      
 
-    <!-- video-start -->
-    <div class="bs-video-5-area wa-fix wa-p-relative wa-img-cover">
-        <img class="wa-parallax-img" src="/img/arvies/inti-3.jpg" alt="arvies">
-        <div class="bs-video-5-btn">
-            <a href="https://www.youtube.com/watch?v=9nXc1SqTFbk" aria-label="name"
-                class="bs-play-btn-5 video-popup wa-magnetic-btn">
-                <i class="fa-solid fa-play"></i>
-            </a>
+                <!-- single-item -->
+                <div class="bs-core-feature-4-item wow fadeInRight" data-wow-delay="0.4s">
+                    <h4 class="bs-h-4 item-title">
+                        Client Satisfaction Rate
+                    </h4>
+                    <h5 class="bs-h-4 item-counter" data-cursor="-opaque">
+                        <span class="counter wa-counter">99</span>
+                        %
+                    </h5>
+                    <p class="bs-p-4 item-disc">Reflecting our commitment to quality, trust, and lasting
+                        relationships.</p>
+                </div>
+
+                <!-- single-item -->
+                <div class="bs-core-feature-4-item wow fadeInRight" data-wow-delay="0.6s">
+                    <h4 class="bs-h-4 item-title">
+                        Iconic Designs
+                    </h4>
+                    <h5 class="bs-h-4 item-counter" data-cursor="-opaque">
+                        <span class="counter wa-counter">1000</span>
+                        +
+                    </h5>
+                    <p class="bs-p-4 item-disc">Crafted spaces known for their innovation, elegance, and lasting
+                        impact.</p>
+                </div>
+
+            </div>
+            <div class="bs-core-feature-4-line wa-scaleXInUp"></div>
         </div>
-    </div>
-    <!-- video-end -->
+    </section>
+    <!-- counter-end -->
+
+    <!-- services-start -->
+    <section class="bs-services-5-area wa-fix wa-p-relative pb-100">
+        <div class="container bs-container-2">
+            <div class="bs-services-5-wrap">
+
+                <!-- left -->
+                <div class="bs-services-5-left wa-p-relative">
+
+                    <div class="bg-color"></div>
+
+                    <div class="bs-services-5-left-icon">
+                        <i class="flaticon-star flaticon"></i>
+                    </div>
+
+                    <!-- section-title -->
+                    <div class="bs-services-5-sec-title mb-125">
+                        <h6 class="bs-subtitle-5 wa-capitalize">
+
+                            <span class="wa-split-right ">Our Services</span>
+                        </h6>
+                        <h2 class="bs-sec-title-4 wa-split-right wa-capitalize" data-cursor="-opaque">We provide end
+                            to end interior solutions from concept to completion.</h2>
+                    </div>
+
+                    <div class="inner-div">
+                        <div class="inner-div-left">
+                            <p class="bs-p-4 disc wa-fadeInUp">From concept to completion, we create interiors that
+                                reflect your style, elevate comfort, and ensure flawless execution.
+
+                                .</p>
+                            <div class="btn-wrap wa-fadeInUp">
+                                <a href="/contact" aria-label="name" class="bs-pr-btn-3">
+                                    <span class="text">Contact Us <i class="fa-solid fa-angle-right"></i></span>
+                                    <span class="text">Contact Us <i class="fa-solid fa-angle-right"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="bs-services-5-img-1 wa-fix wa-img-cover wa-fadeInUp">
+                            <video autoplay loop muted src="/img/arvies/new.mp4"></video>
+                        </div>
+                    </div>
+
+                    <div class="bs-services-5-item">
+
+                        <!-- single-item -->
+                        <a href="/interiorDesign" aria-label="name" class="bs-h-4 bs-services-5-item-single wa-fadeInUp"
+                            data-cursor-text="View">
+                            <span class="number">01</span>
+                            <span class="title">
+                                Interior design
+                            </span>
+                            <div class="icon">
+                                <i class="flaticon-next-1 flaticon"></i>
+                            </div>
+
+                            <span class="item-img wa-img-cover">
+                                <img src="/img/services/s5-card-img-1.png" alt="arvies">
+                            </span>
+                        </a>
+
+                        <!-- single-item -->
+                        <a href="/interiorExecution" aria-label="name"
+                            class="bs-h-4 bs-services-5-item-single wa-fadeInUp" data-cursor-text="View">
+                            <span class="number">02</span>
+                            <span class="title">
+                                Interior Execution
+                            </span>
+                            <div class="icon">
+                                <i class="flaticon-next-1 flaticon"></i>
+                            </div>
+
+                            <span class="item-img wa-img-cover">
+                                <img src="/img/arvies/exe.jpg" alt="arvies">
+                            </span>
+                        </a>
+
+                        <!-- single-item -->
+
+
+                        <!-- single-item -->
+
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+                <!-- right-img -->
+                <div class="bs-services-5-slider wa-p-relative wa-fix" data-cursor="-opaque">
+                    <div class="swiper-container wa-fix bs-s5-active">
+                        <div class="swiper-wrapper">
+
+                            <!-- single-item -->
+                            <div class="swiper-slide">
+                                <div class="bs-services-5-slider-single">
+                                    <div class="bs-services-5-img wa-fix wa-img-cover">
+                                        <img src="/img/arvies/inti-3.jpg" alt="arvies">
+                                    </div>
+                                    <div class="bs-services-5-img-border-1"></div>
+                                    <div class="bs-services-5-img-border-2"></div>
+                                    <div class="bs-services-5-img-border-3"></div>
+                                </div>
+                            </div>
+
+                            <!-- single-item -->
+                            <div class="swiper-slide">
+                                <div class="bs-services-5-slider-single">
+                                    <div class="bs-services-5-img wa-fix wa-img-cover">
+                                        <img src="/img/arvies/inti-4.jpg" alt="arvies">
+                                    </div>
+                                    <div class="bs-services-5-img-border-1"></div>
+                                    <div class="bs-services-5-img-border-2"></div>
+                                    <div class="bs-services-5-img-border-3"></div>
+                                </div>
+                            </div>
+
+                            <!-- single-item -->
+                            <div class="swiper-slide">
+                                <div class="bs-services-5-slider-single">
+                                    <div class="bs-services-5-img wa-fix wa-img-cover">
+                                        <img src="/img/arvies/inti-5.jpg" alt="arvies">
+                                    </div>
+                                    <div class="bs-services-5-img-border-1"></div>
+                                    <div class="bs-services-5-img-border-2"></div>
+                                    <div class="bs-services-5-img-border-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- services-end -->
+
+
+   <!-- video-start -->
+   <% 
+   var videoBanner = Array.isArray(interiorBanner)
+       ? interiorBanner.find(function(b) { return b && b.link && b.link.includes('youtube.com'); })
+       : null;
+
+   function getYouTubeId(url) {
+       if (!url) return null;
+       var match = url.match(/(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+       return match ? match[1] : null;
+   }
+
+   var videoId = videoBanner ? getYouTubeId(videoBanner.link) : null;
+%>
+<div class="bs-video-1-area wa-fix">
+   <div class="bs-video-1-content wa-p-relative">
+       <div class="bs-video-1-content-img has-video-2 wa-p-relative wa-fix wa-img-cover">
+           <% if (videoId) { %>
+               <div class="wa-parallax-img" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                   <iframe 
+                       src="https://www.youtube.com/embed/<%= videoId %>?autoplay=1&mute=1&loop=1&playlist=<%= videoId %>" 
+                       frameborder="0" 
+                       allow="autoplay; encrypted-media" 
+                       allowfullscreen
+                       style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                   </iframe>
+               </div>
+           
+           <% } else { %>
+               <div class="wa-parallax-img" style="background:#000;height:350px;display:flex;align-items:center;justify-content:center;">
+                   <span style="color:#fff;">No video available</span>
+               </div>
+           <% } %>
+       </div>
+   </div>
+</div>
 
     <section class="luxe-interior-calculator">
         <div class="luxe-container">
@@ -742,154 +777,155 @@
 
     <!-- footer-start -->
     <footer class="bs-footer-1-area bg-black wa-fix wa-p-relative pt-80">
-                <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none;">
+        <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none;">
             <img src="/img/arvies/footer.png" alt="arvies"
                 style="width:100%; height:100%; object-fit:cover; opacity:0.18;">
         </div>
-            <div class="container bs-container-1">
-                <div class="bs-footer-1-wrap mb-40">
+        <div class="container bs-container-1">
+            <div class="bs-footer-1-wrap mb-40">
 
-                    <!-- single-widget -->
-                    <div class="bs-footer-1-widget">
-                        <a href="/" aria-label="name" class="bs-footer-1-logo" data-cursor="-opaque">
-                            <img class="footer-logo" src="/img/arvies/footer-logo.png" alt="arvies">
-                        </a>
-                        <p class="bs-p-1 bs-footer-1-disc">Arvies specializes in architecture, interior design, urban
-                            designing, and real estate crafting spaces with purpose and style.</p>
-                    </div>
+                <!-- single-widget -->
+                <div class="bs-footer-1-widget">
+                    <a href="/" aria-label="name" class="bs-footer-1-logo" data-cursor="-opaque">
+                        <img class="footer-logo" src="/img/arvies/footer-logo.png" alt="arvies">
+                    </a>
+                    <p class="bs-p-1 bs-footer-1-disc">Arvies specializes in architecture, interior design, urban
+                        designing, and real estate crafting spaces with purpose and style.</p>
+                </div>
 
-                    <!-- single-widget -->
-                    <div class="bs-footer-1-widget">
-                        <h5 class="bs-footer-1-widget-title">Quick Links</h5>
-                        <ul class="bs-footer-1-menu wa-list-style-none">
-                            <li>
-                                <a href="/">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    home
-                                </a>
-                            </li>
-
-
-
-                            <li>
-                                <a href="/blogs">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    blogs
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/about">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    about us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/contact">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    contact us
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- single-widget -->
+                <!-- single-widget -->
+                <div class="bs-footer-1-widget">
+                    <h5 class="bs-footer-1-widget-title">Quick Links</h5>
+                    <ul class="bs-footer-1-menu wa-list-style-none">
+                        <li>
+                            <a href="/">
+                                <i class="fa-solid fa-angle-right"></i>
+                                home
+                            </a>
+                        </li>
 
 
-                    <!-- single-widget -->
-                    <div class="bs-footer-1-widget">
-                        <h5 class="bs-footer-1-widget-title">More Links</h5>
-                        <ul class="bs-footer-1-menu wa-list-style-none">
-                            <li>
-                                <a href="/architecture">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    architecture
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/interior">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    interior
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/realEstate">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    real estate
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/projects">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Project Sales
-                                </a>
-                            </li>
+
+                        <li>
+                            <a href="/blogs">
+                                <i class="fa-solid fa-angle-right"></i>
+                                blogs
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/about">
+                                <i class="fa-solid fa-angle-right"></i>
+                                about us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/contact">
+                                <i class="fa-solid fa-angle-right"></i>
+                                contact us
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- single-widget -->
 
 
-                        </ul>
-                    </div>
+                <!-- single-widget -->
+                <div class="bs-footer-1-widget">
+                    <h5 class="bs-footer-1-widget-title">More Links</h5>
+                    <ul class="bs-footer-1-menu wa-list-style-none">
+                        <li>
+                            <a href="/architecture">
+                                <i class="fa-solid fa-angle-right"></i>
+                                architecture
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/interior">
+                                <i class="fa-solid fa-angle-right"></i>
+                                interior
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/realEstate">
+                                <i class="fa-solid fa-angle-right"></i>
+                                real estate
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/projects">
+                                <i class="fa-solid fa-angle-right"></i>
+                                Project Sales
+                            </a>
+                        </li>
 
-                    <!-- single-widget -->
-                    <div class="bs-footer-1-widget">
-                        <h5 class="bs-footer-1-widget-title">contact</h5>
-                        <ul class="bs-footer-1-menu wa-list-style-none">
-                            <li>
-                                <a href="tel:+916360425940">
-                                    <i class="fa-solid fa-phone"></i>
-                                    +91 6360 425 940
-                                </a>
-                            </li>
-                            <li>
-                                <a style="text-transform: none;" href="mailto:arviesgroup@gmail.com">
-                                    <i class="fa-solid fa-mail-bulk"></i>
-                                    arviesgroup@gmail.com
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa-solid fa-location"></i>
-                                    A9, CPGP Lane, Jawahar Nagar, <br>  Sasthamangalam, Trivandrum <br> 695010
-                                </a>
-                            </li>
 
-                        </ul>
-                    </div>
+                    </ul>
+                </div>
 
+                <!-- single-widget -->
+                <div class="bs-footer-1-widget">
+                    <h5 class="bs-footer-1-widget-title">contact</h5>
+                    <ul class="bs-footer-1-menu wa-list-style-none">
+                        <li>
+                            <a href="tel:+916360425940">
+                                <i class="fa-solid fa-phone"></i>
+                                +91 6360 425 940
+                            </a>
+                        </li>
+                        <li>
+                            <a style="text-transform: none;" href="mailto:arviesgroup@gmail.com">
+                                <i class="fa-solid fa-mail-bulk"></i>
+                                arviesgroup@gmail.com
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa-solid fa-location"></i>
+                                A9, CPGP Lane, Jawahar Nagar, <br> Sasthamangalam, Trivandrum <br> 695010
+                            </a>
+                        </li>
 
+                    </ul>
                 </div>
 
 
-                <!-- copyright -->
-                <div class="bs-footer-4-copyright">
-                    <div class="container bs-container-2">
-                        <div class="bs-footer-4-copyright-flex">
-                            <p class="bs-p-4 bs-footer-4-copyright-text">
-                                ©<span class="copyright-year"></span>, <a href="#">Arvis</a> All Rights Reserved |
-                                Developed By <a href="https://trivlogic.com/">Trivlogic Private Limited</a>
-                            </p>
+            </div>
 
-                            <div class="bs-footer-4-copyright-social">
-                                <a href="#" aria-label="name" class="elm-link bs-p-4">
-                                    <i class="fa-brands fa-facebook-f"></i>
-                                    facebook
-                                </a>
-                                <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln" aria-label="name" class="elm-link bs-p-4">
-                                    <i class="fa-brands fa-instagram"></i>
-                                    instagram
-                                </a>
-                                <a href="#" aria-label="name" class="elm-link bs-p-4">
-                                    <i class="fa-brands fa-x-twitter"></i>
-                                   X
-                                </a>
-                                <a href="#" aria-label="name" class="elm-link bs-p-4">
-                                    <i class="fa-brands fa-linkedin-in"></i>
-                                    linkedin
-                                </a>
-                            </div>
+
+            <!-- copyright -->
+            <div class="bs-footer-4-copyright">
+                <div class="container bs-container-2">
+                    <div class="bs-footer-4-copyright-flex">
+                        <p class="bs-p-4 bs-footer-4-copyright-text">
+                            ©<span class="copyright-year"></span>, <a href="#">Arvis</a> All Rights Reserved |
+                            Developed By <a href="https://trivlogic.com/">Trivlogic Private Limited</a>
+                        </p>
+
+                        <div class="bs-footer-4-copyright-social">
+                            <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                <i class="fa-brands fa-facebook-f"></i>
+                                facebook
+                            </a>
+                            <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln"
+                                aria-label="name" class="elm-link bs-p-4">
+                                <i class="fa-brands fa-instagram"></i>
+                                instagram
+                            </a>
+                            <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                <i class="fa-brands fa-x-twitter"></i>
+                                X
+                            </a>
+                            <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                                linkedin
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
     <!-- footer-end -->
 
     <!-- offcanvas-start -->
@@ -1005,7 +1041,8 @@
                     <a href="#" class="wa-offcanvas-social-link " aria-label="name">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
-                    <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln" class="wa-offcanvas-social-link" aria-label="name">
+                    <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln"
+                        class="wa-offcanvas-social-link" aria-label="name">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
                 </div>
@@ -1341,67 +1378,70 @@
 
 
 
-        // hero slider
-
-           // Arvies Slider Controller - Unique namespace
+        // Get the dynamic number of slides from realestateBanner
         const arviesSlider = {
             currentSlideIndex: 0,
-            totalSlides: 5,
+            totalSlides: Array.isArray(interiorBanner) ? interiorBanner.length : 0,
             slideInterval: null,
             autoSlideDelay: 5000, // 5 seconds
             progressInterval: null,
-            
+
             init() {
+                // If there are no slides, do not initialize
+                if (this.totalSlides === 0) return;
                 this.setupEventListeners();
                 this.startAutoSlide();
                 this.updateNavDots();
             },
-            
+
             setupEventListeners() {
                 // Touch/Swipe functionality
                 let startX = 0;
                 let endX = 0;
                 const slidesContainer = document.getElementById('arviesSlides');
-                
+                if (!slidesContainer) return;
+
                 slidesContainer.addEventListener('touchstart', (e) => {
                     startX = e.touches[0].clientX;
                 });
-                
+
                 slidesContainer.addEventListener('touchend', (e) => {
                     endX = e.changedTouches[0].clientX;
                     this.handleSwipe(startX, endX);
                 });
-                
+
                 // Mouse drag functionality
                 let isDragging = false;
-                
+
                 slidesContainer.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     startX = e.clientX;
                 });
-                
+
                 slidesContainer.addEventListener('mousemove', (e) => {
                     if (!isDragging) return;
                     e.preventDefault();
                 });
-                
+
                 slidesContainer.addEventListener('mouseup', (e) => {
                     if (!isDragging) return;
                     isDragging = false;
                     endX = e.clientX;
                     this.handleSwipe(startX, endX);
                 });
-                
+
                 // Pause auto-slide on hover
                 const sliderWrapper = document.querySelector('.arvies-slider-wrapper');
-                sliderWrapper.addEventListener('mouseenter', () => this.pauseAutoSlide());
-                sliderWrapper.addEventListener('mouseleave', () => this.startAutoSlide());
+                if (sliderWrapper) {
+                    sliderWrapper.addEventListener('mouseenter', () => this.pauseAutoSlide());
+                    sliderWrapper.addEventListener('mouseleave', () => this.startAutoSlide());
+                }
             },
-            
+
             handleSwipe(startX, endX) {
                 const threshold = 50;
                 const diff = startX - endX;
-                
+
                 if (Math.abs(diff) > threshold) {
                     if (diff > 0) {
                         this.nextSlide();
@@ -1410,14 +1450,16 @@
                     }
                 }
             },
-            
+
             updateSlidePosition() {
                 const slidesContainer = document.getElementById('arviesSlides');
+                if (!slidesContainer) return;
+                if (this.totalSlides === 0) return;
                 const translateX = -(this.currentSlideIndex * (100 / this.totalSlides));
                 slidesContainer.style.transform = `translateX(${translateX}%)`;
                 this.updateNavDots();
             },
-            
+
             updateNavDots() {
                 const dots = document.querySelectorAll('.arvies-nav-dot');
                 dots.forEach((dot, index) => {
@@ -1428,33 +1470,37 @@
                     }
                 });
             },
-            
+
             nextSlide() {
+                if (this.totalSlides === 0) return;
                 this.currentSlideIndex = (this.currentSlideIndex + 1) % this.totalSlides;
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             prevSlide() {
+                if (this.totalSlides === 0) return;
                 this.currentSlideIndex = (this.currentSlideIndex - 1 + this.totalSlides) % this.totalSlides;
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             currentSlide(slideIndex) {
-                this.currentSlideIndex = slideIndex - 1;
+                if (this.totalSlides === 0) return;
+                this.currentSlideIndex = Math.max(0, Math.min(slideIndex - 1, this.totalSlides - 1));
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             startAutoSlide() {
+                if (this.totalSlides <= 1) return; // Don't auto-slide if only one or zero slides
                 this.pauseAutoSlide();
                 this.startProgressBar();
                 this.slideInterval = setInterval(() => {
                     this.nextSlide();
                 }, this.autoSlideDelay);
             },
-            
+
             pauseAutoSlide() {
                 if (this.slideInterval) {
                     clearInterval(this.slideInterval);
@@ -1462,16 +1508,17 @@
                 }
                 this.pauseProgressBar();
             },
-            
+
             resetAutoSlide() {
                 this.startAutoSlide();
             },
-            
+
             startProgressBar() {
                 const progressBar = document.getElementById('arviesProgressBar');
+                if (!progressBar) return;
                 let progress = 0;
                 const increment = 100 / (this.autoSlideDelay / 100);
-                
+
                 this.pauseProgressBar();
                 this.progressInterval = setInterval(() => {
                     progress += increment;
@@ -1481,24 +1528,27 @@
                     progressBar.style.width = progress + '%';
                 }, 100);
             },
-            
+
             pauseProgressBar() {
                 if (this.progressInterval) {
                     clearInterval(this.progressInterval);
                     this.progressInterval = null;
                 }
                 const progressBar = document.getElementById('arviesProgressBar');
-                progressBar.style.width = '0%';
+                if (progressBar) {
+                    progressBar.style.width = '0%';
+                }
             }
         };
-        
+
         // Initialize slider when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             arviesSlider.init();
         });
-        
+
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
+            if (arviesSlider.totalSlides === 0) return;
             if (e.key === 'ArrowLeft') {
                 arviesSlider.prevSlide();
             } else if (e.key === 'ArrowRight') {

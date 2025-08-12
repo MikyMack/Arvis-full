@@ -117,56 +117,53 @@
         <!-- header-end -->
 
         <!-- hero-start -->
+  <% 
+    // realestateBanner is expected to be an array of objects with {title, image} 
+    // image can be a string (url) or an object with .url
+    const banners = Array.isArray(realestateBanner) ? realestateBanner : [];
+    const hasBanners = banners.length > 0;
+  %>
   <div class="arvies-slider-wrapper">
-        <!-- Company Branding -->
- 
-
-        <!-- Slides Container -->
-        <div class="arvies-slides-container" id="arviesSlides">
-            <!-- Slide 1 -->
-            <div style="background-image: url('/img/arvies/inti-1.jpg');" class="arvies-slide arvies-slide-1">
-           
-            </div>
-
-            <!-- Slide 2 -->
-            <div style="background-image: url('/img/arvies/inti-2.jpg');" class="arvies-slide arvies-slide-2">
-         
-            </div>
-
-            <!-- Slide 3 -->
-            <div style="background-image: url('/img/arvies/inti-3.jpg');" class="arvies-slide arvies-slide-3">
+    <% if (hasBanners) { %>
+      <!-- Slides Container -->
+      <div class="arvies-slides-container" id="arviesSlides">
+        <% banners.forEach(function(banner, idx) { 
+            var imgUrl = banner.image && typeof banner.image === 'object' ? banner.image.url : banner.image;
+            var title = banner.title || '';
+        %>
+          <div 
+            style="background-image: url('<%= imgUrl %>');" 
+            class="arvies-slide arvies-slide-<%= idx+1 %>">
           
-            </div>
+          </div>
+        <% }); %>
+      </div>
 
-            <!-- Slide 4 -->
-            <div style="background-image: url('/img/arvies/inti-4.jpg');" class="arvies-slide arvies-slide-4">
-       
-            </div>
+      <!-- Navigation Arrows -->
+      <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
+      <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
 
-            <!-- Slide 5 -->
-            <div style="background-image: url('/img/arvies/inti-5.jpg');" class="arvies-slide arvies-slide-5">
-              
-            </div>
+      <!-- Navigation Dots -->
+      <div class="arvies-nav-container">
+        <% banners.forEach(function(banner, idx) { %>
+          <div 
+            class="arvies-nav-dot <%= idx === 0 ? 'arvies-active' : '' %>" 
+            onclick="arviesSlider.currentSlide(<%= idx+1 %>)"></div>
+        <% }); %>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="arvies-progress-container">
+        <div class="arvies-progress-bar" id="arviesProgressBar"></div>
+      </div>
+    <% } else { %>
+      <div class="arvies-slides-container" id="arviesSlides">
+        <div class="arvies-slide" style="background:#eee;display:flex;align-items:center;justify-content:center;height:350px;">
+          <span style="color:#888;font-size:1.5em;">No banner available</span>
         </div>
-
-        <!-- Navigation Arrows -->
-        <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
-        <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
-
-        <!-- Navigation Dots -->
-        <div class="arvies-nav-container">
-            <div class="arvies-nav-dot arvies-active" onclick="arviesSlider.currentSlide(1)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(2)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(3)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(4)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(5)"></div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="arvies-progress-container">
-            <div class="arvies-progress-bar" id="arviesProgressBar"></div>
-        </div>
-    </div>
+      </div>
+    <% } %>
+  </div>
         <!-- hero-end -->
 
 
@@ -592,17 +589,42 @@
         </section>
         <!-- counter-end -->
 
-        <!-- video-start -->
-        <div class="bs-video-5-area wa-fix wa-p-relative wa-img-cover">
-            <img class="wa-parallax-img" src="/img/arvies/site-7.jpg" alt="arvies">
-            <div class="bs-video-5-btn">
-                <a href="https://www.youtube.com/watch?v=9nXc1SqTFbk" aria-label="name"
-                    class="bs-play-btn-5 video-popup wa-magnetic-btn">
-                    <i class="fa-solid fa-play"></i>
-                </a>
-            </div>
-        </div>
-        <!-- video-end -->
+      <!-- video-start -->
+   <% 
+   var videoBanner = Array.isArray(realestateBanner)
+       ? realestateBanner.find(function(b) { return b && b.link && b.link.includes('youtube.com'); })
+       : null;
+
+   function getYouTubeId(url) {
+       if (!url) return null;
+       var match = url.match(/(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+       return match ? match[1] : null;
+   }
+
+   var videoId = videoBanner ? getYouTubeId(videoBanner.link) : null;
+%>
+<div class="bs-video-1-area wa-fix">
+   <div class="bs-video-1-content wa-p-relative">
+       <div class="bs-video-1-content-img has-video-2 wa-p-relative wa-fix wa-img-cover">
+           <% if (videoId) { %>
+               <div class="wa-parallax-img" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                   <iframe 
+                       src="https://www.youtube.com/embed/<%= videoId %>?autoplay=1&mute=1&loop=1&playlist=<%= videoId %>" 
+                       frameborder="0" 
+                       allow="autoplay; encrypted-media" 
+                       allowfullscreen
+                       style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                   </iframe>
+               </div>
+           
+           <% } else { %>
+               <div class="wa-parallax-img" style="background:#000;height:350px;display:flex;align-items:center;justify-content:center;">
+                   <span style="color:#fff;">No video available</span>
+               </div>
+           <% } %>
+       </div>
+   </div>
+</div>
         <!-- footer-start -->
     <footer class="bs-footer-1-area bg-black wa-fix wa-p-relative pt-80">
                 <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none;">
@@ -1068,68 +1090,72 @@
             lastScroll = currentScroll;
         });
 
-
         // hero slider
 
-           // Arvies Slider Controller - Unique namespace
+        // Get the dynamic number of slides from realestateBanner
         const arviesSlider = {
             currentSlideIndex: 0,
-            totalSlides: 5,
+            totalSlides: Array.isArray(realestateBanner) ? realestateBanner.length : 0,
             slideInterval: null,
             autoSlideDelay: 5000, // 5 seconds
             progressInterval: null,
-            
+
             init() {
+                // If there are no slides, do not initialize
+                if (this.totalSlides === 0) return;
                 this.setupEventListeners();
                 this.startAutoSlide();
                 this.updateNavDots();
             },
-            
+
             setupEventListeners() {
                 // Touch/Swipe functionality
                 let startX = 0;
                 let endX = 0;
                 const slidesContainer = document.getElementById('arviesSlides');
-                
+                if (!slidesContainer) return;
+
                 slidesContainer.addEventListener('touchstart', (e) => {
                     startX = e.touches[0].clientX;
                 });
-                
+
                 slidesContainer.addEventListener('touchend', (e) => {
                     endX = e.changedTouches[0].clientX;
                     this.handleSwipe(startX, endX);
                 });
-                
+
                 // Mouse drag functionality
                 let isDragging = false;
-                
+
                 slidesContainer.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     startX = e.clientX;
                 });
-                
+
                 slidesContainer.addEventListener('mousemove', (e) => {
                     if (!isDragging) return;
                     e.preventDefault();
                 });
-                
+
                 slidesContainer.addEventListener('mouseup', (e) => {
                     if (!isDragging) return;
                     isDragging = false;
                     endX = e.clientX;
                     this.handleSwipe(startX, endX);
                 });
-                
+
                 // Pause auto-slide on hover
                 const sliderWrapper = document.querySelector('.arvies-slider-wrapper');
-                sliderWrapper.addEventListener('mouseenter', () => this.pauseAutoSlide());
-                sliderWrapper.addEventListener('mouseleave', () => this.startAutoSlide());
+                if (sliderWrapper) {
+                    sliderWrapper.addEventListener('mouseenter', () => this.pauseAutoSlide());
+                    sliderWrapper.addEventListener('mouseleave', () => this.startAutoSlide());
+                }
             },
-            
+
             handleSwipe(startX, endX) {
                 const threshold = 50;
                 const diff = startX - endX;
-                
+
                 if (Math.abs(diff) > threshold) {
                     if (diff > 0) {
                         this.nextSlide();
@@ -1138,14 +1164,16 @@
                     }
                 }
             },
-            
+
             updateSlidePosition() {
                 const slidesContainer = document.getElementById('arviesSlides');
+                if (!slidesContainer) return;
+                if (this.totalSlides === 0) return;
                 const translateX = -(this.currentSlideIndex * (100 / this.totalSlides));
                 slidesContainer.style.transform = `translateX(${translateX}%)`;
                 this.updateNavDots();
             },
-            
+
             updateNavDots() {
                 const dots = document.querySelectorAll('.arvies-nav-dot');
                 dots.forEach((dot, index) => {
@@ -1156,33 +1184,37 @@
                     }
                 });
             },
-            
+
             nextSlide() {
+                if (this.totalSlides === 0) return;
                 this.currentSlideIndex = (this.currentSlideIndex + 1) % this.totalSlides;
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             prevSlide() {
+                if (this.totalSlides === 0) return;
                 this.currentSlideIndex = (this.currentSlideIndex - 1 + this.totalSlides) % this.totalSlides;
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             currentSlide(slideIndex) {
-                this.currentSlideIndex = slideIndex - 1;
+                if (this.totalSlides === 0) return;
+                this.currentSlideIndex = Math.max(0, Math.min(slideIndex - 1, this.totalSlides - 1));
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             startAutoSlide() {
+                if (this.totalSlides <= 1) return; // Don't auto-slide if only one or zero slides
                 this.pauseAutoSlide();
                 this.startProgressBar();
                 this.slideInterval = setInterval(() => {
                     this.nextSlide();
                 }, this.autoSlideDelay);
             },
-            
+
             pauseAutoSlide() {
                 if (this.slideInterval) {
                     clearInterval(this.slideInterval);
@@ -1190,16 +1222,17 @@
                 }
                 this.pauseProgressBar();
             },
-            
+
             resetAutoSlide() {
                 this.startAutoSlide();
             },
-            
+
             startProgressBar() {
                 const progressBar = document.getElementById('arviesProgressBar');
+                if (!progressBar) return;
                 let progress = 0;
                 const increment = 100 / (this.autoSlideDelay / 100);
-                
+
                 this.pauseProgressBar();
                 this.progressInterval = setInterval(() => {
                     progress += increment;
@@ -1209,24 +1242,27 @@
                     progressBar.style.width = progress + '%';
                 }, 100);
             },
-            
+
             pauseProgressBar() {
                 if (this.progressInterval) {
                     clearInterval(this.progressInterval);
                     this.progressInterval = null;
                 }
                 const progressBar = document.getElementById('arviesProgressBar');
-                progressBar.style.width = '0%';
+                if (progressBar) {
+                    progressBar.style.width = '0%';
+                }
             }
         };
-        
+
         // Initialize slider when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             arviesSlider.init();
         });
-        
+
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
+            if (arviesSlider.totalSlides === 0) return;
             if (e.key === 'ArrowLeft') {
                 arviesSlider.prevSlide();
             } else if (e.key === 'ArrowRight') {

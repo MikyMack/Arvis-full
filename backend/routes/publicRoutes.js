@@ -6,12 +6,21 @@ const Architecture = require('../models/Architecture');
 const Interior = require('../models/Interior');
 const Testimonials = require('../models/Testimonial');
 const RealEstate = require('../models/RealEstate');
+const MainBanner = require('../models/MainBanner');
+const ArchitectureBanner = require('../models/BannerTwo');
+const InteriorBanner = require('../models/BannerThree');
+const RealEstateBanner = require('../models/BannerFour');
 
 router.get('/', async (req, res) => {
     try {
         const blogs = await Blog.find()
             .sort({ createdAt: -1 })
             .limit(3)
+            .lean();
+
+        const mainBanners = await MainBanner.find({ isActive: true })
+            .sort({ createdAt: -1 })
+            .limit(5)
             .lean();
 
         const architectures = await Architecture.find({ isActive: true })
@@ -23,17 +32,25 @@ router.get('/', async (req, res) => {
             .sort({ createdAt: -1 })
             .limit(8)
             .lean();
+
+        const realestate = await RealEstate.find({ isActive: true })
+            .sort({ createdAt: -1 })
+            .limit(8)
+            .lean();
+
         const testimonials = await Testimonials.find({ isActive: true })
             .sort({ createdAt: -1 })
             .limit(8)
             .lean();
 
-        res.render('index', { 
+        res.render('index', {
             title: 'Home',
             blogs,
+            mainBanners,
             architectures,
             interiors,
-            testimonials
+            testimonials,
+            realestate
         });
     } catch (error) {
         console.error(error);
@@ -42,14 +59,14 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/about', async (req, res) => {
-    try {   
+    try {
         const testimonials = await Testimonials.find({ isActive: true })
-        .sort({ createdAt: -1 })
-        .limit(8)
-        .lean();
+            .sort({ createdAt: -1 })
+            .limit(8)
+            .lean();
 
-        res.render('about', { 
-            title: 'About Us',  testimonials  
+        res.render('about', {
+            title: 'About Us', testimonials
         });
     } catch (error) {
         console.error(error);
@@ -66,7 +83,7 @@ router.get('/blogs', async (req, res) => {
 
         const totalBlogs = await Blog.countDocuments();
 
-        res.render('blogs', { 
+        res.render('blogs', {
             title: 'Blogs',
             blogs: blogs,
             currentPage: parseInt(page),
@@ -80,17 +97,22 @@ router.get('/blogs', async (req, res) => {
 router.get('/architecture', async (req, res) => {
     try {
         const architectures = await Architecture.find({ isActive: true })
-        .sort({ createdAt: -1 })
-        .limit(16)
-        .lean();
+            .sort({ createdAt: -1 })
+            .limit(16)
+            .lean();
 
         const blogs = await Blog.find()
-        .sort({ createdAt: -1 })
-        .limit(3)
-        .lean();
+            .sort({ createdAt: -1 })
+            .limit(3)
+            .lean();
 
-        res.render('architecture', { 
-            title: 'architecture' , architectures,
+        const architectureBanner = await ArchitectureBanner.find({ isActive: true })
+            .sort({ createdAt: -1 })
+            .limit(5)
+            .lean();
+
+        res.render('architecture', {
+            title: 'architecture', architectures, architectureBanner,
             blogs
         });
     } catch (error) {
@@ -101,7 +123,7 @@ router.get('/architecture', async (req, res) => {
 
 router.get('/contact', async (req, res) => {
     try {
-        res.render('contact', { title: 'contact us'});
+        res.render('contact', { title: 'contact us' });
     } catch (error) {
         console.error(error);
         res.status(500).send('Error loading contact page data');
@@ -111,17 +133,22 @@ router.get('/interior', async (req, res) => {
     try {
 
         const interiors = await Interior.find({ isActive: true })
-        .sort({ createdAt: -1 })
-        .limit(8)
-        .lean();
+            .sort({ createdAt: -1 })
+            .limit(8)
+            .lean();
 
         const blogs = await Blog.find()
-        .sort({ createdAt: -1 })
-        .limit(3)
-        .lean();
+            .sort({ createdAt: -1 })
+            .limit(3)
+            .lean();
+
+            const interiorBanner = await InteriorBanner.find({ isActive: true })
+            .sort({ createdAt: -1 })
+            .limit(5)
+            .lean();
 
         res.render('interior', {
-            title: 'Interiors', interiors, blogs
+            title: 'Interiors', interiors, blogs,interiorBanner
         });
     } catch (error) {
         console.error(error);
@@ -186,7 +213,7 @@ router.get('/interiorDesign', async (req, res) => {
 router.get('/interiorExecution', async (req, res) => {
     try {
         res.render('interiorExecution', {
-            title: 'interiorExecution'   
+            title: 'interiorExecution'
         });
     } catch (error) {
         console.error(error);
@@ -196,12 +223,17 @@ router.get('/interiorExecution', async (req, res) => {
 router.get('/realEstate', async (req, res) => {
     try {
         const realestate = await RealEstate.find({ isActive: true })
-        .sort({ createdAt: -1 })
-        .limit(16)
-        .lean();
+            .sort({ createdAt: -1 })
+            .limit(16)
+            .lean();
+
+            const realestateBanner = await RealEstateBanner.find({ isActive: true })
+            .sort({ createdAt: -1 })
+            .limit(5)
+            .lean();
 
         res.render('realEstate', {
-            title: 'realEstate',realestate 
+            title: 'realEstate', realestate,realestateBanner
         });
     } catch (error) {
         console.error(error);
@@ -379,10 +411,10 @@ router.get('/blogdetails/:id', async (req, res) => {
         }
 
 
-        res.render('blogdetails', { 
+        res.render('blogdetails', {
             title: blog.title || 'Blog Details',
             blog: blog
-         
+
         });
     } catch (error) {
         console.error(error);

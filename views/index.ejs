@@ -133,17 +133,7 @@
                         </span>
                     </h1>
                     <div class="inner-div">
-                        <!-- <a href="/about" aria-label="name" class="bs-hero-4-circle-btn wa-magnetic-btn">
-                            <span class="btn-icon ">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M8.00001 7C8.00001 6.73478 8.10537 6.48043 8.2929 6.29289C8.48044 6.10536 8.73479 6 9.00001 6H17C17.2652 6 17.5196 6.10536 17.7071 6.29289C17.8947 6.48043 18 6.73478 18 7V15C18 15.2652 17.8947 15.5196 17.7071 15.7071C17.5196 15.8946 17.2652 16 17 16C16.7348 16 16.4804 15.8946 16.2929 15.7071C16.1054 15.5196 16 15.2652 16 15V9.414L7.70701 17.707C7.51841 17.8892 7.26581 17.99 7.00361 17.9877C6.74141 17.9854 6.4906 17.8802 6.30519 17.6948C6.11978 17.5094 6.01461 17.2586 6.01234 16.9964C6.01006 16.7342 6.11085 16.4816 6.29301 16.293L14.586 8H9.00001C8.73479 8 8.48044 7.89464 8.2929 7.70711C8.10537 7.51957 8.00001 7.26522 8.00001 7Z"
-                                        fill="#F16319" />
-                                </svg>
-                            </span>
-                            <img style="height: 100px;" src="/img/arvies/circlepng.png" alt="arvies">
-                        </a> -->
+                     
                         <p class="bs-p-4 bs-hero-4-disc wa-split-y" data-split-delay="1.6s">We create timeless
                             architectural spaces, curate refined interior experiences, and deliver real estate solutions
                             that add lasting value</p>
@@ -157,50 +147,26 @@
                 <div class="bs-hero-4-slider-img">
                     <div class="swiper-container bs-h4-img-active wa-fix">
                         <div class="swiper-wrapper">
-
-                            <!-- single-slide -->
-                            <div class="swiper-slide">
-                                <div class="bs-hero-4-slider-img-item ">
-                                    <div class="main-img wa-img-cover">
-                                        <img src="/img/hero/h4-img-1.png" alt="arvies">
+                            <% if (mainBanners && mainBanners.length) { %>
+                                <% mainBanners.forEach(function(banner) { %>
+                                    <div class="swiper-slide">
+                                        <div class="bs-hero-4-slider-img-item ">
+                                            <div class="main-img wa-img-cover">
+                                                <img src="<%= banner.image %>" alt="<%= banner.title ? banner.title : 'Banner' %>">
+                                            </div>
+                                            <!-- trusted -->
+                                        </div>
                                     </div>
-                                    <!-- trusted -->
-                               
-                                </div>
-                            </div>
-
-                            <!-- single-slide -->
-                            <div class="swiper-slide">
-                                <div class="bs-hero-4-slider-img-item ">
-                                    <div class="main-img wa-img-cover">
-                                        <img src="/img/hero/h4-img-2.png" alt="arvies">
+                                <% }) %>
+                            <% } else { %>
+                                <div class="swiper-slide">
+                                    <div class="bs-hero-4-slider-img-item ">
+                                        <div class="main-img wa-img-cover">
+                                            <img src="/img/hero/h4-bg.png" alt="Default Banner">
+                                        </div>
                                     </div>
-                                    <!-- trusted -->
-                              
                                 </div>
-                            </div>
-
-                            <!-- single-slide -->
-                            <div class="swiper-slide">
-                                <div class="bs-hero-4-slider-img-item ">
-                                    <div class="main-img wa-img-cover">
-                                        <img src="/img/hero/h4-img-3.png" alt="arvies">
-                                    </div>
-                                    <!-- trusted -->
-                           
-                                </div>
-                            </div>
-
-                            <!-- single-slide -->
-                            <div class="swiper-slide">
-                                <div class="bs-hero-4-slider-img-item ">
-                                    <div class="main-img wa-img-cover">
-                                        <img src="/img/hero/h4-img-4.png" alt="arvies">
-                                    </div>
-                                    <!-- trusted -->
-                       
-                                </div>
-                            </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -208,38 +174,33 @@
                 <div class="bs-hero-4-slider-thum">
                     <div class="swiper-container bs-h4-thum-active wa-fix">
                         <div class="swiper-wrapper">
-
-                            <!-- single-slide -->
-                            <div class="swiper-slide">
-                                <div class="bs-hero-4-slider-thum-item wa-img-cover wa-fix">
-                                    <img src="/img/hero/h4-thum-1.png" alt="arvies">
+                            <% if (mainBanners && mainBanners.length) { %>
+                                <% mainBanners.forEach(function(banner) { %>
+                                    <div class="swiper-slide">
+                                        <div class="bs-hero-4-slider-thum-item wa-img-cover wa-fix" style="width: 0px; height: 0px; overflow: hidden;">
+                                            <img 
+                                                src="<%= banner.image %>" 
+                                                alt="<%= banner.title ? banner.title : 'Banner' %>" 
+                                                style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                                                onerror="this.onerror=null;this.src='/img/hero/h4-bg.png';"
+                                            >
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } else { %>
+                                <div class="swiper-slide">
+                                    <div class="bs-hero-4-slider-thum-item wa-img-cover wa-fix" style="width: 100px; height: 70px; overflow: hidden;">
+                                        <img 
+                                            src="/img/hero/h4-bg.png" 
+                                            alt="Default Thumbnail"
+                                            style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                                        >
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!-- single-slide -->
-                            <div class="swiper-slide">
-                                <div class="bs-hero-4-slider-thum-item wa-img-cover wa-fix">
-                                    <img src="/img/hero/h4-thum-2.png" alt="arvies">
-                                </div>
-                            </div>
-
-                            <!-- single-slide -->
-                            <div class="swiper-slide">
-                                <div class="bs-hero-4-slider-thum-item wa-img-cover wa-fix">
-                                    <img src="/img/hero/h4-thum-3.png" alt="arvies">
-                                </div>
-                            </div>
-
-                            <!-- single-slide -->
-                            <div class="swiper-slide">
-                                <div class="bs-hero-4-slider-thum-item wa-img-cover wa-fix">
-                                    <img src="/img/hero/h4-thum-1.png" alt="arvies">
-                                </div>
-                            </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
-
 
             </div>
 
@@ -563,7 +524,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-filter-btns" style="display: flex; gap: 16px; margin-bottom: 32px;">
+                <div class="project-filter-btns project-filter-responsive">
                     <button class="bs-pr-btn-2 filter-btn active" data-filter="all" type="button">
                         All
                     </button>
@@ -573,56 +534,100 @@
                     <button class="bs-pr-btn-2 filter-btn" data-filter="interior" type="button">
                         Interior
                     </button>
+                    <button class="bs-pr-btn-2 filter-btn" data-filter="realestate" type="button">
+                        Real Estate
+                    </button>
                 </div>
-                <div class="project-grid">
-                    <% const allProjects=[]; if (Array.isArray(architectures)) { architectures.forEach(function(item) {
-                        allProjects.push({ ...item, _type: 'architecture' , name: item.title, images: item.images,
-                        detailsUrl: '/architectureDetails/' + item._id, category: 'architecture' }); }); } if
-                        (Array.isArray(interiors)) { interiors.forEach(function(item) { allProjects.push({ ...item,
-                        _type: 'interior' , name: item.title, images: item.images, detailsUrl: '/interior/' + item._id,
-                        category: 'interior' }); }); } %>
-                        <% if (allProjects.length> 0) { %>
-                            <% allProjects.forEach(function(project, idx) { %>
-                                <div class="project-card" data-category="<%= project.category %>">
-                                    <div class="image-slider-wrapper">
-                                        <div class="image-slider-container" data-slider="slider<%= idx+1 %>">
-                                            <% if (Array.isArray(project.images) && project.images.length> 0) { %>
-                                                <% project.images.forEach(function(img, imgIdx) { %>
-                                                    <img src="<%= img.url %>" alt="<%= img.seoAlt || project.name %>"
-                                                        class="slider-image">
-                                                    <% }) %>
-                                                        <% } %>
-                                        </div>
-                                        <button class="slider-nav-buttons slider-prev"
-                                            data-target="slider<%= idx+1 %>">‹</button>
-                                        <button class="slider-nav-buttons slider-next"
-                                            data-target="slider<%= idx+1 %>">›</button>
-                                        <div class="slider-indicators" data-indicators="slider<%= idx+1 %>">
-                                            <% if (Array.isArray(project.images) && project.images.length> 0) { %>
-                                                <% project.images.forEach(function(img, imgIdx) { %>
-                                                    <div class="indicator-dot <%= imgIdx === 0 ? 'active-indicator' : '' %>"
-                                                        data-slide="<%= imgIdx %>"></div>
-                                                    <% }) %>
-                                                        <% } %>
-                                        </div>
-                                    </div>
-                                    <div class="project-details">
-                                        <a href="<%= project.detailsUrl %>">
-                                            <h3 class="project-name">
-                                                <%= project.name %>
-                                            </h3>
-                                        </a>
-                                    </div>
-                                </div>
-                                <% }) %>
-                                    <% } else { %>
-                                        <div
-                                            style="grid-column: 1/-1; text-align: center; color: #888; font-size: 1.2em;">
-                                            No projects found.
-                                        </div>
+                <div class="project-grid project-grid-responsive">
+                    <%
+                        const allProjects = [];
+                        if (Array.isArray(architectures)) {
+                            architectures.forEach(function(item) {
+                                allProjects.push({
+                                    ...item,
+                                    name: item.title,
+                                    images: item.images,
+                                
+                                    detailsUrl: '/architectureDetails/' + item._id,
+                                    filterCategory: 'architecture',
+                                    category: item.category
+                                });
+                            });
+                        }
+                        if (Array.isArray(interiors)) {
+                            interiors.forEach(function(item) {
+                                allProjects.push({
+                                    ...item,
+                                    name: item.title,
+                                    images: item.images,
+                                 
+                                    detailsUrl: '/interior/' + item._id,
+                                    filterCategory: 'interior',
+                                    category: item.category
+                                });
+                            });
+                        }
+                        if (Array.isArray(realestate)) {
+                            realestate.forEach(function(item) {
+                                allProjects.push({
+                                    ...item,
+                                    name: item.title,
+                                    images: item.images,
+                                 
+                                    detailsUrl: '/projectDetails/' + item._id,
+                                    filterCategory: 'realestate',
+                                    category: item.category
+                                });
+                            });
+                        }
+                    %>
+                    <% if (allProjects.length > 0) { %>
+                        <% allProjects.forEach(function(project, idx) { 
+                            // Only show the first image in the slider
+                            const firstImg = Array.isArray(project.images) && project.images.length > 0 ? project.images[0] : null;
+                        %>
+                            <div class="project-card" data-category="<%= project.filterCategory %>">
+                                <div class="image-slider-wrapper">
+                                    <div class="image-slider-container" data-slider="slider<%= idx+1 %>">
+                                        <% if (firstImg) { %>
+                                            <div class="slider-image-wrapper">
+                                                <img src="<%= firstImg.url %>" alt="<%= firstImg.seoAlt || project.name %>" class="slider-image">
+                                                <% if (project.category) { %>
+                                                    <span class="project-category-badge" style="position:absolute;top:16px;left:16px;">
+                                                        <%= project.category %>
+                                                    </span>
+                                                <% } %>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="slider-image-wrapper">
+                                                <img src="/img/no-image.png" alt="No image" class="slider-image">
+                                                <% if (project.category) { %>
+                                                    <span class="project-category-badge" style="position:absolute;top:16px;left:16px;">
+                                                        <%= project.category %>
+                                                    </span>
+                                                <% } %>
+                                            </div>
                                         <% } %>
+                                    </div>
+                                    <!-- No slider nav or indicators since only one image -->
+                                </div>
+                                <div class="project-details">
+                                    <a href="<%= project.detailsUrl %>">
+                                        <h3 class="project-name">
+                                            <%= project.name %>
+                                        </h3>
+                                    </a>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <div style="grid-column: 1/-1; text-align: center; color: #888; font-size: 1.2em;">
+                            No projects found.
+                        </div>
+                    <% } %>
                 </div>
             </div>
+          
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     const filterBtns = document.querySelectorAll('.project-filter-btns .filter-btn');
@@ -636,6 +641,9 @@
                         } else if (filter === 'interior') {
                             moreProjectsLink.href = '/interiorDesign';
                             moreProjectsText.textContent = 'More Interior';
+                        } else if (filter === 'realestate') {
+                            moreProjectsLink.href = '/realEstate';
+                            moreProjectsText.textContent = 'More Real Estate';
                         } else {
                             moreProjectsLink.href = '/projects';
                             moreProjectsText.textContent = 'More Projects';

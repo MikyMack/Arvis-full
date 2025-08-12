@@ -83,7 +83,7 @@
                                 </li>
 
                                 <li><a href="/about">about us </a></li>
-                                <li><a href="/blogs">Contact  </a></li>
+                                <li><a href="/blogs">Contact </a></li>
                             </ul>
                         </nav>
 
@@ -120,56 +120,61 @@
         </header>
         <!-- header-end -->
 
-  <div class="arvies-slider-wrapper">
-        <!-- Company Branding -->
- 
-
-        <!-- Slides Container -->
-        <div class="arvies-slides-container" id="arviesSlides">
-            <!-- Slide 1 -->
-            <div style="background-image: url('/img/arvies/inti-1.jpg');" class="arvies-slide arvies-slide-1">
-           
+        <div class="arvies-slider-wrapper">
+            <!-- Slides Container -->
+            <div class="arvies-slides-container" id="arviesSlides">
+                <%
+                    var banners = Array.isArray(architectureBanner)
+                        ? architectureBanner.filter(function(b) { return b && b.image && b.image.trim() !== ''; })
+                        : [];
+                %>
+                <% if (banners.length > 0) { %>
+                    <% banners.forEach(function(banner, idx) { %>
+                        <div
+                            class="arvies-slide arvies-slide-<%= idx+1 %>"
+                            style="background-image: url('<%= banner.image %>');"
+                        >
+                            <img
+                                src="<%= banner.image %>"
+                                alt="<%= banner.title ? banner.title : 'Banner' %>"
+                                style="display:none;"
+                            />
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <div class="arvies-slide" style="background-image: url('/img/arvies/inti-4.jpg');">
+                        <img src="/img/arvies/inti-4.jpg" alt="No banner available" style="display:none;" />
+                    </div>
+                <% } %>
             </div>
 
-            <!-- Slide 2 -->
-            <div style="background-image: url('/img/arvies/inti-2.jpg');" class="arvies-slide arvies-slide-2">
-         
+            <!-- Navigation Arrows -->
+            <% if (banners.length > 1) { %>
+                <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
+                <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
+            <% } %>
+
+            <!-- Navigation Dots -->
+            <div class="arvies-nav-container">
+                <% if (banners.length > 1) { %>
+                    <% for (var i = 0; i < banners.length; i++) { %>
+                        <div
+                            class="arvies-nav-dot<%= (i === 0 ? ' arvies-active' : '') %>"
+                            onclick="arviesSlider.currentSlide(<%= (i+1) %>)"
+                        ></div>
+                    <% } %>
+                <% } else if (banners.length === 1) { %>
+                    <div class="arvies-nav-dot arvies-active"></div>
+                <% } else { %>
+                    <div class="arvies-nav-dot arvies-active"></div>
+                <% } %>
             </div>
 
-            <!-- Slide 3 -->
-            <div style="background-image: url('/img/arvies/inti-3.jpg');" class="arvies-slide arvies-slide-3">
-          
-            </div>
-
-            <!-- Slide 4 -->
-            <div style="background-image: url('/img/arvies/inti-4.jpg');" class="arvies-slide arvies-slide-4">
-       
-            </div>
-
-            <!-- Slide 5 -->
-            <div style="background-image: url('/img/arvies/inti-5.jpg');" class="arvies-slide arvies-slide-5">
-              
+            <!-- Progress Bar -->
+            <div class="arvies-progress-container">
+                <div class="arvies-progress-bar" id="arviesProgressBar"></div>
             </div>
         </div>
-
-        <!-- Navigation Arrows -->
-        <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
-        <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
-
-        <!-- Navigation Dots -->
-        <div class="arvies-nav-container">
-            <div class="arvies-nav-dot arvies-active" onclick="arviesSlider.currentSlide(1)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(2)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(3)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(4)"></div>
-            <div class="arvies-nav-dot" onclick="arviesSlider.currentSlide(5)"></div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="arvies-progress-container">
-            <div class="arvies-progress-bar" id="arviesProgressBar"></div>
-        </div>
-    </div>
 
         <!-- work-start -->
         <div class="bs-work-1-area wa-p-relative">
@@ -340,64 +345,74 @@
                     </div>
                 </div>
 
-                <%
-                    const categoriesSet = new Set();
-                    architectures.forEach(a => {
-                        if (a.category) categoriesSet.add(a.category);
+                <% const categoriesSet=new Set(); architectures.forEach(a=> {
+                    if (a.category) categoriesSet.add(a.category);
                     });
                     const categories = Array.from(categoriesSet);
-                %>
-                <div class="d-flex justify-content-center flex-wrap gap-2 mb-5 " id="category-filters">
-                    <a class="archi-btn" href="javascript:void(0);" data-category="All"><button>All</button></a>
-                    <% categories.forEach(function(cat) { %>
-                        <a class="archi-btn" href="javascript:void(0);" data-category="<%= cat %>"><button><%= cat %></button></a>
-                    <% }) %>
-                </div>
+                    %>
+                    <div class="d-flex justify-content-center flex-wrap gap-2 mb-5 " id="category-filters">
+                        <a class="archi-btn" href="javascript:void(0);" data-category="All"><button>All</button></a>
+                        <% categories.forEach(function(cat) { %>
+                            <a class="archi-btn" href="javascript:void(0);" data-category="<%= cat %>"><button>
+                                    <%= cat %>
+                                </button></a>
+                            <% }) %>
+                    </div>
 
-                <div class="project-grid pb-50" id="project-grid">
-                    <% architectures.forEach(function(arch, idx) { %>
-                        <div class="project-card" data-category="<%= arch.category %>">
-                            <div class="image-slider-wrapper">
-                                <a href="/architectureDetails/<%= arch._id %>">
-                                    <div class="image-slider-container" data-slider="slider<%= idx %>">
-                                        <% if (arch.images && arch.images.length > 0) { %>
+                    <div class="project-grid pb-50" id="project-grid">
+                        <% architectures.forEach(function(arch, idx) { %>
+                            <div class="project-card" data-category="<%= arch.category %>">
+                                <div class="image-slider-wrapper" style="position:relative;">
+                                    <a href="/architectureDetails/<%= arch._id %>">
+                                        <div class="">
+                                            <% if (arch.images && arch.images.length > 0) { 
+                                                var img = arch.images[0]; %>
+                                                <img src="<%= img.url %>"
+                                                    alt="<%= img.seoAlt && img.seoAlt.length > 0 ? img.seoAlt : (arch.title || 'Architecture Image') %>"
+                                                    class="slider-image">
+                                            <% } else { %>
+                                                <img src="/img/no-image.png" alt="No Image"
+                                                    class="slider-image">
+                                            <% } %>
+                                            <% if (arch.category) { %>
+                                                <span class="project-category-inside-image" style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,0.6);color:#fff;padding:4px 12px;border-radius:16px;font-size:0.95em;pointer-events:none;">
+                                                    <%= arch.category %>
+                                                </span>
+                                            <% } %>
+                                        </div>
+                                    </a>
+                                    <% if (arch.images && arch.images.length> 1) { %>
+                                        <button class="slider-nav-buttons slider-prev"
+                                            data-target="slider<%= idx %>">‹</button>
+                                        <button class="slider-nav-buttons slider-next"
+                                            data-target="slider<%= idx %>">›</button>
+                                        <div class="slider-indicators" data-indicators="slider<%= idx %>">
                                             <% arch.images.forEach(function(img, imgIdx) { %>
-                                                <img src="<%= img.url %>" alt="<%= img.seoAlt && img.seoAlt.length > 0 ? img.seoAlt : (arch.title || 'Architecture Image') %>" class="slider-image" style="<%= imgIdx === 0 ? '' : 'display:none;' %>">
+                                                <div class="indicator-dot <%= imgIdx === 0 ? 'active-indicator' : '' %>"
+                                                    data-slide="<%= imgIdx %>"></div>
                                             <% }) %>
-                                        <% } else { %>
-                                            <img src="/img/no-image.png" alt="No Image" class="slider-image">
-                                        <% } %>
-                                    </div>
-                                </a>
-                                <% if (arch.images && arch.images.length > 1) { %>
-                                    <button class="slider-nav-buttons slider-prev" data-target="slider<%= idx %>">‹</button>
-                                    <button class="slider-nav-buttons slider-next" data-target="slider<%= idx %>">›</button>
-                                    <div class="slider-indicators" data-indicators="slider<%= idx %>">
-                                        <% arch.images.forEach(function(img, imgIdx) { %>
-                                            <div class="indicator-dot <%= imgIdx === 0 ? 'active-indicator' : '' %>" data-slide="<%= imgIdx %>"></div>
-                                        <% }) %>
-                                    </div>
-                                <% } %>
+                                        </div>
+                                    <% } %>
+                                </div>
+                                <div class="project-details">
+                                    <a href="/architectureDetails/<%= arch._id %>">
+                                        <h3 class="project-name">
+                                            <%= arch.title %>
+                                        </h3>
+                                    </a>
+                                    <!-- Category removed from details as per instruction -->
+                                </div>
                             </div>
-                            <div class="project-details">
-                                <a href="/architectureDetails/<%= arch._id %>">
-                                    <h3 class="project-name"><%= arch.title %></h3>
-                                </a>
-                                <% if (arch.category) { %>
-                                    <p class="project-category"><%= arch.category %></p>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% }) %>
-                </div>
+                        <% }) %>
+                    </div>
             </div>
 
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
                     const filterLinks = document.querySelectorAll('#category-filters .archi-btn');
                     const cards = document.querySelectorAll('#project-grid .project-card');
                     filterLinks.forEach(link => {
-                        link.addEventListener('click', function(e) {
+                        link.addEventListener('click', function (e) {
                             e.preventDefault();
                             const cat = this.getAttribute('data-category');
                             filterLinks.forEach(l => l.classList.remove('active'));
@@ -412,7 +427,7 @@
                         });
                     });
 
-                    document.querySelectorAll('.image-slider-container').forEach(function(container) {
+                    document.querySelectorAll('.image-slider-container').forEach(function (container) {
                         const images = container.querySelectorAll('.slider-image');
                         if (images.length <= 1) return;
                         let current = 0;
@@ -427,18 +442,18 @@
                             }
                         }
                         if (prevBtn && nextBtn) {
-                            prevBtn.addEventListener('click', function() {
+                            prevBtn.addEventListener('click', function () {
                                 current = (current - 1 + images.length) % images.length;
                                 show(current);
                             });
-                            nextBtn.addEventListener('click', function() {
+                            nextBtn.addEventListener('click', function () {
                                 current = (current + 1) % images.length;
                                 show(current);
                             });
                         }
                         if (indicators.length) {
                             indicators.forEach((dot, i) => {
-                                dot.addEventListener('click', function() {
+                                dot.addEventListener('click', function () {
                                     current = i;
                                     show(current);
                                 });
@@ -448,420 +463,444 @@
                     });
                 });
             </script>
-    <!-- video-start -->
-    <div class="bs-video-1-area wa-fix">
-        <div class="bs-video-1-content wa-p-relative">
-            <div class="bs-video-1-content-img has-video-2  wa-p-relative wa-fix wa-img-cover">
-                <a href="https://www.youtube.com/watch?v=TdTudAOl37s" aria-label="name" class="popup-video"
-                    data-cursor-text="play">
-                    <video class="wa-parallax-img" src="/img/video/v2-video-1.mp4" autoplay loop muted></video>
-                </a>
+            <!-- video-start -->
+            <% 
+                var videoBanner = Array.isArray(architectureBanner)
+                    ? architectureBanner.find(function(b) { return b && b.link && b.link.includes('youtube.com'); })
+                    : null;
 
+                function getYouTubeId(url) {
+                    if (!url) return null;
+                    var match = url.match(/(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+                    return match ? match[1] : null;
+                }
 
-                <div class="bs-video-1-play-btn ">
-                    <a href="https://www.youtube.com/watch?v=TdTudAOl37s" aria-label="name"
-                        class="bs-play-btn-3 wa-magnetic popup-video">
-                        <span class="icon wa-magnetic-btn">
-                            <i class="fa-solid fa-play"></i>
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- video-end -->
-    <section class="bs-blog-4-area pb-50 pt-50">
-        <div class="container bs-container-2">
-
-            <!-- content -->
-            <div class="bs-blog-4-content">
-                <h5 class="bs-subtitle-4 ">
-                    <span class="text">blog & news</span>
-                    <span class="icon">
-                        <img src="/img/illus/subtitle-4-icon.svg" alt="arvies">
-                    </span>
-                </h5>
-                <div class="inner-div">
-                    <h2 class="bs-sec-title-4 title wa-split-right wa-capitalize" data-cursor="-opaque">Take a Look at
-                        Our Latest blogs & Articles.</h2>
-
-                    <div class="btn-wrap wa-fadeInRight">
-                        <a href="/blogs" aria-label="name" class="bs-pr-btn-2">
-                            <span class="text" data-back="View All Blog" data-front="View All Blog"></span>
-                            <span class="line-1"></span>
-                            <span class="line-2"></span>
-                            <span class="box box-1"></span>
-                            <span class="box box-2"></span>
-                            <span class="box box-3"></span>
-                            <span class="box box-4"></span>
-                        </a>
+                var videoId = videoBanner ? getYouTubeId(videoBanner.link) : null;
+            %>
+            <div class="bs-video-1-area wa-fix">
+                <div class="bs-video-1-content wa-p-relative">
+                    <div class="bs-video-1-content-img has-video-2 wa-p-relative wa-fix wa-img-cover">
+                        <% if (videoId) { %>
+                            <div class="wa-parallax-img" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/<%= videoId %>?autoplay=1&mute=1&loop=1&playlist=<%= videoId %>" 
+                                    frameborder="0" 
+                                    allow="autoplay; encrypted-media" 
+                                    allowfullscreen
+                                    style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                </iframe>
+                            </div>
+                        
+                        <% } else { %>
+                            <div class="wa-parallax-img" style="background:#000;height:350px;display:flex;align-items:center;justify-content:center;">
+                                <span style="color:#fff;">No video available</span>
+                            </div>
+                        <% } %>
                     </div>
-
                 </div>
             </div>
+            <!-- video-end -->
+            <section class="bs-blog-4-area pb-50 pt-50">
+                <div class="container bs-container-2">
 
-            <div class="bs-blog-4-wrap">
-                <% if (typeof blogs !=='undefined' && Array.isArray(blogs) && blogs.length> 0) { %>
-                    <% blogs.slice(0, 3).forEach(function(blog, idx) { %>
-                        <div class="bs-blog-4-item wow fadeInRight" <% if(idx> 0) { %> data-wow-delay=".<%= idx * 2 %>s"
-                                <% } %>>
-                                    <div class="item-img wa-fix wa-img-cover">
-                                        <a href="/blogdetails?id=<%= blog._id %>" aria-label="name"
-                                            data-cursor-text="View">
-                                            <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>">
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <a href="/blogdetails?id=<%= blog._id %>" aria-label="name" class="item-btn">
-                                            <i class="flaticon-top-right flaticon"></i>
-                                        </a>
-                                        <p class="bs-p-4 author">
-                                            <%= blog.author %>
-                                        </p>
-                                        <h4 class="title bs-h-1">
-                                            <a href="/blogdetails?id=<%= blog._id %>" aria-label="name">
-                                                <%= blog.title %>
-                                            </a>
-                                        </h4>
-                                        <p class="item-meta bs-p-4">
-                                            <span class="categories">Arvies</span>
-                                            <span class="date">
-                                                <% var dateObj=new Date(blog.createdAt); var months=["Jan", "Feb"
-                                                    , "Mar" , "Apr" , "May" , "Jun" , "Jul" , "Aug" , "Sep" , "Oct"
-                                                    , "Nov" , "Dec" ]; var formattedDate=months[dateObj.getMonth()]
-                                                    + " " + dateObj.getDate() + ", " + dateObj.getFullYear(); %>
-                                                    <%= formattedDate %>
-                                            </span>
-                                        </p>
-                                    </div>
+                    <!-- content -->
+                    <div class="bs-blog-4-content">
+                        <h5 class="bs-subtitle-4 ">
+                            <span class="text">blog & news</span>
+                            <span class="icon">
+                                <img src="/img/illus/subtitle-4-icon.svg" alt="arvies">
+                            </span>
+                        </h5>
+                        <div class="inner-div">
+                            <h2 class="bs-sec-title-4 title wa-split-right wa-capitalize" data-cursor="-opaque">Take a
+                                Look at
+                                Our Latest blogs & Articles.</h2>
+
+                            <div class="btn-wrap wa-fadeInRight">
+                                <a href="/blogs" aria-label="name" class="bs-pr-btn-2">
+                                    <span class="text" data-back="View All Blog" data-front="View All Blog"></span>
+                                    <span class="line-1"></span>
+                                    <span class="line-2"></span>
+                                    <span class="box box-1"></span>
+                                    <span class="box box-2"></span>
+                                    <span class="box box-3"></span>
+                                    <span class="box box-4"></span>
+                                </a>
+                            </div>
+
                         </div>
-                        <% }); %>
-                            <% } else { %>
-                                <div style="padding:2rem 0; text-align:center; color:#888;">
-                                    No blogs available at the moment.
+                    </div>
+
+                    <div class="bs-blog-4-wrap">
+                        <% if (typeof blogs !=='undefined' && Array.isArray(blogs) && blogs.length> 0) { %>
+                            <% blogs.slice(0, 3).forEach(function(blog, idx) { %>
+                                <div class="bs-blog-4-item wow fadeInRight" <% if(idx> 0) { %> data-wow-delay=".<%= idx
+                                        * 2 %>s"
+                                        <% } %>>
+                                            <div class="item-img wa-fix wa-img-cover">
+                                                <a href="/blogdetails?id=<%= blog._id %>" aria-label="name"
+                                                    data-cursor-text="View">
+                                                    <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <a href="/blogdetails?id=<%= blog._id %>" aria-label="name"
+                                                    class="item-btn">
+                                                    <i class="flaticon-top-right flaticon"></i>
+                                                </a>
+                                                <p class="bs-p-4 author">
+                                                    <%= blog.author %>
+                                                </p>
+                                                <h4 class="title bs-h-1">
+                                                    <a href="/blogdetails?id=<%= blog._id %>" aria-label="name">
+                                                        <%= blog.title %>
+                                                    </a>
+                                                </h4>
+                                                <p class="item-meta bs-p-4">
+                                                    <span class="categories">Arvies</span>
+                                                    <span class="date">
+                                                        <% var dateObj=new Date(blog.createdAt); var
+                                                            months=["Jan", "Feb" , "Mar" , "Apr" , "May" , "Jun" , "Jul"
+                                                            , "Aug" , "Sep" , "Oct" , "Nov" , "Dec" ]; var
+                                                            formattedDate=months[dateObj.getMonth()] + " " +
+                                                            dateObj.getDate() + ", " + dateObj.getFullYear(); %>
+                                                            <%= formattedDate %>
+                                                    </span>
+                                                </p>
+                                            </div>
                                 </div>
-                                <% } %>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- footer-start -->
-      <footer class="bs-footer-1-area bg-black wa-fix wa-p-relative pt-80">
-                <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none;">
-            <img src="/img/arvies/footer.png" alt="arvies"
-                style="width:100%; height:100%; object-fit:cover; opacity:0.18;">
-        </div>
-            <div class="container bs-container-1">
-                <div class="bs-footer-1-wrap mb-40">
-
-                    <!-- single-widget -->
-                    <div class="bs-footer-1-widget">
-                        <a href="/" aria-label="name" class="bs-footer-1-logo" data-cursor="-opaque">
-                            <img class="footer-logo" src="/img/arvies/footer-logo.png" alt="arvies">
-                        </a>
-                        <p class="bs-p-1 bs-footer-1-disc">Arvies specializes in architecture, interior design, urban
-                            designing, and real estate crafting spaces with purpose and style.</p>
+                                <% }); %>
+                                    <% } else { %>
+                                        <div style="padding:2rem 0; text-align:center; color:#888;">
+                                            No blogs available at the moment.
+                                        </div>
+                                        <% } %>
                     </div>
-
-                    <!-- single-widget -->
-                    <div class="bs-footer-1-widget">
-                        <h5 class="bs-footer-1-widget-title">Quick Links</h5>
-                        <ul class="bs-footer-1-menu wa-list-style-none">
-                            <li>
-                                <a href="/">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    home
-                                </a>
-                            </li>
-
-
-
-                            <li>
-                                <a href="/blogs">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    blogs
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/about">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    about us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/contact">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    contact us
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- single-widget -->
-
-
-                    <!-- single-widget -->
-                    <div class="bs-footer-1-widget">
-                        <h5 class="bs-footer-1-widget-title">More Links</h5>
-                        <ul class="bs-footer-1-menu wa-list-style-none">
-                            <li>
-                                <a href="/architecture">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    architecture
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/interior">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    interior
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/realEstate">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    real estate
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/projects">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                    Project Sales
-                                </a>
-                            </li>
-
-
-                        </ul>
-                    </div>
-
-                    <!-- single-widget -->
-                    <div class="bs-footer-1-widget">
-                        <h5 class="bs-footer-1-widget-title">contact</h5>
-                        <ul class="bs-footer-1-menu wa-list-style-none">
-                            <li>
-                                <a href="tel:+916360425940">
-                                    <i class="fa-solid fa-phone"></i>
-                                    +91 6360 425 940
-                                </a>
-                            </li>
-                            <li>
-                                <a style="text-transform: none;" href="mailto:arviesgroup@gmail.com">
-                                    <i class="fa-solid fa-mail-bulk"></i>
-                                    arviesgroup@gmail.com
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa-solid fa-location"></i>
-                                    A9, CPGP Lane, Jawahar Nagar, <br>  Sasthamangalam, Trivandrum <br> 695010
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-
 
                 </div>
+            </section>
+
+            <!-- footer-start -->
+            <footer class="bs-footer-1-area bg-black wa-fix wa-p-relative pt-80">
+                <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none;">
+                    <img src="/img/arvies/footer.png" alt="arvies"
+                        style="width:100%; height:100%; object-fit:cover; opacity:0.18;">
+                </div>
+                <div class="container bs-container-1">
+                    <div class="bs-footer-1-wrap mb-40">
+
+                        <!-- single-widget -->
+                        <div class="bs-footer-1-widget">
+                            <a href="/" aria-label="name" class="bs-footer-1-logo" data-cursor="-opaque">
+                                <img class="footer-logo" src="/img/arvies/footer-logo.png" alt="arvies">
+                            </a>
+                            <p class="bs-p-1 bs-footer-1-disc">Arvies specializes in architecture, interior design,
+                                urban
+                                designing, and real estate crafting spaces with purpose and style.</p>
+                        </div>
+
+                        <!-- single-widget -->
+                        <div class="bs-footer-1-widget">
+                            <h5 class="bs-footer-1-widget-title">Quick Links</h5>
+                            <ul class="bs-footer-1-menu wa-list-style-none">
+                                <li>
+                                    <a href="/">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        home
+                                    </a>
+                                </li>
 
 
-                <!-- copyright -->
-                <div class="bs-footer-4-copyright">
-                    <div class="container bs-container-2">
-                        <div class="bs-footer-4-copyright-flex">
-                            <p class="bs-p-4 bs-footer-4-copyright-text">
-                                ©<span class="copyright-year"></span>, <a href="#">Arvis</a> All Rights Reserved |
-                                Developed By <a href="https://trivlogic.com/">Trivlogic Private Limited</a>
-                            </p>
 
-                            <div class="bs-footer-4-copyright-social">
-                                <a href="#" aria-label="name" class="elm-link bs-p-4">
-                                    <i class="fa-brands fa-facebook-f"></i>
-                                    facebook
-                                </a>
-                                <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln" aria-label="name" class="elm-link bs-p-4">
-                                    <i class="fa-brands fa-instagram"></i>
-                                    instagram
-                                </a>
-                                <a href="#" aria-label="name" class="elm-link bs-p-4">
-                                    <i class="fa-brands fa-x-twitter"></i>
-                              x
-                                </a>
-                                <a href="#" aria-label="name" class="elm-link bs-p-4">
-                                    <i class="fa-brands fa-linkedin-in"></i>
-                                    linkedin
-                                </a>
+                                <li>
+                                    <a href="/blogs">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        blogs
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/about">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        about us
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/contact">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        contact us
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- single-widget -->
+
+
+                        <!-- single-widget -->
+                        <div class="bs-footer-1-widget">
+                            <h5 class="bs-footer-1-widget-title">More Links</h5>
+                            <ul class="bs-footer-1-menu wa-list-style-none">
+                                <li>
+                                    <a href="/architecture">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        architecture
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/interior">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        interior
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/realEstate">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        real estate
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/projects">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                        Project Sales
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </div>
+
+                        <!-- single-widget -->
+                        <div class="bs-footer-1-widget">
+                            <h5 class="bs-footer-1-widget-title">contact</h5>
+                            <ul class="bs-footer-1-menu wa-list-style-none">
+                                <li>
+                                    <a href="tel:+916360425940">
+                                        <i class="fa-solid fa-phone"></i>
+                                        +91 6360 425 940
+                                    </a>
+                                </li>
+                                <li>
+                                    <a style="text-transform: none;" href="mailto:arviesgroup@gmail.com">
+                                        <i class="fa-solid fa-mail-bulk"></i>
+                                        arviesgroup@gmail.com
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa-solid fa-location"></i>
+                                        A9, CPGP Lane, Jawahar Nagar, <br> Sasthamangalam, Trivandrum <br> 695010
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- copyright -->
+                    <div class="bs-footer-4-copyright">
+                        <div class="container bs-container-2">
+                            <div class="bs-footer-4-copyright-flex">
+                                <p class="bs-p-4 bs-footer-4-copyright-text">
+                                    ©<span class="copyright-year"></span>, <a href="#">Arvis</a> All Rights Reserved |
+                                    Developed By <a href="https://trivlogic.com/">Trivlogic Private Limited</a>
+                                </p>
+
+                                <div class="bs-footer-4-copyright-social">
+                                    <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                        facebook
+                                    </a>
+                                    <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln"
+                                        aria-label="name" class="elm-link bs-p-4">
+                                        <i class="fa-brands fa-instagram"></i>
+                                        instagram
+                                    </a>
+                                    <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                        <i class="fa-brands fa-x-twitter"></i>
+                                        x
+                                    </a>
+                                    <a href="#" aria-label="name" class="elm-link bs-p-4">
+                                        <i class="fa-brands fa-linkedin-in"></i>
+                                        linkedin
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
-    <!-- footer-end -->
+            </footer>
+            <!-- footer-end -->
 
-    <!-- offcanvas-start -->
-    <div class="wa-offcanvas-area has-home-2  offcanvas_box_active lenis lenis-smooth">
-        <div class="wa-offcanvas-wrap ">
+            <!-- offcanvas-start -->
+            <div class="wa-offcanvas-area has-home-2  offcanvas_box_active lenis lenis-smooth">
+                <div class="wa-offcanvas-wrap ">
 
-            <!-- top -->
-            <div class="wa-offcanvas-top">
+                    <!-- top -->
+                    <div class="wa-offcanvas-top">
 
-                <!-- logo -->
-                <a href="/" aria-label="name" class="wa-offcanvas-top-logo">
-                    <img src="/img/arvies/footer-logo.png" alt="arvies">
-                </a>
+                        <!-- logo -->
+                        <a href="/" aria-label="name" class="wa-offcanvas-top-logo">
+                            <img src="/img/arvies/footer-logo.png" alt="arvies">
+                        </a>
 
-                <!-- close-btn -->
-                <button class="wa-offcanvas-close offcanvas_box_close" aria-label="name">
-                    <span></span>
-                    <span></span>
-                </button>
+                        <!-- close-btn -->
+                        <button class="wa-offcanvas-close offcanvas_box_close" aria-label="name">
+                            <span></span>
+                            <span></span>
+                        </button>
 
-            </div>
+                    </div>
 
 
-            <!-- mobile-menu-list -->
-            <nav class="mobile-main-navigation mb-50 d-block d-lg-none">
-                <ul class="navbar-nav">
-                    <li class="">
-                        <a href="/">home</a>
+                    <!-- mobile-menu-list -->
+                    <nav class="mobile-main-navigation mb-50 d-block d-lg-none">
+                        <ul class="navbar-nav">
+                            <li class="">
+                                <a href="/">home</a>
 
-                    </li>
+                            </li>
 
-                    <li><a href="/about">about Us</a></li>
+                            <li><a href="/about">about Us</a></li>
 
-                    <li class="dropdown">
-                        <a style="color: #f16520;" href="/architecture">Architecture</a>
-                        <ul class="dropdown-menu clearfix">
-                            <li><a href="/architectureDesigns?category=Residential">Residential</a></li>
-                            <li><a href="/architectureDesigns?category=Commercial">Commercial</a></li>
-                            <li><a href="/architectureDesigns?category=Industrial">Industrial</a></li>
-                            <li><a href="/architectureDesigns?category=Hospitality">Hospitality</a></li>
-                            <li><a href="/architectureDesigns?category=Urban%20Design">Urban Design</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="/interior">Interior</a>
-                        <ul class="dropdown-menu clearfix">
-                            <li><a href="/interiorDesign">Design</a></li>
-                            <li><a href="/interiorExecution">Execution</a></li>
-                        </ul>
-                    </li>
+                            <li class="dropdown">
+                                <a style="color: #f16520;" href="/architecture">Architecture</a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a href="/architectureDesigns?category=Residential">Residential</a></li>
+                                    <li><a href="/architectureDesigns?category=Commercial">Commercial</a></li>
+                                    <li><a href="/architectureDesigns?category=Industrial">Industrial</a></li>
+                                    <li><a href="/architectureDesigns?category=Hospitality">Hospitality</a></li>
+                                    <li><a href="/architectureDesigns?category=Urban%20Design">Urban Design</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="/interior">Interior</a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a href="/interiorDesign">Design</a></li>
+                                    <li><a href="/interiorExecution">Execution</a></li>
+                                </ul>
+                            </li>
 
-                    <li class="dropdown">
-                        <a href="/realEstate">Real Estate</a>
-                        <ul class="dropdown-menu clearfix">
-                            <!-- <li><a href="siteDevelopment.html">Site Development</a></li> -->
-                            <li><a href="/projects">Project Sales
-                                </a></li>
-                            <!-- <li><a href="/projects">Rental Properties</a></li> -->
-                            <!-- <li><a href="purchaseDivision.html">Purchase Division
+                            <li class="dropdown">
+                                <a href="/realEstate">Real Estate</a>
+                                <ul class="dropdown-menu clearfix">
+                                    <!-- <li><a href="siteDevelopment.html">Site Development</a></li> -->
+                                    <li><a href="/projects">Project Sales
+                                        </a></li>
+                                    <!-- <li><a href="/projects">Rental Properties</a></li> -->
+                                    <!-- <li><a href="purchaseDivision.html">Purchase Division
 </a></li>
    <li><a href="consultancy.html">Consultancy</a></li> -->
+                                </ul>
+                            </li>
+
+
+
+                            <li><a href="/blogs">Blogs </a></li>
+                            <li><a href="/contact">Contact </a></li>
                         </ul>
-                    </li>
+                    </nav>
+                    <div>
+
+                        <p>Arvies is a creative firm specializing in architecture, interior design, urban designing, and
+                            real
+                            estate. We create thoughtful spaces that blend aesthetic vision with practical excellence.
+                        </p>
+                        <a class="sidebar-btn" href="tel:+916360425940"> <button
+                                style="height: 40px; width: 100%; margin-bottom: 15px;"> Free consultation</button></a>
+                    </div>
+
+                    <div class="wa-offcanvas-gallery">
+                        <h6 class="wa-offcanvas-gallery-title bs-h-1 ">Stay Inspired with Instagram</h6>
 
 
 
-                    <li><a href="/blogs">Blogs </a></li>
-                    <li><a href="/contact">Contact </a></li>
-                </ul>
+                        <div class="wa-offcanvas-gallery-grid">
+                            <a href="/img/gallery/g2-img-1.png" aria-label="name"
+                                class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
+                                <img src="/img/gallery/g2-img-1.png" alt="arvies">
+                            </a>
+                            <a href="/img/gallery/g2-img-2.png" aria-label="name"
+                                class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
+                                <img src="/img/gallery/g2-img-2.png" alt="arvies">
+                            </a>
+                            <a href="/img/gallery/g2-img-3.png" aria-label="name"
+                                class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
+                                <img src="/img/gallery/g2-img-3.png" alt="arvies">
+                            </a>
+                            <a href="/img/gallery/g2-img-4.png" aria-label="name"
+                                class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
+                                <img src="/img/gallery/g2-img-4.png" alt="arvies">
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- social -->
+                    <div class="wa-offcanvas-social">
+                        <h6 class="wa-offcanvas-social-title bs-h-1 ">we're on social media:</h6>
+
+                        <div class="wa-offcanvas-social-flex d-flex flex-wrap">
+                            <a href="#" class="wa-offcanvas-social-link " aria-label="name">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="wa-offcanvas-social-link " aria-label="name">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="wa-offcanvas-social-link " aria-label="name">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                            <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln"
+                                class="wa-offcanvas-social-link" aria-label="name">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="wa-overly"></div>
+            <!-- offcanvas-end -->
+            <nav class="premium-mobile-navbar">
+                <div class="premium-navbar-container">
+                    <a href="/" class="premium-nav-link ">
+                        <img class="mob-nav-icon" src="/img/icon/menu.svg" alt="arvies">
+                        <span class="premium-nav-text">Home</span>
+                    </a>
+                    <a style="color: #f16520!important;" href="/architecture" class="premium-nav-link">
+                        <img class="mob-nav-icon" src="/img/icon/architec.svg" alt="arvies">
+                        <span class="premium-nav-text">Archi</span>
+                    </a>
+                    <a href="/interior" class="premium-nav-link">
+                        <img class="mob-nav-icon" src="/img/icon/inder.svg" alt="arvies">
+                        <span class="premium-nav-text">Interior</span>
+                    </a>
+
+                    <a href="/projects" class="premium-nav-link active-premium-nav">
+                        <img class="mob-nav-icon" src="/img/icon/real.svg" alt="arvies">
+                        <span class="premium-nav-text">real Estate</span>
+                    </a>
+
+                    <a href="/projects" class="premium-nav-link active-premium-nav">
+                        <img class="mob-nav-icon" src="/img/icon/phone.svg" alt="arvies">
+                        <span class="premium-nav-text">Contact</span>
+                    </a>
+
+                </div>
             </nav>
-            <div>
-
-                <p>Arvies is a creative firm specializing in architecture, interior design, urban designing, and real
-                    estate. We create thoughtful spaces that blend aesthetic vision with practical excellence.</p>
-                <a class="sidebar-btn" href="tel:+916360425940"> <button
-                        style="height: 40px; width: 100%; margin-bottom: 15px;"> Free consultation</button></a>
+            <div class="social-icon-container" id="whatsappIcon">
+                <a href="https://wa.me/+916360425940?text=Hi%20there!%20I%20need%20help.">
+                    <img src="/img/icon/whatsapp.png" alt="WhatsApp Icon">
+                </a>
             </div>
-
-            <div class="wa-offcanvas-gallery">
-                <h6 class="wa-offcanvas-gallery-title bs-h-1 ">Stay Inspired with Instagram</h6>
-
-
-
-                <div class="wa-offcanvas-gallery-grid">
-                    <a href="/img/gallery/g2-img-1.png" aria-label="name"
-                        class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
-                        <img src="/img/gallery/g2-img-1.png" alt="arvies">
-                    </a>
-                    <a href="/img/gallery/g2-img-2.png" aria-label="name"
-                        class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
-                        <img src="/img/gallery/g2-img-2.png" alt="arvies">
-                    </a>
-                    <a href="/img/gallery/g2-img-3.png" aria-label="name"
-                        class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
-                        <img src="/img/gallery/g2-img-3.png" alt="arvies">
-                    </a>
-                    <a href="/img/gallery/g2-img-4.png" aria-label="name"
-                        class="popup-img wa-offcanvas-gallery-item wa-img-cover wa-fix">
-                        <img src="/img/gallery/g2-img-4.png" alt="arvies">
-                    </a>
-                </div>
+            <!-- back-to-top-button-start -->
+            <div class="wa-back-to-top ">
+                <span class="wa-back-to-top-text">Top</span>
             </div>
-
-            <!-- social -->
-            <div class="wa-offcanvas-social">
-                <h6 class="wa-offcanvas-social-title bs-h-1 ">we're on social media:</h6>
-
-                <div class="wa-offcanvas-social-flex d-flex flex-wrap">
-                    <a href="#" class="wa-offcanvas-social-link " aria-label="name">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a href="#" class="wa-offcanvas-social-link " aria-label="name">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="wa-offcanvas-social-link " aria-label="name">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
-                    <a href="https://www.instagram.com/arvies.architecture?igsh=Mjk4eGtkb2hoaDln" class="wa-offcanvas-social-link" aria-label="name">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-    <div class="wa-overly"></div>
-    <!-- offcanvas-end -->
-    <nav class="premium-mobile-navbar">
-        <div class="premium-navbar-container">
-            <a href="/" class="premium-nav-link ">
-                <img class="mob-nav-icon" src="/img/icon/menu.svg" alt="arvies">
-                <span class="premium-nav-text">Home</span>
-            </a>
-            <a style="color: #f16520!important;" href="/architecture" class="premium-nav-link">
-                <img class="mob-nav-icon" src="/img/icon/architec.svg" alt="arvies">
-                <span class="premium-nav-text">Archi</span>
-            </a>
-            <a href="/interior" class="premium-nav-link">
-                <img class="mob-nav-icon" src="/img/icon/inder.svg" alt="arvies">
-                <span class="premium-nav-text">Interior</span>
-            </a>
-
-            <a href="/projects" class="premium-nav-link active-premium-nav">
-                <img class="mob-nav-icon" src="/img/icon/real.svg" alt="arvies">
-                <span class="premium-nav-text">real Estate</span>
-            </a>
-
-            <a href="/projects" class="premium-nav-link active-premium-nav">
-                <img class="mob-nav-icon" src="/img/icon/phone.svg" alt="arvies">
-                <span class="premium-nav-text">Contact</span>
-            </a>
-
-        </div>
-    </nav>
-    <div class="social-icon-container" id="whatsappIcon">
-        <a href="https://wa.me/+916360425940?text=Hi%20there!%20I%20need%20help.">
-            <img src="/img/icon/whatsapp.png" alt="WhatsApp Icon">
-        </a>
-    </div>
-    <!-- back-to-top-button-start -->
-    <div class="wa-back-to-top ">
-        <span class="wa-back-to-top-text">Top</span>
-    </div>
-    <!-- back-to-top-button-end -->
+            <!-- back-to-top-button-end -->
 
     </div>
 
@@ -884,104 +923,74 @@
     <script src="/js/ScrollTrigger.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/slider.js"></script>
+ 
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const slider = document.querySelector('.slider');
-            const images = document.querySelectorAll('.slider img');
-            const imageCount = images.length;
-            let currentIndex = 0;
-
-            function initializeSlider() {
-                const firstImage = images[0].cloneNode(true);
-                slider.appendChild(firstImage);
-            }
-
-            initializeSlider();
-
-            function autoSlide() {
-                currentIndex++;
-                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-                if (currentIndex >= imageCount) {
-                    setTimeout(() => {
-                        slider.style.transition = 'none';
-                        currentIndex = 0;
-                        slider.style.transform = 'translateX(0)';
-                        void slider.offsetWidth; // Trigger reflow
-                        slider.style.transition = 'transform 0.5s ease-in-out';
-                    }, 500);
-                }
-            }
-
-            let slideInterval = setInterval(autoSlide, 2000);
-
-            // Optional hover pause
-            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-            slider.addEventListener('mouseleave', () => slideInterval = setInterval(autoSlide, 2000));
-        });
-    </script>
-
-
- <script>
-        // Arvies Slider Controller - Unique namespace
+  
+        // Get the dynamic number of slides from realestateBanner
         const arviesSlider = {
             currentSlideIndex: 0,
-            totalSlides: 5,
+            totalSlides: Array.isArray(architectureBanner) ? architectureBanner.length : 0,
             slideInterval: null,
             autoSlideDelay: 5000, // 5 seconds
             progressInterval: null,
-            
+
             init() {
+                // If there are no slides, do not initialize
+                if (this.totalSlides === 0) return;
                 this.setupEventListeners();
                 this.startAutoSlide();
                 this.updateNavDots();
             },
-            
+
             setupEventListeners() {
                 // Touch/Swipe functionality
                 let startX = 0;
                 let endX = 0;
                 const slidesContainer = document.getElementById('arviesSlides');
-                
+                if (!slidesContainer) return;
+
                 slidesContainer.addEventListener('touchstart', (e) => {
                     startX = e.touches[0].clientX;
                 });
-                
+
                 slidesContainer.addEventListener('touchend', (e) => {
                     endX = e.changedTouches[0].clientX;
                     this.handleSwipe(startX, endX);
                 });
-                
+
                 // Mouse drag functionality
                 let isDragging = false;
-                
+
                 slidesContainer.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     startX = e.clientX;
                 });
-                
+
                 slidesContainer.addEventListener('mousemove', (e) => {
                     if (!isDragging) return;
                     e.preventDefault();
                 });
-                
+
                 slidesContainer.addEventListener('mouseup', (e) => {
                     if (!isDragging) return;
                     isDragging = false;
                     endX = e.clientX;
                     this.handleSwipe(startX, endX);
                 });
-                
+
                 // Pause auto-slide on hover
                 const sliderWrapper = document.querySelector('.arvies-slider-wrapper');
-                sliderWrapper.addEventListener('mouseenter', () => this.pauseAutoSlide());
-                sliderWrapper.addEventListener('mouseleave', () => this.startAutoSlide());
+                if (sliderWrapper) {
+                    sliderWrapper.addEventListener('mouseenter', () => this.pauseAutoSlide());
+                    sliderWrapper.addEventListener('mouseleave', () => this.startAutoSlide());
+                }
             },
-            
+
             handleSwipe(startX, endX) {
                 const threshold = 50;
                 const diff = startX - endX;
-                
+
                 if (Math.abs(diff) > threshold) {
                     if (diff > 0) {
                         this.nextSlide();
@@ -990,14 +999,16 @@
                     }
                 }
             },
-            
+
             updateSlidePosition() {
                 const slidesContainer = document.getElementById('arviesSlides');
+                if (!slidesContainer) return;
+                if (this.totalSlides === 0) return;
                 const translateX = -(this.currentSlideIndex * (100 / this.totalSlides));
                 slidesContainer.style.transform = `translateX(${translateX}%)`;
                 this.updateNavDots();
             },
-            
+
             updateNavDots() {
                 const dots = document.querySelectorAll('.arvies-nav-dot');
                 dots.forEach((dot, index) => {
@@ -1008,33 +1019,37 @@
                     }
                 });
             },
-            
+
             nextSlide() {
+                if (this.totalSlides === 0) return;
                 this.currentSlideIndex = (this.currentSlideIndex + 1) % this.totalSlides;
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             prevSlide() {
+                if (this.totalSlides === 0) return;
                 this.currentSlideIndex = (this.currentSlideIndex - 1 + this.totalSlides) % this.totalSlides;
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             currentSlide(slideIndex) {
-                this.currentSlideIndex = slideIndex - 1;
+                if (this.totalSlides === 0) return;
+                this.currentSlideIndex = Math.max(0, Math.min(slideIndex - 1, this.totalSlides - 1));
                 this.updateSlidePosition();
                 this.resetAutoSlide();
             },
-            
+
             startAutoSlide() {
+                if (this.totalSlides <= 1) return; // Don't auto-slide if only one or zero slides
                 this.pauseAutoSlide();
                 this.startProgressBar();
                 this.slideInterval = setInterval(() => {
                     this.nextSlide();
                 }, this.autoSlideDelay);
             },
-            
+
             pauseAutoSlide() {
                 if (this.slideInterval) {
                     clearInterval(this.slideInterval);
@@ -1042,16 +1057,17 @@
                 }
                 this.pauseProgressBar();
             },
-            
+
             resetAutoSlide() {
                 this.startAutoSlide();
             },
-            
+
             startProgressBar() {
                 const progressBar = document.getElementById('arviesProgressBar');
+                if (!progressBar) return;
                 let progress = 0;
                 const increment = 100 / (this.autoSlideDelay / 100);
-                
+
                 this.pauseProgressBar();
                 this.progressInterval = setInterval(() => {
                     progress += increment;
@@ -1061,24 +1077,27 @@
                     progressBar.style.width = progress + '%';
                 }, 100);
             },
-            
+
             pauseProgressBar() {
                 if (this.progressInterval) {
                     clearInterval(this.progressInterval);
                     this.progressInterval = null;
                 }
                 const progressBar = document.getElementById('arviesProgressBar');
-                progressBar.style.width = '0%';
+                if (progressBar) {
+                    progressBar.style.width = '0%';
+                }
             }
         };
-        
+
         // Initialize slider when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             arviesSlider.init();
         });
-        
+
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
+            if (arviesSlider.totalSlides === 0) return;
             if (e.key === 'ArrowLeft') {
                 arviesSlider.prevSlide();
             } else if (e.key === 'ArrowRight') {
