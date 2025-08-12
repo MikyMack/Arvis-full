@@ -8964,17 +8964,8 @@ Primary style
   color: var(--bs-clr-pr-1);
 }
 
-/* 
-    projects-5-end
-*/
-/*
-    20. work
-*/
-/* 
-    work-1-start
-*/
 .bs-work-1-area {
-  padding-top: 100px;
+  padding-top: 10px;
   padding-bottom: 20px;
 }
 .bs-work-1-bg-img {

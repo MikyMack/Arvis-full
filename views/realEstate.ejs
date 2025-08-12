@@ -116,54 +116,63 @@
         </header>
         <!-- header-end -->
 
-        <!-- hero-start -->
-  <% 
-    // realestateBanner is expected to be an array of objects with {title, image} 
-    // image can be a string (url) or an object with .url
-    const banners = Array.isArray(realestateBanner) ? realestateBanner : [];
-    const hasBanners = banners.length > 0;
-  %>
-  <div class="arvies-slider-wrapper">
-    <% if (hasBanners) { %>
-      <!-- Slides Container -->
-      <div class="arvies-slides-container" id="arviesSlides">
-        <% banners.forEach(function(banner, idx) { 
-            var imgUrl = banner.image && typeof banner.image === 'object' ? banner.image.url : banner.image;
-            var title = banner.title || '';
-        %>
-          <div 
-            style="background-image: url('<%= imgUrl %>');" 
-            class="arvies-slide arvies-slide-<%= idx+1 %>">
-          
-          </div>
-        <% }); %>
-      </div>
-
-      <!-- Navigation Arrows -->
-      <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
-      <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
-
-      <!-- Navigation Dots -->
-      <div class="arvies-nav-container">
-        <% banners.forEach(function(banner, idx) { %>
-          <div 
-            class="arvies-nav-dot <%= idx === 0 ? 'arvies-active' : '' %>" 
-            onclick="arviesSlider.currentSlide(<%= idx+1 %>)"></div>
-        <% }); %>
-      </div>
-
-      <!-- Progress Bar -->
-      <div class="arvies-progress-container">
-        <div class="arvies-progress-bar" id="arviesProgressBar"></div>
-      </div>
-    <% } else { %>
-      <div class="arvies-slides-container" id="arviesSlides">
-        <div class="arvies-slide" style="background:#eee;display:flex;align-items:center;justify-content:center;height:350px;">
-          <span style="color:#888;font-size:1.5em;">No banner available</span>
+        <div class="wa-slider-wrapper">
+            <div class="swiper wa-swiper-slider">
+                <div class="swiper-wrapper">
+                    <%
+                        var banners = Array.isArray(realestateBanner)
+                            ? realestateBanner.filter(function(b) { return b && b.image && b.image.trim() !== ''; })
+                            : [];
+                    %>
+                    <% if (banners.length > 0) { %>
+                        <% banners.forEach(function(banner, idx) { %>
+                            <div class="swiper-slide">
+                                <img 
+                                    src="<%= banner.image %>" 
+                                    alt="Banner" 
+                                    class="wa-slider-img"
+                                    style="width:100%;height:100%;object-fit:cover;display:block;"
+                                />
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="swiper-slide">
+                            <img 
+                                src="/img/arvies/inti-4.jpg" 
+                                alt="No banner available" 
+                                class="wa-slider-img"
+                                style="width:100%;height:100%;object-fit:cover;display:block;"
+                            />
+                        </div>
+                    <% } %>
+                </div>
+                <div class="swiper-pagination wa-swiper-pagination"></div>
+            </div>
         </div>
-      </div>
-    <% } %>
-  </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                if (window.Swiper) {
+                    new Swiper('.wa-swiper-slider', {
+                        loop: true,
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.wa-swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.wa-swiper-next',
+                            prevEl: '.wa-swiper-prev',
+                        },
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                        effect: 'slide',
+                    });
+                }
+            });
+        </script>
         <!-- hero-end -->
 
 

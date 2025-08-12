@@ -120,61 +120,63 @@
         </header>
         <!-- header-end -->
 
-        <div class="arvies-slider-wrapper">
-            <!-- Slides Container -->
-            <div class="arvies-slides-container" id="arviesSlides">
-                <%
-                    var banners = Array.isArray(architectureBanner)
-                        ? architectureBanner.filter(function(b) { return b && b.image && b.image.trim() !== ''; })
-                        : [];
-                %>
-                <% if (banners.length > 0) { %>
-                    <% banners.forEach(function(banner, idx) { %>
-                        <div
-                            class="arvies-slide arvies-slide-<%= idx+1 %>"
-                            style="background-image: url('<%= banner.image %>');"
-                        >
-                            <img
-                                src="<%= banner.image %>"
-                                alt="<%= banner.title ? banner.title : 'Banner' %>"
-                                style="display:none;"
+        <div class="wa-slider-wrapper">
+            <div class="swiper wa-swiper-slider">
+                <div class="swiper-wrapper">
+                    <%
+                        var banners = Array.isArray(architectureBanner)
+                            ? architectureBanner.filter(function(b) { return b && b.image && b.image.trim() !== ''; })
+                            : [];
+                    %>
+                    <% if (banners.length > 0) { %>
+                        <% banners.forEach(function(banner, idx) { %>
+                            <div class="swiper-slide">
+                                <img 
+                                    src="<%= banner.image %>" 
+                                    alt="Banner" 
+                                    class="wa-slider-img"
+                                    style="width:100%;height:100%;object-fit:cover;display:block;"
+                                />
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="swiper-slide">
+                            <img 
+                                src="/img/arvies/inti-4.jpg" 
+                                alt="No banner available" 
+                                class="wa-slider-img"
+                                style="width:100%;height:100%;object-fit:cover;display:block;"
                             />
                         </div>
-                    <% }) %>
-                <% } else { %>
-                    <div class="arvies-slide" style="background-image: url('/img/arvies/inti-4.jpg');">
-                        <img src="/img/arvies/inti-4.jpg" alt="No banner available" style="display:none;" />
-                    </div>
-                <% } %>
-            </div>
-
-            <!-- Navigation Arrows -->
-            <% if (banners.length > 1) { %>
-                <div class="arvies-arrow arvies-arrow-prev" onclick="arviesSlider.prevSlide()">‹</div>
-                <div class="arvies-arrow arvies-arrow-next" onclick="arviesSlider.nextSlide()">›</div>
-            <% } %>
-
-            <!-- Navigation Dots -->
-            <div class="arvies-nav-container">
-                <% if (banners.length > 1) { %>
-                    <% for (var i = 0; i < banners.length; i++) { %>
-                        <div
-                            class="arvies-nav-dot<%= (i === 0 ? ' arvies-active' : '') %>"
-                            onclick="arviesSlider.currentSlide(<%= (i+1) %>)"
-                        ></div>
                     <% } %>
-                <% } else if (banners.length === 1) { %>
-                    <div class="arvies-nav-dot arvies-active"></div>
-                <% } else { %>
-                    <div class="arvies-nav-dot arvies-active"></div>
-                <% } %>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="arvies-progress-container">
-                <div class="arvies-progress-bar" id="arviesProgressBar"></div>
+                </div>
+                <div class="swiper-pagination wa-swiper-pagination"></div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                if (window.Swiper) {
+                    new Swiper('.wa-swiper-slider', {
+                        loop: true,
+                        autoplay: {
+                            delay: 5000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.wa-swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.wa-swiper-next',
+                            prevEl: '.wa-swiper-prev',
+                        },
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                        effect: 'slide',
+                    });
+                }
+            });
+        </script>
 
         <!-- work-start -->
         <div class="bs-work-1-area wa-p-relative">
