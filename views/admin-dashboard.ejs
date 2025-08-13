@@ -128,13 +128,6 @@
         <div id="page">
             <!-- layout-wrap -->
             <div class="layout-wrap">
-                <!-- preload -->
-                <div id="preload" class="preload-container">
-                    <div class="preloading">
-                        <span></span>
-                    </div>
-                </div>
-                <!-- /preload -->
                 <!-- section-menu-left -->
                 <div class="section-menu-left">
                     <div class="box-logo">
@@ -427,8 +420,24 @@
                                         <input type="text" id="arch-budgets" name="budgets" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="arch-location">Location</label>
-                                        <input type="text" id="arch-location" name="location" required>
+                                        <label for="arch-location">Location (District)</label>
+                                        <select id="arch-location" name="location" required>
+                                            <option value="">Select District</option>
+                                            <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                            <option value="Kollam">Kollam</option>
+                                            <option value="Pathanamthitta">Pathanamthitta</option>
+                                            <option value="Alappuzha">Alappuzha</option>
+                                            <option value="Kottayam">Kottayam</option>
+                                            <option value="Idukki">Idukki</option>
+                                            <option value="Ernakulam">Ernakulam</option>
+                                            <option value="Thrissur">Thrissur</option>
+                                            <option value="Palakkad">Palakkad</option>
+                                            <option value="Malappuram">Malappuram</option>
+                                            <option value="Kozhikode">Kozhikode</option>
+                                            <option value="Wayanad">Wayanad</option>
+                                            <option value="Kannur">Kannur</option>
+                                            <option value="Kasaragod">Kasaragod</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="arch-highlights">Highlights</label>
