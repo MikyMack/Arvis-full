@@ -10521,7 +10521,10 @@ Primary style
 */
 @media (max-width: 767px) {
   .bs-video-1-content-img:is(.has-video-2) {
-    height: 350px;
+    height: 250px;
+  }
+  .archi-prject{
+    width: 100%!important;
   }
 }
 @media only screen and (min-width: 576px) and (max-width: 767px) {
@@ -19251,8 +19254,11 @@ Primary style
     text-align: center;
   }
   .breadcrumb-area{
-    padding-top: 150px!important;
+    padding-top: 0px!important;
   }
+  /* .int-details-main{
+    padding-top: 0!important;
+  } */
 }
 /* Add these styles to your existing CSS */
 
