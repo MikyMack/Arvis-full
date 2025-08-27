@@ -20298,8 +20298,9 @@ Primary style
         }
 
         .archi-btn button{
-          height: 80px;
-          width: 140px;
+          height: auto;
+          padding: 10px;
+          width: 160px;
           background-color: #F16520;
           color:white;
           border-radius: 5px;
