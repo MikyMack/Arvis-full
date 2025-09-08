@@ -60,7 +60,7 @@ CSS INDEX
 /* Add Helvetica font-face from local font folder */
 @font-face {
   font-family: 'Helvetica';
-  src: url('./font/Helvetica.ttf') format('truetype');
+  src: url('../fonts/Helvetica.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -73,9 +73,9 @@ CSS INDEX
 
 :root {
   scroll-behavior: inherit;
-  --bs-font-1: "Helvetica", "Albert Sans", Arial, sans-serif;
-  --bs-font-2: "Helvetica", "Albert Sans", Arial, sans-serif;
-  --bs-font-3: "Helvetica", "Albert Sans", Arial, sans-serif;
+  --bs-font-1: "helvettica", "Albert Sans", Arial, sans-serif;
+  --bs-font-2: "helvettica", "Albert Sans", Arial, sans-serif;
+  --bs-font-3: "helvettica", "Albert Sans", Arial, sans-serif;
   --allura: "Allura", serif;
   --bs-clr-pr-1: #f16319;
   --lw-clr-sd-1: #C4EF17;
@@ -91,6 +91,7 @@ body {
   font-family: var(--bs-font-1)!important;
   font-size: 18px;
   font-weight: 400;
+  font-family: 'Helvetica', Arial, sans-serif !important;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   line-height: 28px;
