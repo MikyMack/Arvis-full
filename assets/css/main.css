@@ -2860,7 +2860,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   transition: 300ms;
   width: 100%;
   height: 3px;
-  background: white;
+  background: black;
   position: absolute;
 }
 .wa-offcanvas-close span:nth-child(1) {
@@ -19858,6 +19858,15 @@ Primary style
     display: flex;
     flex-wrap: wrap!important;
   }
+      .sidebar-btn{
+        font-size: 14px;
+      }
+}
+@media(max-width:377px){
+
+      .sidebar-btn{
+        font-size: 10px;
+      }
 }
 
  .archi-banner-container {
