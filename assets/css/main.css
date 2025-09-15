@@ -59,8 +59,8 @@ CSS INDEX
 */
 /* Add Helvetica font-face from local font folder */
 @font-face {
-  font-family: 'Helvetica';
-  src: url('./font/Helvetica.ttf') format('truetype');
+  font-family: 'Montserrat';
+  src: url('./../fonts/Montserrat-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -73,9 +73,9 @@ CSS INDEX
 
 :root {
   scroll-behavior: inherit;
-  --bs-font-1: "Helvetica", "Albert Sans", Arial, sans-serif;
-  --bs-font-2: "Helvetica", "Albert Sans", Arial, sans-serif;
-  --bs-font-3: "Helvetica", "Albert Sans", Arial, sans-serif;
+  --bs-font-1: "Montserrat";
+  --bs-font-2: "Montserrat";
+  --bs-font-3: "Montserrat";
   --allura: "Allura", serif;
   --bs-clr-pr-1: #f16319;
   --lw-clr-sd-1: #C4EF17;
