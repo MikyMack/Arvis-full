@@ -10,6 +10,7 @@ const publicRoutes = require('./routes/publicRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
+const submissionRoutes = require('./routes/submissions');
 const app = express();
 
 // Middleware
@@ -36,6 +37,7 @@ app.use('/', publicRoutes);
 app.use('/', adminRoutes); 
 app.use('/api/auth', authRoutes); 
 app.use('/', apiRoutes); 
+app.use('/api/submissions', submissionRoutes);
 
 app.use(async (req, res) => {
     res.status(404).render('errorPage', { title: 'Page Not Found' });
