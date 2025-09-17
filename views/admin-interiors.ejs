@@ -306,12 +306,12 @@
                                     <!-- Architecture Section -->
                                     <div class="wg-box">
                                         <div class="flex items-center justify-between" style="gap: 1rem;">
-                                            <h5>Architecture Projects</h5>
+                                            <h5>Interiors Projects</h5>
                                             <button id="add-architecture-btn" class="btn btn-primary" style="margin-left:auto;">Add New</button>
                                         </div>
                                         <div id="architecture-list">
                                             <% if (!interior || interior.length === 0) { %>
-                                                <div class="no-architecture">No architecture projects available</div>
+                                                <div class="no-architecture">No Interiors projects available</div>
                                             <% } else { %>
                                                 <div class="architecture-grid">
                                                     <% interior.forEach(architecture => { %>
@@ -414,7 +414,6 @@
                                 Design by Trivlogic Private Limited All rights reserved</div>
                         </div>
                         <!-- /bottom-page -->
-
                         <!-- Architecture Modal -->
                         <div id="architecture-modal" class="modal-arch" style="display:none;">
                             <div class="modal-arch-content">
@@ -433,7 +432,6 @@
                                             <option value="Residential">Residential</option>
                                             <option value="Commercial">Commercial</option>
                                             <option value="OfficeSpaces">Office spaces</option>
-                                           
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -442,7 +440,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="arch-budgets">Budgets</label>
-                                        <input type="text" id="arch-budgets" name="budgets" required>
+                                        <!-- Accept budgets as a simple string for user, but store as JSON string -->
+                                        <input type="text" id="arch-budgets" name="budgets" placeholder='Eg: {"min":100000,"max":200000}' required>
+                                        <small style="color:#888;">Enter as plain text or JSON (e.g. {"min":100000,"max":200000})</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="arch-location">Location(District)</label>
@@ -490,7 +490,6 @@
                         </div>
                         <!-- /Architecture Modal -->
 
-                    
                         <script>
                             // Modal logic
                             const modal = document.getElementById('architecture-modal');
@@ -563,7 +562,20 @@
                                     document.getElementById('arch-title').value = editData.title;
                                     document.getElementById('arch-category').value = editData.category;
                                     document.getElementById('arch-description').value = editData.description;
-                                    document.getElementById('arch-budgets').value = editData.budgets;
+
+                                    // Fix: If budgets is an object, show as JSON string, else as string
+                                    let budgetsValue = '';
+                                    if (typeof editData.budgets === 'object' && editData.budgets !== null) {
+                                        try {
+                                            budgetsValue = JSON.stringify(editData.budgets);
+                                        } catch (e) {
+                                            budgetsValue = '';
+                                        }
+                                    } else {
+                                        budgetsValue = editData.budgets || '';
+                                    }
+                                    document.getElementById('arch-budgets').value = budgetsValue;
+
                                     document.getElementById('arch-location').value = editData.location;
                                     // Set highlights
                                     highlightsArr = Array.isArray(editData.highlights) ? [...editData.highlights] : [];
@@ -634,6 +646,20 @@
                                 e.preventDefault();
                                 const id = document.getElementById('arch-id').value;
                                 const formData = new FormData(form);
+
+                                // Fix: If budgets input is a valid JSON, send as JSON string, else as string
+                                let budgetsInput = document.getElementById('arch-budgets').value.trim();
+                                let budgetsToSend = budgetsInput;
+                                try {
+                                    // Try to parse as JSON, then re-stringify to ensure valid JSON string
+                                    const parsed = JSON.parse(budgetsInput);
+                                    budgetsToSend = JSON.stringify(parsed);
+                                } catch (err) {
+                                    // Not JSON, send as is (string)
+                                    budgetsToSend = budgetsInput;
+                                }
+                                formData.set('budgets', budgetsToSend);
+
                                 // Set highlights as array
                                 formData.set('highlights', JSON.stringify(highlightsArr));
                                 let url = '/createInterior';
