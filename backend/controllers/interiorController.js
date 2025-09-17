@@ -12,6 +12,7 @@ exports.createInterior = async (req, res) => {
       highlights,
       location
     } = req.body;
+
     let parsedHighlights = [];
     if (typeof highlights === 'string') {
       try {
@@ -26,18 +27,28 @@ exports.createInterior = async (req, res) => {
       parsedHighlights = [];
     }
 
+    // Fix [object Object] issue for budgets
+    let parsedBudgets = budgets;
+    if (typeof budgets === 'string') {
+      try {
+        parsedBudgets = JSON.parse(budgets);
+      } catch (e) {
+        parsedBudgets = budgets;
+      }
+    }
+
     const imageData = req.files?.map(file => ({
       url: file.path,
       public_id: file.filename,
-      seoAlt: `${title} - ${category}` 
+      seoAlt: `${String(title)} - ${String(category)}`
     })) || [];
 
     const interior = await Interior.create({
-      category,
-      title,
-      description,
-      budgets,
-      location,
+      category: typeof category === 'object' ? String(category) : category,
+      title: typeof title === 'object' ? String(title) : title,
+      description: typeof description === 'object' ? String(description) : description,
+      budgets: parsedBudgets,
+      location: typeof location === 'object' ? String(location) : location,
       highlights: parsedHighlights,
       images: imageData
     });
@@ -76,6 +87,16 @@ exports.updateInterior = async (req, res) => {
       parsedHighlights = [];
     }
 
+    // Fix [object Object] issue for budgets
+    let parsedBudgets = budgets;
+    if (typeof budgets === 'string') {
+      try {
+        parsedBudgets = JSON.parse(budgets);
+      } catch (e) {
+        parsedBudgets = budgets;
+      }
+    }
+
     const interior = await Interior.findById(id);
     if (!interior) return res.status(404).json({ message: 'Not found' });
 
@@ -85,16 +106,16 @@ exports.updateInterior = async (req, res) => {
       const newImages = req.files.map(file => ({
         url: file.path,
         public_id: file.filename,
-        seoAlt: `${title} - ${category}`
+        seoAlt: `${String(title)} - ${String(category)}`
       }));
       updatedImages = updatedImages.concat(newImages);
     }
 
-    interior.category = category;
-    interior.title = title;
-    interior.description = description;
-    interior.budgets = budgets;
-    interior.location = location;
+    interior.category = typeof category === 'object' ? String(category) : category;
+    interior.title = typeof title === 'object' ? String(title) : title;
+    interior.description = typeof description === 'object' ? String(description) : description;
+    interior.budgets = parsedBudgets;
+    interior.location = typeof location === 'object' ? String(location) : location;
     interior.highlights = parsedHighlights;
     interior.images = updatedImages;
 
