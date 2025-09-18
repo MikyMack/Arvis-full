@@ -243,6 +243,19 @@
                                         </a>
                                     </li>
                                     <li class="menu-item">
+                                        <a href="/admin-forms" class="menu-item-button">
+                                            <div class="icon">
+                                                <svg width="24" height="22" viewBox="0 0 22 18" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M0.5 1.875C0.5 0.839466 1.33947 0 2.375 0H19.625C20.6605 0 21.5 0.839466 21.5 1.875V3.375C21.5 4.29657 20.8351 5.06285 19.9589 5.22035L19.3733 15.1762C19.28 16.7619 17.9669 18 16.3785 18H5.62154C4.03311 18 2.71999 16.7619 2.62671 15.1762L2.04108 5.22035C1.16485 5.06285 0.5 4.29657 0.5 3.375V1.875ZM2.75659 3.75C2.75266 3.74997 2.74873 3.74997 2.74479 3.75H2.375C2.16789 3.75 2 3.58211 2 3.375V1.875C2 1.66789 2.16789 1.5 2.375 1.5H19.625C19.8321 1.5 20 1.66789 20 1.875V3.375C20 3.58211 19.8321 3.75 19.625 3.75H19.2552C19.2513 3.74997 19.2473 3.74997 19.2434 3.75H2.75659ZM3.54541 5.25L4.12412 15.0881C4.17076 15.8809 4.82732 16.5 5.62154 16.5H16.3785C17.1727 16.5 17.8292 15.8809 17.8759 15.0881L18.4546 5.25H3.54541ZM8.24976 8.25C8.24976 7.83579 8.58554 7.5 8.99976 7.5H12.9998C13.414 7.5 13.7498 7.83579 13.7498 8.25C13.7498 8.66421 13.414 9 12.9998 9H8.99976C8.58554 9 8.24976 8.66421 8.24976 8.25Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Interior cost calculation</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item">
                                         <a href="/admin-banners" class="menu-item-button">
                                             <div class="icon"><i class="fa fa-star-o"></i></div>
                                             <div class="text">Banner Management</div>
@@ -343,9 +356,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /header-dashboard -->
-                    <!-- main-content -->
-                    <!-- admin-blogs.ejs -->
+             
                     <div class="main-content">
                         <div class="main-content-inner">
                             <div class="main-content-wrap">
@@ -413,6 +424,16 @@
                                                     class="w-full">
                                             </div>
                                             <div class="form-group">
+                                                <label for="blogHighlights">Highlights</label>
+                                                <div id="addBlogHighlightsContainer">
+                                                    <div class="highlight-input-row" style="display:flex;gap:8px;margin-bottom:5px;">
+                                                        <input type="text" class="blogHighlightInput w-full" name="highlights[]" placeholder="Enter a highlight">
+                                                        <button type="button" class="addHighlightBtn tf-button style-3" title="Add highlight" onclick="addHighlightInput('addBlogHighlightsContainer')"><i class="icon-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div class="text-tiny text-gray-500 mt-1">Add one or more highlights for this blog.</div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="blogImage">Image*</label>
                                                 <input type="file" id="blogImage" name="image" accept="image/*"
                                                     required>
@@ -463,6 +484,13 @@
                                                     class="w-full">
                                             </div>
                                             <div class="form-group">
+                                                <label for="editBlogHighlights">Highlights</label>
+                                                <div id="editBlogHighlightsContainer">
+                                                    <!-- highlight inputs will be injected here -->
+                                                </div>
+                                                <div class="text-tiny text-gray-500 mt-1">Add, edit, or remove highlights for this blog.</div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="editBlogImage">Image</label>
                                                 <input type="file" id="editBlogImage" name="image" accept="image/*">
                                                 <div class="text-tiny text-gray-500 mt-1">Leave empty to keep current
@@ -486,6 +514,47 @@
                             fetchBlogs();
                             setupBlogFormHandlers();
                         });
+
+                        // Helper: Add highlight input row
+                        function addHighlightInput(containerId, value = '') {
+                            const container = document.getElementById(containerId);
+                            const row = document.createElement('div');
+                            row.className = 'highlight-input-row';
+                            row.style.display = 'flex';
+                            row.style.gap = '8px';
+                            row.style.marginBottom = '5px';
+
+                            const input = document.createElement('input');
+                            input.type = 'text';
+                            input.className = (containerId === 'addBlogHighlightsContainer' ? 'blogHighlightInput' : 'editBlogHighlightInput') + ' w-full';
+                            input.name = 'highlights[]';
+                            input.placeholder = 'Enter a highlight';
+                            input.value = value || '';
+
+                            const addBtn = document.createElement('button');
+                            addBtn.type = 'button';
+                            addBtn.className = 'addHighlightBtn tf-button style-3';
+                            addBtn.title = 'Add highlight';
+                            addBtn.innerHTML = '<i class="icon-plus"></i>';
+                            addBtn.onclick = function () {
+                                addHighlightInput(containerId);
+                            };
+
+                            const removeBtn = document.createElement('button');
+                            removeBtn.type = 'button';
+                            removeBtn.className = 'removeHighlightBtn tf-button style-3';
+                            removeBtn.title = 'Remove highlight';
+                            removeBtn.innerHTML = '<i class="icon-trash-2"></i>';
+                            removeBtn.onclick = function () {
+                                container.removeChild(row);
+                            };
+
+                            row.appendChild(input);
+                            row.appendChild(addBtn);
+                            row.appendChild(removeBtn);
+
+                            container.appendChild(row);
+                        }
 
                         // Fetch all blogs
                         async function fetchBlogs() {
@@ -522,6 +591,11 @@
                 <h4 class="card-title" style="margin:0; font-size:16px; font-weight:bold;">${blog.title}</h4>
                 <p class="card-meta" style="margin:5px 0; color:gray;">${blog.metaTitle}</p>
                 <p class="card-author" style="margin:5px 0; color:darkgray;">${blog.author}</p>
+                ${Array.isArray(blog.highlights) && blog.highlights.length > 0 ? `
+                    <ul class="blog-highlights" style="margin:8px 0 0 0; padding-left:18px; color:#007bff; font-size:13px;">
+                        ${blog.highlights.map(h => `<li>${h}</li>`).join('')}
+                    </ul>
+                ` : ''}
             </div>
             <div class="card-actions" style="display:flex; justify-content:space-between; padding:10px;">
                 <button style="background-color:#007bff; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer;" onclick="showEditBlogModal('${blog._id}')">
@@ -538,6 +612,10 @@
                         // Show Add Blog Modal
                         function showAddBlogModal() {
                             document.getElementById('addBlogForm').reset();
+                            // Reset highlights
+                            const highlightsContainer = document.getElementById('addBlogHighlightsContainer');
+                            highlightsContainer.innerHTML = '';
+                            addHighlightInput('addBlogHighlightsContainer');
                             document.getElementById('addBlogModal').style.display = 'block';
                         }
 
@@ -553,6 +631,15 @@
                             document.getElementById('editBlogMetaKeywords').value = blog.metaKeywords.join(',');
                             document.getElementById('editBlogContent').value = blog.content;
                             document.getElementById('editBlogAuthor').value = blog.author;
+
+                            // Populate highlights
+                            const highlightsContainer = document.getElementById('editBlogHighlightsContainer');
+                            highlightsContainer.innerHTML = '';
+                            if (Array.isArray(blog.highlights) && blog.highlights.length > 0) {
+                                blog.highlights.forEach(h => addHighlightInput('editBlogHighlightsContainer', h));
+                            } else {
+                                addHighlightInput('editBlogHighlightsContainer');
+                            }
 
                             const preview = document.getElementById('currentBlogImagePreview');
                             preview.innerHTML = `
@@ -582,6 +669,15 @@
                                 formData.append('content', document.getElementById('blogContent').value);
                                 formData.append('author', document.getElementById('blogAuthor').value);
                                 formData.append('image', document.getElementById('blogImage').files[0]);
+
+                                // Collect highlights
+                                const highlightInputs = document.querySelectorAll('#addBlogHighlightsContainer .blogHighlightInput');
+                                let highlights = [];
+                                highlightInputs.forEach(input => {
+                                    if (input.value.trim() !== '') highlights.push(input.value.trim());
+                                });
+                                // Send as JSON string (or as array if backend expects array)
+                                formData.append('highlights', JSON.stringify(highlights));
 
                                 try {
                                     const response = await fetch('/admin-blogs', {
@@ -615,6 +711,14 @@
                                 formData.append('metaKeywords', document.getElementById('editBlogMetaKeywords').value);
                                 formData.append('content', document.getElementById('editBlogContent').value);
                                 formData.append('author', document.getElementById('editBlogAuthor').value);
+
+                                // Collect highlights
+                                const highlightInputs = document.querySelectorAll('#editBlogHighlightsContainer .editBlogHighlightInput');
+                                let highlights = [];
+                                highlightInputs.forEach(input => {
+                                    if (input.value.trim() !== '') highlights.push(input.value.trim());
+                                });
+                                formData.append('highlights', JSON.stringify(highlights));
 
                                 const imageFile = document.getElementById('editBlogImage').files[0];
                                 if (imageFile) {

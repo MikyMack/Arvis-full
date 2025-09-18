@@ -9,7 +9,8 @@ const BlogSchema = new mongoose.Schema({
     content: { type: String, required: true },
     author: { type: String, required: true },
     imageUrl: { type: String, required: true },
-    cloudinary_id: { type: String, required: true }
+    cloudinary_id: { type: String, required: true },
+    highlights: { type: [String], default: [] }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Blog', BlogSchema);

@@ -275,7 +275,7 @@
                                         </a>
                                     </li>                          
                               
-                                    <li class="menu-item active">
+                                    <li class="menu-item">
                                         <a href="/admin-realEstate" class="menu-item-button">
                                             <div class="icon">
                                                 <svg width="24" height="22" viewBox="0 0 22 18" fill="none"
@@ -302,7 +302,7 @@
                                             <div class="text">Interior Management</div>
                                         </a>
                                     </li>
-                                    <li class="menu-item">
+                                    <li class="menu-item active">
                                         <a href="/admin-forms" class="menu-item-button">
                                             <div class="icon">
                                                 <svg width="24" height="22" viewBox="0 0 22 18" fill="none"
@@ -420,7 +420,6 @@
                         <div class="main-content-inner">
                             <div class="main-content-wrap">
                                 <div class="flex items-center flex-wrap justify-between gap20 mb-30">
-                                    <h3>All Real Estate Listings</h3>
                                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                                         <li>
                                             <a href="/dashboard">
@@ -443,34 +442,142 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="wg-box">
-                                    <div class="flex items-center justify-between gap10 flex-wrap">
-                                        <button class="tf-button style-1 w208" onclick="showAddRealEstateModal()">
-                                            <i class="icon-plus"></i>Add Real Estate
-                                        </button>
+                            
+                            <div class="flex items-center justify-between mb-20">
+                                <h3>Interior Calculator Submissions</h3>
+                            </div>
+                            <div class="wg-table" style="overflow-x:auto;">
+                                <table class="table table-striped" style="width:100%;min-width:900px;">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Type</th>
+                                            <th>Total Cost</th>
+                                            <th>Submitted At</th>
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody id="submissions-tbody">
+                                        <!-- Submissions will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Modal for viewing submission details -->
+                            <div id="submissionDetailsModal" class="modal">
+                                <div class="modal-content" style="max-width:600px;">
+                                    <span class="close" onclick="closeSubmissionModal()">&times;</span>
+                                    <h4>Submission Details</h4>
+                                    <div id="submission-details-content">
+                                        <!-- Details will be loaded here -->
                                     </div>
-                                    <div class="wg-table table-all-category" style="overflow-x:auto;">
-                                        <table class="realestate-table" style="width:100%; min-width:1000px;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Image</th>
-                                                    <th>Title</th>
-                                                    <th>Category</th>
-                                                    <th>Location</th>
-                                                    <th>Price</th>
-                                                    <th>Area</th>
-                                                    <th>Highlights</th>
-                                                    <th>Status</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="realestate-list">
-                                                <!-- Real estate rows will be injected here -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="divider"></div>
                                 </div>
+                            </div>
+
+                            <script>
+                                // Fetch and display submissions
+                                async function loadSubmissions() {
+                                    try {
+                                        const res = await fetch('/api/submissions');
+                                        const result = await res.json();
+                                        // The API returns { success, count, data: [ ... ] }
+                                        const data = result && Array.isArray(result.data) ? result.data : [];
+                                        const tbody = document.getElementById('submissions-tbody');
+                                        tbody.innerHTML = '';
+                                        if (data.length > 0) {
+                                            data.forEach(sub => {
+                                                const tr = document.createElement('tr');
+                                                tr.innerHTML = `
+                                                    <td>${sub.name || ''}</td>
+                                                    <td>${sub.email || ''}</td>
+                                                    <td>${sub.phone || ''}</td>
+                                                    <td style="text-transform:capitalize">${sub.calculationType || ''}</td>
+                                                    <td>₹${sub.totalCost ? Number(sub.totalCost).toLocaleString() : '-'}</td>
+                                                    <td>${sub.submittedAt ? (new Date(sub.submittedAt)).toLocaleString() : '-'}</td>
+                                              
+                                                `;
+                                                tbody.appendChild(tr);
+                                            });
+                                        } else {
+                                            const tr = document.createElement('tr');
+                                            tr.innerHTML = `<td colspan="7" style="text-align:center;">No submissions found.</td>`;
+                                            tbody.appendChild(tr);
+                                        }
+                                    } catch (err) {
+                                        const tbody = document.getElementById('submissions-tbody');
+                                        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:red;">Error loading submissions.</td></tr>`;
+                                    }
+                                }
+
+                                // Show details modal
+                                async function viewSubmissionDetails(id) {
+                                    try {
+                                        const res = await fetch(`/api/submissions/${id}`);
+                                        // Assume the API returns the submission object directly
+                                        const sub = await res.json();
+                                        let html = `
+                                            <div style="margin-bottom:10px;">
+                                                <strong>Name:</strong> ${sub.name || ''}<br>
+                                                <strong>Email:</strong> ${sub.email || ''}<br>
+                                                <strong>Phone:</strong> ${sub.phone || ''}<br>
+                                                <strong>Type:</strong> ${sub.calculationType || ''}<br>
+                                                <strong>Total Cost:</strong> ₹${sub.totalCost ? Number(sub.totalCost).toLocaleString() : '-'}<br>
+                                                <strong>Submitted At:</strong> ${sub.submittedAt ? (new Date(sub.submittedAt)).toLocaleString() : '-'}
+                                            </div>
+                                            <div>
+                                                <strong>Calculation Data:</strong>
+                                                <pre style="background:#f8f8f8;padding:10px;border-radius:6px;max-height:300px;overflow:auto;">${sub.calculationData ? JSON.stringify(sub.calculationData, null, 2) : '-'}</pre>
+                                            </div>
+                                            <div style="margin-top:15px;">
+                                                <button class="tf-button style-3" onclick="deleteSubmission('${sub._id}')">Delete</button>
+                                            </div>
+                                        `;
+                                        document.getElementById('submission-details-content').innerHTML = html;
+                                        document.getElementById('submissionDetailsModal').style.display = 'block';
+                                    } catch (err) {
+                                        document.getElementById('submission-details-content').innerHTML = '<span style="color:red;">Error loading details.</span>';
+                                        document.getElementById('submissionDetailsModal').style.display = 'block';
+                                    }
+                                }
+
+                                function closeSubmissionModal() {
+                                    document.getElementById('submissionDetailsModal').style.display = 'none';
+                                }
+
+                                // Delete submission
+                                async function deleteSubmission(id) {
+                                    if (!confirm('Are you sure you want to delete this submission?')) return;
+                                    try {
+                                        const res = await fetch(`/api/submissions/${id}`, { method: 'DELETE' });
+                                        const result = await res.json();
+                                        if (result.success) {
+                                            alert('Submission deleted.');
+                                            closeSubmissionModal();
+                                            loadSubmissions();
+                                        } else {
+                                            alert('Failed to delete submission.');
+                                        }
+                                    } catch (err) {
+                                        alert('Error deleting submission.');
+                                    }
+                                }
+
+                                // Modal close on outside click
+                                window.onclick = function(event) {
+                                    const modal = document.getElementById('submissionDetailsModal');
+                                    if (event.target == modal) {
+                                        closeSubmissionModal();
+                                    }
+                                }
+
+                                // Initial load
+                                document.addEventListener('DOMContentLoaded', loadSubmissions);
+                            </script>
+
+
+
                             </div>
                         </div>
                         <div class="bottom-page">
@@ -630,277 +737,6 @@
 
                   
 
-                    <script>
-                        let realEstates = <%- JSON.stringify(realEstate || []) %>;
-                        let selectedDeleteId = null;
-                        let selectedEditId = null;
-
-                        // --- Highlights UI logic ---
-                        function createHighlightsInput(containerId, inputId, hiddenInputId) {
-                            const container = document.getElementById(containerId);
-                            const input = document.getElementById(inputId);
-                            const hiddenInput = document.getElementById(hiddenInputId);
-
-                            let highlights = [];
-
-                            function renderChips() {
-                                container.innerHTML = '';
-                                highlights.forEach((h, idx) => {
-                                    const chip = document.createElement('span');
-                                    chip.className = 'highlight-chip';
-                                    chip.textContent = h;
-                                    const remove = document.createElement('span');
-                                    remove.className = 'remove-chip';
-                                    remove.innerHTML = '&times;';
-                                    remove.onclick = () => {
-                                        highlights.splice(idx, 1);
-                                        renderChips();
-                                        hiddenInput.value = JSON.stringify(highlights);
-                                    };
-                                    chip.appendChild(remove);
-                                    container.appendChild(chip);
-                                });
-                                hiddenInput.value = JSON.stringify(highlights);
-                            }
-
-                            input.addEventListener('keydown', function(e) {
-                                if (e.key === 'Enter' || e.key === ',') {
-                                    e.preventDefault();
-                                    let val = input.value.trim();
-                                    if (val && !highlights.includes(val)) {
-                                        highlights.push(val);
-                                        renderChips();
-                                    }
-                                    input.value = '';
-                                }
-                            });
-
-                            input.addEventListener('blur', function() {
-                                let val = input.value.trim();
-                                if (val && !highlights.includes(val)) {
-                                    highlights.push(val);
-                                    renderChips();
-                                }
-                                input.value = '';
-                            });
-
-                            return {
-                                set: (arr) => {
-                                    highlights = Array.isArray(arr) ? arr.filter(Boolean) : [];
-                                    renderChips();
-                                },
-                                get: () => highlights.slice()
-                            };
-                        }
-
-                        // Add Highlights UI
-                        const addHighlightsUI = createHighlightsInput('addHighlightsContainer', 'addHighlightsInput', 'addHighlights');
-                        // Edit Highlights UI
-                        const editHighlightsUI = createHighlightsInput('editHighlightsContainer', 'editHighlightsInput', 'editHighlights');
-
-                        function showModal(id) {
-                            document.getElementById(id).style.display = 'block';
-                        }
-                        function closeModal(id) {
-                            document.getElementById(id).style.display = 'none';
-                            if(id === 'editRealEstateModal') {
-                                document.getElementById('editRealEstateForm').reset();
-                                document.getElementById('currentImagesContainer').innerHTML = '';
-                                editHighlightsUI.set([]);
-                            }
-                            if(id === 'addRealEstateModal') {
-                                document.getElementById('addRealEstateForm').reset();
-                                addHighlightsUI.set([]);
-                            }
-                        }
-                        window.onclick = function(event) {
-                            ['addRealEstateModal','editRealEstateModal','deleteRealEstateModal'].forEach(function(id){
-                                let modal = document.getElementById(id);
-                                if(event.target === modal) modal.style.display = "none";
-                            });
-                        }
-
-                        function showAddRealEstateModal() {
-                            document.getElementById('addRealEstateForm').reset();
-                            addHighlightsUI.set([]);
-                            showModal('addRealEstateModal');
-                        }
-
-                        function showEditRealEstateModal(id) {
-                            const estate = realEstates.find(e => e._id === id);
-                            if (!estate) return;
-                            selectedEditId = id;
-                            document.getElementById('editId').value = estate._id;
-                            document.getElementById('editTitle').value = estate.title;
-                            document.getElementById('editDescription').value = estate.description;
-                            document.getElementById('editCategory').value = estate.category;
-                            document.getElementById('editLocation').value = estate.location;
-                            document.getElementById('editPrice').value = estate.price;
-                            document.getElementById('editArea').value = estate.area;
-                            editHighlightsUI.set(Array.isArray(estate.highlights) ? estate.highlights : []);
-                            // Show current images
-                            let html = '';
-                            if (estate.images && estate.images.length) {
-                                html += '<div style="margin-bottom:8px;">Current Images:</div>';
-                                estate.images.forEach(img => {
-                                    html += `<img src="${img.url}" alt="" class="realestate-img-thumb" style="margin-right:5px;margin-bottom:5px;">`;
-                                });
-                            }
-                            document.getElementById('currentImagesContainer').innerHTML = html;
-                            showModal('editRealEstateModal');
-                        }
-
-                        function showDeleteRealEstateModal(id) {
-                            selectedDeleteId = id;
-                            showModal('deleteRealEstateModal');
-                        }
-
-                        function renderHighlightsChips(highlights) {
-                            if (!Array.isArray(highlights) || !highlights.length) return '';
-                            return `<div class="highlights-container" style="margin-bottom:0;">` +
-                                highlights.map(h => `<span class="highlight-chip">${h}</span>`).join('') +
-                                `</div>`;
-                        }
-
-                        function renderRealEstates() {
-                            const tbody = document.getElementById('realestate-list');
-                            tbody.innerHTML = '';
-                            if (!realEstates.length) {
-                                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;">No real estate listings found.</td></tr>`;
-                                return;
-                            }
-                            realEstates.forEach(estate => {
-                     
-                                let img = '';
-                                if (estate.images && Array.isArray(estate.images) && estate.images.length > 0) {
-                                    const firstImg = estate.images[0];
-                            
-                                    if (firstImg && typeof firstImg.url === 'string' && firstImg.url.trim() !== '') {
-                   
-                                        let altText = firstImg.seoAlt && firstImg.seoAlt.trim() !== '' ? firstImg.seoAlt : (estate.title || 'Real Estate Image');
-                                        img = `<img src="${firstImg.url}" class="realestate-img-thumb" alt="${altText}">`;
-                                    } else {
-                                        img = `<span style="color:#aaa;">No Image</span>`;
-                                    }
-                                } else {
-                                    img = `<span style="color:#aaa;">No Image</span>`;
-                                }
-                                let highlightsHtml = renderHighlightsChips(estate.highlights);
-                                let statusBtn = `<button class="style-3" onclick="toggleActive('${estate._id}')">${estate.isActive ? 'Active' : 'Inactive'}</button>`;
-                                let actions = `
-                                    <div class="action-btns" style="display: flex; gap: 8px;">
-                                        <button class="style-1" onclick="showEditRealEstateModal('${estate._id}')"><i class="fa fa-pencil"></i></button>
-                                        <button class="style-3" onclick="showDeleteRealEstateModal('${estate._id}')"><i class="fa fa-trash"></i></button>
-                                        ${statusBtn}
-                                    </div>
-                                `;
-                                tbody.innerHTML += `
-                                    <tr>
-                                        <td>${img}</td>
-                                        <td>${estate.title}</td>
-                                        <td>${estate.category}</td>
-                                        <td>${estate.location}</td>
-                                        <td>${estate.price ? estate.price : ''}</td>
-                                        <td>${estate.area}</td>
-                                        <td>${highlightsHtml}</td>
-                                        <td>${estate.isActive ? '<span style="color:green;">Active</span>' : '<span style="color:red;">Inactive</span>'}</td>
-                                        <td>${actions}</td>
-                                    </tr>
-                                `;
-                            });
-                        }
-
-                        // Add Real Estate
-                        document.getElementById('addRealEstateForm').addEventListener('submit', async function(e){
-                            e.preventDefault();
-                            const form = e.target;
-                            const formData = new FormData(form);
-                            // Highlights as JSON string
-                            let highlights = addHighlightsUI.get();
-                            formData.set('highlights', JSON.stringify(highlights));
-                            // Price as string (already string from input)
-                            formData.set('price', formData.get('price') ? formData.get('price').toString() : '');
-
-                            try {
-                                const res = await fetch('/createRealEstate', {
-                                    method: 'POST',
-                                    body: formData
-                                });
-                                if (!res.ok) throw new Error('Failed to add');
-                                const data = await res.json();
-                                realEstates.push(data);
-                                renderRealEstates();
-                                closeModal('addRealEstateModal');
-                            } catch (err) {
-                                alert('Failed to add real estate.');
-                            }
-                        });
-
-                        // Edit Real Estate
-                        document.getElementById('editRealEstateForm').addEventListener('submit', async function(e){
-                            e.preventDefault();
-                            const form = e.target;
-                            const id = document.getElementById('editId').value;
-                            const formData = new FormData(form);
-                            // Highlights as JSON string
-                            let highlights = editHighlightsUI.get();
-                            formData.set('highlights', JSON.stringify(highlights));
-                            // Price as string (already string from input)
-                            formData.set('price', formData.get('price') ? formData.get('price').toString() : '');
-
-                            try {
-                                const res = await fetch(`/editRealEstate/${id}`, {
-                                    method: 'PUT',
-                                    body: formData
-                                });
-                                if (!res.ok) throw new Error('Failed to update');
-                                const data = await res.json();
-                                // Update in local array
-                                const idx = realEstates.findIndex(e => e._id === id);
-                                if (idx !== -1) realEstates[idx] = data;
-                                renderRealEstates();
-                                closeModal('editRealEstateModal');
-                            } catch (err) {
-                                alert('Failed to update real estate.');
-                            }
-                        });
-
-                        // Delete Real Estate
-                        document.getElementById('confirmDeleteBtn').addEventListener('click', async function(){
-                            if (!selectedDeleteId) return;
-                            try {
-                                const res = await fetch(`/deleteRealEstate/${selectedDeleteId}`, {
-                                    method: 'DELETE'
-                                });
-                                if (!res.ok) throw new Error('Failed to delete');
-                                realEstates = realEstates.filter(e => e._id !== selectedDeleteId);
-                                renderRealEstates();
-                                closeModal('deleteRealEstateModal');
-                                selectedDeleteId = null;
-                            } catch (err) {
-                                alert('Failed to delete real estate.');
-                            }
-                        });
-
-                        // Toggle Active/Inactive
-                        async function toggleActive(id) {
-                            try {
-                                const res = await fetch(`/toggleRealEstate/${id}/toggle`, {
-                                    method: 'PATCH'
-                                });
-                                if (!res.ok) throw new Error('Failed to toggle');
-                                const data = await res.json();
-                                const idx = realEstates.findIndex(e => e._id === id);
-                                if (idx !== -1) realEstates[idx].isActive = data.isActive;
-                                renderRealEstates();
-                            } catch (err) {
-                                alert('Failed to toggle status.');
-                            }
-                        }
-
-                        // Initial render
-                        renderRealEstates();
-                    </script>
                     <!-- /main-content -->
                 </div>
                 <!-- /section-content-right -->

@@ -66,6 +66,9 @@ app.get('/admin-interiors', authMiddleware, async (req, res) => {
 app.get('/admin-blogs',authMiddleware, (req, res) => {
   res.render('admin-blogs');
 });
+app.get('/admin-forms',authMiddleware, (req, res) => {
+  res.render('admin-forms');
+});
 app.get('/admin-testimonials',authMiddleware, (req, res) => {
   res.render('admin-testimonials');
 });
