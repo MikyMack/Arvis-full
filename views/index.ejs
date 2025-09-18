@@ -755,33 +755,24 @@ Real Estate Development & Sales – Creating value through property development 
                         <div class="bs-blog-4-item wow fadeInRight" <% if(idx> 0) { %> data-wow-delay=".<%= idx * 2 %>s"
                                 <% } %>>
                                     <div class="item-img wa-fix wa-img-cover">
-                                        <a href="/blogdetails?id=<%= blog._id %>" aria-label="name"
+                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name"
                                             data-cursor-text="View">
                                             <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>">
                                         </a>
                                     </div>
                                     <div class="content">
-                                        <a href="/blogdetails?id=<%= blog._id %>" aria-label="name" class="item-btn">
+                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name" class="item-btn">
                                             <i class="flaticon-top-right flaticon"></i>
                                         </a>
                                         <p class="bs-p-4 author">
                                             <%= blog.author %>
                                         </p>
                                         <h4 class="title bs-h-1">
-                                            <a href="/blogdetails?id=<%= blog._id %>" aria-label="name">
+                                            <a href="/blogdetails/<%= blog._id %>" aria-label="name">
                                                 <%= blog.title %>
                                             </a>
                                         </h4>
-                                        <p class="item-meta bs-p-4">
-                                            <span class="categories">Arvies</span>
-                                            <span class="date">
-                                                <% var dateObj=new Date(blog.createdAt); var months=["Jan", "Feb"
-                                                    , "Mar" , "Apr" , "May" , "Jun" , "Jul" , "Aug" , "Sep" , "Oct"
-                                                    , "Nov" , "Dec" ]; var formattedDate=months[dateObj.getMonth()]
-                                                    + " " + dateObj.getDate() + ", " + dateObj.getFullYear(); %>
-                                                    <%= formattedDate %>
-                                            </span>
-                                        </p>
+                                     
                                     </div>
                         </div>
                         <% }); %>
@@ -1082,7 +1073,7 @@ Real Estate Development & Sales – Creating value through property development 
     <!-- contact-end -->
 
     <!-- footer-start -->
-    <footer class="bs-footer-4-area wa-p-relative wa-fix pt-60" style="position: relative; overflow: hidden;">
+    <footer class="bs-footer-4-area wa-p-relative wa-fix pt-20" style="position: relative; overflow: hidden;">
 
         <!-- Background image with reduced opacity -->
         <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none;">
@@ -1131,17 +1122,12 @@ Real Estate Development & Sales – Creating value through property development 
                                     <a href="/architecture" aria-label="name">architecture</a>
                                 </li>
                                 <li>
-                                    <a href="/interior" aria-label="name">Interior</a>
+                                    <a href="/interior" aria-label="name">Interiors</a>
                                 </li>
                                 <li>
                                     <a href="/realEstate" aria-label="name">real estate</a>
                                 </li>
-                                <li>
-                                    <a href="#" aria-label="name">privacy policy</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-label="name">terms and conditions</a>
-                                </li>
+                             
 
                             </ul>
                         </div>
@@ -1158,7 +1144,7 @@ Real Estate Development & Sales – Creating value through property development 
                         <p class="bs-p-4 link-title">phone</p>
                         <a href="tel: +916360425940" class="link-elm bs-p-4 wa-clip-left-right"> +91 6360 425 940</a>
                         <p class="bs-p-4 link-title">Address</p>
-                        <p class="disc-elm bs-p-4 wa-clip-left-right">Arvies, kochi, kerala</p>
+                        <p class="disc-elm bs-p-4 wa-clip-left-right">Arvies, Trivandrum, kerala</p>
                     </div>
                 </div>
 
@@ -1242,7 +1228,7 @@ Real Estate Development & Sales – Creating value through property development 
                         <a href="/interior">Interior</a>
                         <ul class="dropdown-menu clearfix">
                             <li><a href="/interiorDesign">Design</a></li>
-                            <li><a href="interiorExecution">Execution</a></li>
+                            <li><a href="/interiorExecution">Execution</a></li>
                         </ul>
                     </li>
 
