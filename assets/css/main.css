@@ -17431,6 +17431,14 @@ Primary style
   gap: 8px;
   color: white!important;
 }
+.blog-title-new{
+        display: -webkit-box!important;
+  -webkit-line-clamp: 2!important; /* Show only 1 line */
+  -webkit-box-orient: vertical!important;
+  overflow: hidden!important;
+  text-overflow: ellipsis!important;
+
+}
 @media (max-width: 767px) {
   .bs-blog-details-content ul li {
     flex-wrap: wrap;
