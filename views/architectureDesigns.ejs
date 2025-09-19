@@ -143,7 +143,7 @@
             <div class="container bs-container-1">
                 <form id="architecture-filters-form" method="get" action="/architectureDesigns" class="row g-3 align-items-center justify-content-center">
                     <div class="col-auto">
-                        <select style="color: #f16520;  border: 1px solid #f16520;"  name="category" class="form-select" onchange="this.form.submit()">
+                        <select style="color: black;  border: 1px solid black;"  name="category" class="form-select" onchange="this.form.submit()">
                             <option value="">All Categories</option>
                             <% categories.forEach(function(cat) { %>
                                 <option value="<%= cat %>" <%= selectedCategory === cat ? 'selected' : '' %>><%= cat %></option>
@@ -151,7 +151,7 @@
                         </select>
                     </div>
                     <div class="col-auto">
-                        <select style="color: #f16520; border: 1px solid #f16520;" name="location" class="form-select" onchange="this.form.submit()">
+                        <select style="color: black; border: 1px solid black;" name="location" class="form-select" onchange="this.form.submit()">
                             <option value="">All Locations</option>
                             <% locations.forEach(function(loc) { %>
                                 <option value="<%= loc %>" <%= selectedLocation === loc ? 'selected' : '' %>><%= loc %></option>
@@ -448,7 +448,7 @@
                         <li><a href="/about">about us</a></li>
 
                         <li class="dropdown">
-                            <a style="color: #f16520;" href="/architecture">Architecture</a>
+                            <a style="color: #f5e9c8;" href="/architecture">Architecture</a>
                             <ul class="dropdown-menu clearfix">
                                 <li><a href="/architectureDesigns?category=Residential">Residential</a></li>
                                 <li><a href="/architectureDesigns?category=Commercial">Commercial</a></li>
@@ -557,7 +557,7 @@
                     <img class="mob-nav-icon" src="/img/icon/menu.svg" alt="Arvies">
                     <span class="premiuarviesm-nav-text">Home</span>
                 </a>
-                <a style="color: #f16520!important;" href="/architecture" class="premium-nav-link">
+                <a style="color: #f5e9c8!important;" href="/architecture" class="premium-nav-link">
                     <img class="mob-nav-icon" src="/img/icon/architec.svg" alt="Arvies">
                     <span class="premiumarvies-nav-text">Archi</span>
                 </a>

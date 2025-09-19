@@ -153,7 +153,7 @@
                <!-- FILTERS -->
                <form id="interior-filters" method="get" action="/interiorDesign" class="row mb-40 justify-content-center">
                    <div class="col-md-3 mb-2">
-                       <select style="color: #f16520; border: 1px solid #f16520;" name="category" class="form-select" onchange="this.form.submit()">
+                       <select style="color: black; border: 1px solid black;" name="category" class="form-select" onchange="this.form.submit()">
                            <option value="">All Categories</option>
                            <% categories.forEach(function(cat) { %>
                                <option value="<%= cat %>" <%= selectedCategory === cat ? 'selected' : '' %>><%= cat %></option>
@@ -161,7 +161,7 @@
                        </select>
                    </div>
                    <div class="col-md-3 mb-2">
-                       <select style="color: #f16520;" name="location" class="form-select" onchange="this.form.submit()">
+                       <select style="color: black;" name="location" class="form-select" onchange="this.form.submit()">
                            <option value="">All Locations</option>
                            <% locations.forEach(function(loc) { %>
                                <option value="<%= loc %>" <%= selectedLocation === loc ? 'selected' : '' %>><%= loc %></option>
@@ -440,9 +440,9 @@
                                 </ul>
                             </li>
                               <li class="dropdown">
-                                <a style="color: #f16520;" href="/interior">Interior</a>
+                                <a style="color: #f5e9c8;" href="/interior">Interior</a>
                                 <ul class="dropdown-menu clearfix">
-       <li><a style="color: #f16520;" href="/interiorDesign">Design</a></li>
+       <li><a style="color: #f5e9c8;" href="/interiorDesign">Design</a></li>
                                             <li><a href="/interiorExecution">Execution</a></li>
                                 </ul>
                             </li>
@@ -537,7 +537,7 @@
                 <img class="mob-nav-icon" src="/img/icon/architec.svg" alt="arvies">
                 <span class="premium-nav-text">Archi</span>
             </a>
-                    <a style="color: #f16520!important;" href="/interior" class="premium-nav-link">
+                    <a style="color: #f5e9c8!important;" href="/interior" class="premium-nav-link">
                 <img class="mob-nav-icon" src="/img/icon/inder.svg" alt="arvies">
                 <span class="premium-nav-text">Interior</span>
             </a>
