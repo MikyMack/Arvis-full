@@ -17322,6 +17322,9 @@ Primary style
   margin-left: auto;
   margin-right: auto;
 }
+.bs-blog-details-content h4{
+  color: white!important;
+}
 .bs-blog-details-content h1, .bs-blog-details-content h2, .bs-blog-details-content h3, .bs-blog-details-content h4, .bs-blog-details-content h5, .bs-blog-details-content h6 {
   font-family: var(--bs-font-pr-1);
   color: #000;
@@ -17426,6 +17429,7 @@ Primary style
   z-index: 1;
   display: flex;
   gap: 8px;
+  color: white!important;
 }
 @media (max-width: 767px) {
   .bs-blog-details-content ul li {
