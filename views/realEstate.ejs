@@ -75,7 +75,7 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a style="color: #f16520;" href="/realEstate">Real Estate</a>
+                                    <a style="color: #f5e9c8;" href="/realEstate">Real Estate</a>
                                     <ul class="dropdown-menu clearfix">
                                         <!-- <li><a href="siteDevelopment.html">Site Development</a></li> -->
                                         <li><a href="/projects">Project Sales
@@ -95,16 +95,9 @@
                         <!-- action-link -->
                         <div class="bs-header-4-action-link d-flex align-items-center ">
                             <!-- offcanvas-btn -->
-                            <button type="button" aria-label="name" class="bs-offcanvas-btn-3  offcanvas_toggle">
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
+                      <button type="button" aria-label="name" class="bs-offcanvas-btn-3  offcanvas_toggle">
+                                <img src="/img/arvies/menu.png" alt="">
+                           
                             </button>
 
                         </div>
@@ -337,73 +330,81 @@
                 </div>
 
                 <div class="galaxy-properties-grid" id="properties-list">
-                    <% realestate.forEach(function(property, idx) { %>
-                        <div class="prismo-property-showcase" data-category="<%= property.category %>">
-                            <div class="luxe-image-container">
-                                <div class="stellar-image-slider" data-slider="<%= idx %>">
-                                    <% if (property.images && property.images.length) { %>
-                                        <% property.images.forEach(function(img, imgIdx) { %>
+                    <% if (realestate && realestate.length > 0) { %>
+                        <% realestate.forEach(function(property, idx) { %>
+                            <div class="prismo-property-showcase" data-category="<%= property.category %>">
+                                <div class="luxe-image-container">
+                                    <div class="stellar-image-slider" data-slider="<%= idx %>">
+                                        <% if (property.images && property.images.length) { %>
+                                            <% property.images.forEach(function(img, imgIdx) { %>
+                                                <div class="nexus-slide-item">
+                                                    <img src="<%= img.url %>" alt="<%= img.seoAlt && img.seoAlt.trim() ? img.seoAlt : (property.title + ' Image ' + (imgIdx+1)) %>">
+                                                </div>
+                                            <% }); %>
+                                        <% } else { %>
                                             <div class="nexus-slide-item">
-                                                <img src="<%= img.url %>" alt="<%= img.seoAlt && img.seoAlt.trim() ? img.seoAlt : (property.title + ' Image ' + (imgIdx+1)) %>">
+                                                <img src="/img/arvies/realestate_placeholder.png" alt="No Image">
                                             </div>
-                                        <% }); %>
-                                    <% } else { %>
-                                        <div class="nexus-slide-item">
-                                            <img src="/img/placeholder-property.jpg" alt="No Image">
+                                        <% } %>
+                                    </div>
+                                    <div class="quantum-sale-badge">
+                                        <%= property.category && property.category.toLowerCase() === 'rent' ? 'For Rent' : 'For Sale' %>
+                                    </div>
+                                    <div class="aurora-navigation-dots">
+                                        <% if (property.images && property.images.length) { %>
+                                            <% property.images.forEach(function(img, imgIdx) { %>
+                                                <span class="cosmic-dot <%= imgIdx === 0 ? 'active' : '' %>" data-slide="<%= imgIdx %>"></span>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <span class="cosmic-dot active" data-slide="0"></span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="zenith-property-details">
+                                    <% if (property.title) { %>
+                                        <h2 class="apex-property-title"><%= property.title %></h2>
+                                    <% } %>
+                                    <% if (property.location) { %>
+                                        <div class="eclipse-location-wrapper">
+                                            <svg class="eclipse-location-icon" viewBox="0 0 24 24">
+                                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                                            </svg>
+                                            <span class="vortex-location-text"><%= property.location %></span>
                                         </div>
                                     <% } %>
-                                </div>
-                                <div class="quantum-sale-badge">
-                                    <%= property.category && property.category.toLowerCase() === 'rent' ? 'For Rent' : 'For Sale' %>
-                                </div>
-                                <div class="aurora-navigation-dots">
-                                    <% if (property.images && property.images.length) { %>
-                                        <% property.images.forEach(function(img, imgIdx) { %>
-                                            <span class="cosmic-dot <%= imgIdx === 0 ? 'active' : '' %>" data-slide="<%= imgIdx %>"></span>
-                                        <% }); %>
-                                    <% } else { %>
-                                        <span class="cosmic-dot active" data-slide="0"></span>
-                                    <% } %>
-                                </div>
-                            </div>
-                            <div class="zenith-property-details">
-                                <% if (property.title) { %>
-                                    <h2 class="apex-property-title"><%= property.title %></h2>
-                                <% } %>
-                                <% if (property.location) { %>
-                                    <div class="eclipse-location-wrapper">
-                                        <svg class="eclipse-location-icon" viewBox="0 0 24 24">
-                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                                        </svg>
-                                        <span class="vortex-location-text"><%= property.location %></span>
-                                    </div>
-                                <% } %>
-                                <% if (property.area || property.price) { %>
-                                    <div class="d-flex align-items-center justify-content-between" style="gap: 12px; margin-bottom: 10px;">
-                                        <% if (property.area) { %>
-                                            <div class="titan-spec-item" style="margin-bottom: 0;">
-                                                <svg class="titan-spec-icon" viewBox="0 0 24 24">
-                                                    <path d="M5 19h14V5H5v14zm2-12h10v2H7V7zm0 4h10v2H7v-2zm0 4h10v2H7v-2z" />
-                                                </svg>
-                                                <span class="nebula-spec-text"><%= property.area %> sqft</span>
-                                            </div>
-                                        <% } %>
-                                        <% if (property.price) { %>
-                                            <div class="infinity-price-section" style="margin-bottom: 0;">
-                                                <div class="stellar-price-amount">
-                                                    <span class="currency-symbol">₹</span>
-                                                    <%= property.price %>
+                                    <% if (property.area || property.price) { %>
+                                        <div class="d-flex align-items-center justify-content-between" style="gap: 12px; margin-bottom: 10px;">
+                                            <% if (property.area) { %>
+                                                <div class="titan-spec-item" style="margin-bottom: 0;">
+                                                    <svg class="titan-spec-icon" viewBox="0 0 24 24">
+                                                        <path d="M5 19h14V5H5v14zm2-12h10v2H7V7zm0 4h10v2H7v-2zm0 4h10v2H7v-2z" />
+                                                    </svg>
+                                                    <span class="nebula-spec-text"><%= property.area %> sqft</span>
                                                 </div>
-                                            </div>
-                                        <% } %>
-                                    </div>
-                                <% } %>
-                                <a href="/projectDetails/<%= property._id %>">
-                                    <button class="prism-action-button">More Details</button>
-                                </a>
+                                            <% } %>
+                                            <% if (property.price) { %>
+                                                <div class="infinity-price-section" style="margin-bottom: 0;">
+                                                    <div class="stellar-price-amount">
+                                                        <span class="currency-symbol">₹</span>
+                                                        <%= property.price %>
+                                                    </div>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    <% } %>
+                                    <a href="/projectDetails/<%= property._id %>">
+                                        <button class="prism-action-button">More Details</button>
+                                    </a>
+                                </div>
                             </div>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="no-properties-catchy text-center" style="padding: 10px 0;">
+                            <img src="/img/arvies/realestate_placeholder.png" alt="No Properties" style="max-width:120px; margin-bottom: 24px; opacity:0.7;">
+                            <h3 style="font-weight:700; color:#1e293b; margin-bottom:12px;">No Properties Available Right Now</h3>
+                            <p style="color:#64748b; font-size:1.1rem;">We're curating the best spaces for you.<br>Check back soon for exciting new listings!</p>
                         </div>
-                    <% }); %>
+                    <% } %>
                 </div>
 
                 <div class="bs-pagination mt-100">
@@ -427,6 +428,21 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const filterBtns = document.querySelectorAll('.category-btn');
                 const propertyCards = document.querySelectorAll('.prismo-property-showcase');
+                const noProperties = document.querySelector('.no-properties-catchy');
+
+                function updateVisibility() {
+                    let visibleCount = 0;
+                    propertyCards.forEach(card => {
+                        if (card.style.display !== 'none') visibleCount++;
+                    });
+                    if (noProperties) {
+                        if (visibleCount === 0) {
+                            noProperties.style.display = '';
+                        } else {
+                            noProperties.style.display = 'none';
+                        }
+                    }
+                }
 
                 filterBtns.forEach(btn => {
                     btn.addEventListener('click', function () {
@@ -442,8 +458,12 @@
                                 card.style.display = 'none';
                             }
                         });
+                        updateVisibility();
                     });
                 });
+
+                // Initial check in case of no properties or after filtering
+                updateVisibility();
             });
         </script>
         <!-- about-start -->
@@ -837,7 +857,7 @@ We don’t just deal in real estate—we set the standard for the industry. Ever
                         </li>
 
                         <li class="dropdown">
-                            <a style="color: #f16520;" href="/realEstate">Real Estate</a>
+                            <a style="color: #f5e9c8;" href="/realEstate">Real Estate</a>
                             <ul class="dropdown-menu clearfix">
                                 <!-- <li><a href="siteDevelopment.html">Site Development</a></li> -->
                                 <li><a href="/projects">Project Sales
@@ -937,7 +957,7 @@ We don’t just deal in real estate—we set the standard for the industry. Ever
                     <span class="premium-nav-text">Interior</span>
                 </a>
 
-                <a style="color: #f16520!important;" href="/projects" class="premium-nav-link active-premium-nav">
+                <a style="color: #f5e9c8!important;" href="/projects" class="premium-nav-link active-premium-nav">
                     <img class="mob-nav-icon" src="/img/icon/real.svg" alt="arvies">
                     <span class="premium-nav-text">Realestate</span>
                 </a>

@@ -54,10 +54,7 @@ CSS INDEX
     50. footer
 ******************************************************* 
 *************************************************************** */
-/*
-    01. common
-*/
-/* Add Helvetica font-face from local font folder */
+
 @font-face {
   font-family: 'Montserrat';
   src: url('./../fonts/Montserrat-Regular.ttf') format('truetype');
@@ -77,7 +74,7 @@ CSS INDEX
   --bs-font-2: "Montserrat";
   --bs-font-3: "Montserrat";
   --allura: "Allura", serif;
-  --bs-clr-pr-1: #f16319;
+  --bs-clr-pr-1: #f5e9c8;
   --lw-clr-sd-1: #C4EF17;
   --bs-clr-h-4: #060606;
   --bs-clr-white-1: #ffffff;
@@ -2297,7 +2294,7 @@ input:focus::placeholder, textarea:focus::placeholder {
   width: 72px;
   height: 72px;
   flex: 0 0 auto;
-  background: var(--bs-clr-pr-1);
+background-color: black;
   display: grid;
   grid-template-columns: auto auto auto;
   grid-template-rows: auto;

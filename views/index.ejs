@@ -51,7 +51,7 @@
                             <ul id="main-nav" class="nav navbar-nav pt-10 ">
 
                                 <li class="">
-                                    <a style="color: #f16520;" href="/">home</a>
+                                    <a style="color: #f5e9c8;" href="/">home</a>
 
                                 </li>
                                 <li class="dropdown">
@@ -95,15 +95,8 @@
                         <div class="bs-header-4-action-link d-flex align-items-center ">
                             <!-- offcanvas-btn -->
                             <button type="button" aria-label="name" class="bs-offcanvas-btn-3  offcanvas_toggle">
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
+                                <img src="/img/arvies/menu.png" alt="">
+                           
                             </button>
 
                         </div>
@@ -718,6 +711,7 @@ Real Estate Development & Sales – Creating value through property development 
     <!-- team-end -->
 
     <!-- blog-start -->
+    <% if (typeof blogs !== 'undefined' && Array.isArray(blogs) && blogs.length > 0) { %>
     <section class="bs-blog-4-area pb-50 pt-md-50">
         <div class="container bs-container-2">
 
@@ -749,41 +743,36 @@ Real Estate Development & Sales – Creating value through property development 
             </div>
 
             <div class="bs-blog-4-wrap">
-                <% if (typeof blogs !=='undefined' && Array.isArray(blogs) && blogs.length> 0) { %>
-                    <% blogs.slice(0, 3).forEach(function(blog, idx) { %>
-                        <div class="bs-blog-4-item wow fadeInRight" <% if(idx> 0) { %> data-wow-delay=".<%= idx * 2 %>s"
-                                <% } %>>
-                                    <div class="item-img wa-fix wa-img-cover">
-                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name"
-                                            data-cursor-text="View">
-                                            <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>">
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name" class="item-btn">
-                                            <i class="flaticon-top-right flaticon"></i>
-                                        </a>
-                                        <p class="bs-p-4 author">
-                                            <%= blog.author %>
-                                        </p>
-                                        <h4 class="title bs-h-1">
-                                            <a href="/blogdetails/<%= blog._id %>" aria-label="name">
-                                                <%= blog.title %>
-                                            </a>
-                                        </h4>
-                                     
-                                    </div>
-                        </div>
-                        <% }); %>
-                            <% } else { %>
-                                <div style="padding:2rem 0; text-align:center; color:#888;">
-                                    No blogs available at the moment.
+                <% blogs.slice(0, 3).forEach(function(blog, idx) { %>
+                    <div class="bs-blog-4-item wow fadeInRight" <% if(idx> 0) { %> data-wow-delay=".<%= idx * 2 %>s"
+                            <% } %>>
+                                <div class="item-img wa-fix wa-img-cover">
+                                    <a href="/blogdetails/<%= blog._id %>" aria-label="name"
+                                        data-cursor-text="View">
+                                        <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>">
+                                    </a>
                                 </div>
-                                <% } %>
+                                <div class="content">
+                                    <a href="/blogdetails/<%= blog._id %>" aria-label="name" class="item-btn">
+                                        <i class="flaticon-top-right flaticon"></i>
+                                    </a>
+                                    <p class="bs-p-4 author">
+                                        <%= blog.author %>
+                                    </p>
+                                    <h4 class="title bs-h-1">
+                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name">
+                                            <%= blog.title %>
+                                        </a>
+                                    </h4>
+                                 
+                                </div>
+                    </div>
+                <% }); %>
             </div>
 
         </div>
     </section>
+    <% } %>
 
     <section class="bs-testimonial-4-area  wa-fix wa-p-relative pt-50 pb-50 home-testi">
 
@@ -816,7 +805,7 @@ Real Estate Development & Sales – Creating value through property development 
             </div>
         </div>
 
-        <div class="bs-testimonial-4-slider wa-fadeInUp">
+        <div class="bs-testimonial-4-slider container wa-fadeInUp">
             <div class="swiper-container wa-fix bs-t4-active">
                 <div class="swiper-wrapper">
                     <% if (typeof testimonials !=='undefined' && Array.isArray(testimonials) && testimonials.length> 0)
@@ -1207,7 +1196,7 @@ Real Estate Development & Sales – Creating value through property development 
             <nav class="mobile-main-navigation mb-50 d-block d-lg-none">
                 <ul class="navbar-nav">
                     <li class="">
-                        <a style="color: #f16520;" href="/">home</a>
+                        <a style="color: #f5e9c8;" href="/">home</a>
 
                     </li>
 
@@ -1338,7 +1327,7 @@ Real Estate Development & Sales – Creating value through property development 
     <!-- search-popup-end -->
     <nav class="premium-mobile-navbar">
         <div class="premium-navbar-container">
-            <a style="color: #f16520!important;" href="/" class="premium-nav-link ">
+            <a style="color: #f5e9c8!important;" href="/" class="premium-nav-link ">
                 <img class="mob-nav-icon" src="/img/icon/menu.svg" alt="arvies">
                 <span class="premium-nav-text">Home</span>
             </a>

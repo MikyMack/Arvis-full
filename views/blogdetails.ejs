@@ -88,23 +88,16 @@
                                     </ul>
                                 </li>
                                 <li><a href="/about">about us </a></li>
-                                <li><a style="color: #f16520;" href="/contact">contact </a></li>
+                                <li><a href="/contact">contact </a></li>
                             </ul>
                         </nav>
 
                         <!-- action-link -->
                         <div class="bs-header-4-action-link d-flex align-items-center ">
                             <!-- offcanvas-btn -->
-                            <button type="button" aria-label="name" class="bs-offcanvas-btn-3  offcanvas_toggle">
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
+                        <button type="button" aria-label="name" class="bs-offcanvas-btn-3  offcanvas_toggle">
+                                <img src="/img/arvies/menu.png" alt="">
+                           
                             </button>
 
                         </div>
@@ -188,6 +181,17 @@
 
                     <% if (blog.content) { %>
                         <%- blog.content %>
+                    <% } %>
+
+                    <% if (blog.highlights && blog.highlights.length) { %>
+                        <div class="bs-blog-details-highlights" style="margin: 2em 0;">
+                            <h4 class="bs-h-1" style="margin-bottom: 0.5em;">Highlights:</h4>
+                            <ul class="bs-blog-highlights-list" style="list-style: disc inside; padding-left: 1em;">
+                                <% blog.highlights.forEach(function(highlight) { %>
+                                    <li><%= highlight %></li>
+                                <% }); %>
+                            </ul>
+                        </div>
                     <% } %>
 
                     <div class="bs-blog-details-tag-share ">

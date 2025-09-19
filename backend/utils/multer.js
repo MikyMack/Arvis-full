@@ -9,8 +9,8 @@ const storage = new CloudinaryStorage({
         return {
             folder: 'Arvies',
             public_id: `${Date.now()}-${file.originalname.split('.')[0]}`,
-            allowed_formats: ['jpeg', 'jpg', 'png', 'webp'],
-            transformation: [{ width: 1000, height: 1000, crop: 'limit' }]
+            allowed_formats: ['jpeg', 'jpg', 'png', 'webp']
+            // No transformation or quality change
         };
     },
 });
@@ -28,7 +28,7 @@ const upload = multer({
             cb(new Error('Only JPEG, JPG, PNG, and WEBP images are allowed'), false);
         }
     },
-    limits: { fileSize: 50 * 1024 * 1024,fieldSize: 50 * 1024 * 1024, } 
+    limits: { fileSize: 20 * 1024 * 1024, fieldSize: 20 * 1024 * 1024 }
 });
 
 module.exports = upload;
