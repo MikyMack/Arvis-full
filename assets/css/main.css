@@ -3289,8 +3289,8 @@ background-color: black;
   border-style: solid;
   border-width: 3px;
   --charge: hsl(var(--h, 0), 80%, 50%);
-  -o-border-image: conic-gradient(hsl(20.83, 87.8%, 51.76%) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
-  border-image: conic-gradient(hsl(20.83, 87.8%, 51.76%) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
+  -o-border-image: conic-gradient(hsl(21, 57%, 79%) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
+  border-image: conic-gradient(hsl(21, 50%, 74%) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
   -webkit-animation: load 2s infinite ease-in-out;
   animation: load 2s infinite ease-in-out;
 }
@@ -20735,19 +20735,23 @@ Primary style
      
         }
         
-        .project-category-badge {
-            background: rgba(0,0,0,0.7);
-            color: black;
-            background-color: white;
-            font-size: 0.95em;
-            font-weight: normal;
-            padding: 6px 16px;
- 
-            z-index: 2;
-            text-transform: capitalize;
-            letter-spacing: 0.5px;
-            pointer-events: none;
-        }
+   .project-category-badge {
+    background: rgba(255, 255, 255, 0.15); /* translucent background */
+    color: #fff; /* text color for contrast */
+    font-size: 0.95em;
+    font-weight: normal;
+    padding: 6px 16px;
+
+    z-index: 2;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+
+    /* Glass effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* for Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border for glass look */
+}
         .project-details {
             padding: 20px 16px 16px 16px;
             flex: 1 1 auto;
@@ -20761,6 +20765,12 @@ Primary style
             font-weight: normal;
            color: black!important;
             margin: 0;
+        }
+        .project-category-inside-image{
+              background: rgba(255, 255, 255, 0.15); 
+                  backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* for Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border for glass look */
         }
         /* Responsive styles */
         @media (max-width: 1200px) {
