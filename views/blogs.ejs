@@ -163,16 +163,10 @@
                                         <i class="flaticon-top-right flaticon"></i>
                                     </a>
                                     <p class="bs-p-4 author"><%= blog.author %></p>
-                                    <h4 class="title bs-h-1">
-                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name"><%= blog.title %></a>
+                                    <h4 class="title bs-h-1 ">
+                                        <a class="blog-title-new" href="/blogdetails/<%= blog._id %>" aria-label="name"><%= blog.title %></a>
                                     </h4>
-                                    <p class="item-meta bs-p-4">
-                                        <% if (blog.metaKeywords && blog.metaKeywords.length > 0) { %>
-                                            <span class="categories"><%= blog.metaKeywords.join(', ') %></span>
-                                        <% } %>
-                                        <span class="date"><%= blog.createdAt ? blog.createdAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '' %></span>
-                                        <% /* Optionally, you can add reading time if available, else omit or estimate */ %>
-                                    </p>
+                                
                                 </div>
                             </div>
                         <% }); %>
