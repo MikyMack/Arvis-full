@@ -493,10 +493,9 @@ Real Estate Development & Sales – Creating value through property development 
                     <div class="inner-div">
                         <h2 class="bs-sec-title-4 title wa-split-right wa-capitalize" data-cursor="-opaque">Take a Look
                             at Our Latest projects.</h2>
-                        <div class="btn-wrap wa-fadeInRight mr-btn">
+                        <div class="btn-wrap wa-fadeInRight mr-btn more-projects-desktop-only">
                             <a id="more-projects-link" href="/interiorDesign" aria-label="name" class="bs-pr-btn-2">
                                 <span class="text" id="more-projects-text"></span>
-                          
                                 <span class="box box-1"></span>
                                 <span class="box box-2"></span>
                                 <span class="box box-3"></span>
@@ -597,10 +596,12 @@ Real Estate Development & Sales – Creating value through property development 
                         .filter-swiper .swiper-slide {
                             width: auto !important;
                         }
+                        .more-projects-desktop-only { display: none !important; }
                     }
                     @media (min-width: 601px) {
                         .filter-btns-desktop { display: flex !important; }
                         .filter-btns-mobile { display: none !important; }
+                        .more-projects-desktop-only { display: block !important; }
                     }
                 </style>
                 <div class="project-grid project-grid-responsive">
