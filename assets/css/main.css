@@ -20747,19 +20747,23 @@ Primary style
      
         }
         
-        .project-category-badge {
-            background: rgba(0,0,0,0.7);
-            color: black;
-            background-color: white;
-            font-size: 0.95em;
-            font-weight: normal;
-            padding: 6px 16px;
- 
-            z-index: 2;
-            text-transform: capitalize;
-            letter-spacing: 0.5px;
-            pointer-events: none;
-        }
+   .project-category-badge {
+    background: rgba(255, 255, 255, 0.15); /* translucent background */
+    color: #fff; /* text color for contrast */
+    font-size: 0.95em;
+    font-weight: normal;
+    padding: 6px 16px;
+
+    z-index: 2;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+
+    /* Glass effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* for Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border for glass look */
+}
         .project-details {
             padding: 20px 16px 16px 16px;
             flex: 1 1 auto;
@@ -20773,6 +20777,12 @@ Primary style
             font-weight: normal;
            color: black!important;
             margin: 0;
+        }
+        .project-category-inside-image{
+              background: rgba(255, 255, 255, 0.15); 
+                  backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* for Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border for glass look */
         }
         /* Responsive styles */
         @media (max-width: 1200px) {
