@@ -83,7 +83,7 @@
                                 </li>
 
                                 <li><a href="/about">about us </a></li>
-                                <li><a href="/blogs">Contact </a></li>
+                                <li><a href="/contact">Contact </a></li>
                             </ul>
                         </nav>
 
@@ -683,22 +683,8 @@
                                                 <p class="bs-p-4 author">
                                                     <%= blog.author %>
                                                 </p>
-                                                <h4 class="title bs-h-1">
-                                                    <a href="/blogdetails?id=<%= blog._id %>" aria-label="name">
-                                                        <%= blog.title %>
-                                                    </a>
-                                                </h4>
-                                                <p class="item-meta bs-p-4">
-                                                    <span class="categories">Arvies</span>
-                                                    <span class="date">
-                                                        <% var dateObj=new Date(blog.createdAt); var
-                                                            months=["Jan", "Feb" , "Mar" , "Apr" , "May" , "Jun" , "Jul"
-                                                            , "Aug" , "Sep" , "Oct" , "Nov" , "Dec" ]; var
-                                                            formattedDate=months[dateObj.getMonth()] + " " +
-                                                            dateObj.getDate() + ", " + dateObj.getFullYear(); %>
-                                                            <%= formattedDate %>
-                                                    </span>
-                                                </p>
+                                           
+
                                             </div>
                                 </div>
                                 <% }); %>

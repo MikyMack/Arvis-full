@@ -177,7 +177,7 @@
                <div class="bs-projects-2-wrap mb-50 row">
                    <% interiors.forEach(function(interior) { %>
                        <div class=" mb-4 d-flex">
-                           <div class="bs-projects-2-item wa-skew-1 w-100 archi-prject">
+                           <div class="bs-projects-2-item  w-100 archi-prject">
                                <div class="item-img wa-p-relative wa-fix wa-img-cover" style="width: 100%;">
                                    <a href="/interior/<%= interior._id %>" aria-label="<%= interior.title %>" data-cursor-text="View">
                                        <% if (interior.images && interior.images.length > 0) { %>
@@ -187,7 +187,7 @@
                                        <% } %>
                                    </a>
                                </div>
-                               <h4 class="bs-h-1 item-title wa-skew-1 mt-3 ">
+                               <h4 class="bs-h-1 item-title  mt-3 ">
                                    <a href="/interior/<%= interior._id %>" aria-label="<%= interior.title %>"><%= interior.title %></a>
                                </h4>
                            </div>
