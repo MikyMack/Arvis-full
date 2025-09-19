@@ -718,6 +718,7 @@ Real Estate Development & Sales – Creating value through property development 
     <!-- team-end -->
 
     <!-- blog-start -->
+    <% if (typeof blogs !== 'undefined' && Array.isArray(blogs) && blogs.length > 0) { %>
     <section class="bs-blog-4-area pb-50 pt-md-50">
         <div class="container bs-container-2">
 
@@ -749,41 +750,36 @@ Real Estate Development & Sales – Creating value through property development 
             </div>
 
             <div class="bs-blog-4-wrap">
-                <% if (typeof blogs !=='undefined' && Array.isArray(blogs) && blogs.length> 0) { %>
-                    <% blogs.slice(0, 3).forEach(function(blog, idx) { %>
-                        <div class="bs-blog-4-item wow fadeInRight" <% if(idx> 0) { %> data-wow-delay=".<%= idx * 2 %>s"
-                                <% } %>>
-                                    <div class="item-img wa-fix wa-img-cover">
-                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name"
-                                            data-cursor-text="View">
-                                            <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>">
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name" class="item-btn">
-                                            <i class="flaticon-top-right flaticon"></i>
-                                        </a>
-                                        <p class="bs-p-4 author">
-                                            <%= blog.author %>
-                                        </p>
-                                        <h4 class="title bs-h-1">
-                                            <a href="/blogdetails/<%= blog._id %>" aria-label="name">
-                                                <%= blog.title %>
-                                            </a>
-                                        </h4>
-                                     
-                                    </div>
-                        </div>
-                        <% }); %>
-                            <% } else { %>
-                                <div style="padding:2rem 0; text-align:center; color:#888;">
-                                    No blogs available at the moment.
+                <% blogs.slice(0, 3).forEach(function(blog, idx) { %>
+                    <div class="bs-blog-4-item wow fadeInRight" <% if(idx> 0) { %> data-wow-delay=".<%= idx * 2 %>s"
+                            <% } %>>
+                                <div class="item-img wa-fix wa-img-cover">
+                                    <a href="/blogdetails/<%= blog._id %>" aria-label="name"
+                                        data-cursor-text="View">
+                                        <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>">
+                                    </a>
                                 </div>
-                                <% } %>
+                                <div class="content">
+                                    <a href="/blogdetails/<%= blog._id %>" aria-label="name" class="item-btn">
+                                        <i class="flaticon-top-right flaticon"></i>
+                                    </a>
+                                    <p class="bs-p-4 author">
+                                        <%= blog.author %>
+                                    </p>
+                                    <h4 class="title bs-h-1">
+                                        <a href="/blogdetails/<%= blog._id %>" aria-label="name">
+                                            <%= blog.title %>
+                                        </a>
+                                    </h4>
+                                 
+                                </div>
+                    </div>
+                <% }); %>
             </div>
 
         </div>
     </section>
+    <% } %>
 
     <section class="bs-testimonial-4-area wa-fix wa-p-relative pt-50 pb-50 home-testi">
 

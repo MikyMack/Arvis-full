@@ -190,6 +190,17 @@
                         <%- blog.content %>
                     <% } %>
 
+                    <% if (blog.highlights && blog.highlights.length) { %>
+                        <div class="bs-blog-details-highlights" style="margin: 2em 0;">
+                            <h4 class="bs-h-1" style="margin-bottom: 0.5em;">Highlights:</h4>
+                            <ul class="bs-blog-highlights-list" style="list-style: disc inside; padding-left: 1em;">
+                                <% blog.highlights.forEach(function(highlight) { %>
+                                    <li><%= highlight %></li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    <% } %>
+
                     <div class="bs-blog-details-tag-share ">
                         <div class="bs-blog-tag ">
                             <h6 class="title bs-h-1  ">Tags:</h6>
