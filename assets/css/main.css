@@ -3301,8 +3301,8 @@ background-color: black;
   border-style: solid;
   border-width: 3px;
   --charge: hsl(var(--h, 0), 80%, 50%);
-  -o-border-image: conic-gradient(hsl(20.83, 87.8%, 51.76%) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
-  border-image: conic-gradient(hsl(20.83, 87.8%, 51.76%) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
+  -o-border-image: conic-gradient(hsl(21, 57%, 79%) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
+  border-image: conic-gradient(hsl(21, 50%, 74%) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
   -webkit-animation: load 2s infinite ease-in-out;
   animation: load 2s infinite ease-in-out;
 }
