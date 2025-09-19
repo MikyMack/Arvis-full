@@ -507,19 +507,103 @@ Real Estate Development & Sales – Creating value through property development 
                     </div>
                 </div>
                 <div class="project-filter-btns project-filter-responsive">
-                    <button class="bs-pr-btn-2 filter-btn active" data-filter="all" type="button">
-                        All
-                    </button>
-                    <button class="bs-pr-btn-2 filter-btn" data-filter="architecture" type="button">
-                        Architecture
-                    </button>
-                    <button class="bs-pr-btn-2 filter-btn" data-filter="interior" type="button">
-                        Interior
-                    </button>
-                    <button class="bs-pr-btn-2 filter-btn" data-filter="realestate" type="button">
-                        Real Estate
-                    </button>
+                    <div class="filter-btns-desktop">
+                        <button class="bs-pr-btn-2 filter-btn active" data-filter="all" type="button">
+                            All
+                        </button>
+                        <button class="bs-pr-btn-2 filter-btn" data-filter="architecture" type="button">
+                            Architecture
+                        </button>
+                        <button class="bs-pr-btn-2 filter-btn" data-filter="interior" type="button">
+                            Interior
+                        </button>
+                        <button class="bs-pr-btn-2 filter-btn" data-filter="realestate" type="button">
+                            Real Estate
+                        </button>
+                    </div>
+                    <!-- Mobile Swiper/Slider for filter buttons -->
+                    <div class="filter-btns-mobile" style="display:none;">
+                        <div class="swiper-container filter-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <button class="bs-pr-btn-2 filter-btn active" data-filter="all" type="button">
+                                        All
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="bs-pr-btn-2 filter-btn" data-filter="architecture" type="button">
+                                        Architecture
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="bs-pr-btn-2 filter-btn" data-filter="interior" type="button">
+                                        Interior
+                                    </button>
+                                </div>
+                                <div class="swiper-slide">
+                                    <button class="bs-pr-btn-2 filter-btn" data-filter="realestate" type="button">
+                                        Real Estate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <script>
+                    // Show/hide desktop/mobile filter buttons based on screen width
+                    function toggleFilterBtns() {
+                        var desktop = document.querySelector('.filter-btns-desktop');
+                        var mobile = document.querySelector('.filter-btns-mobile');
+                        if (window.innerWidth <= 600) {
+                            if (desktop) desktop.style.display = 'none';
+                            if (mobile) mobile.style.display = 'block';
+                        } else {
+                            if (desktop) desktop.style.display = 'flex';
+                            if (mobile) mobile.style.display = 'none';
+                        }
+                    }
+                    window.addEventListener('DOMContentLoaded', toggleFilterBtns);
+                    window.addEventListener('resize', toggleFilterBtns);
+
+                    // Initialize Swiper for mobile filter buttons
+                    window.addEventListener('DOMContentLoaded', function() {
+                        if (window.Swiper) {
+                            new Swiper('.filter-swiper', {
+                                slidesPerView: 'auto',
+                                spaceBetween: 10,
+                                freeMode: true,
+                                // Responsive breakpoints for better balance
+                                breakpoints: {
+                                    0: {
+                                        slidesPerView: 2.2,
+                                    },
+                                    400: {
+                                        slidesPerView: 2.5,
+                                    },
+                                    500: {
+                                        slidesPerView: 3,
+                                    },
+                                    600: {
+                                        slidesPerView: 4,
+                                    }
+                                }
+                            });
+                        }
+                    });
+                </script>
+                <style>
+                    @media (max-width: 600px) {
+                        .filter-btns-desktop { display: none !important; }
+                        .filter-btns-mobile { display: block !important; }
+                        .filter-swiper .swiper-slide {
+                            width: auto !important;
+                        }
+                    }
+                    @media (min-width: 601px) {
+                        .filter-btns-desktop { display: flex !important; }
+                        .filter-btns-mobile { display: none !important; }
+                    }
+                </style>
                 <div class="project-grid project-grid-responsive">
                     <%
                         const allProjects = [];

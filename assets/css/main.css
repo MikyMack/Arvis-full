@@ -2332,7 +2332,7 @@ background-color: black;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
-  color: var(--bs-clr-white-1);
+  color: black;
   gap: 12px;
   display: inline-flex;
   flex: 0 0 auto;
@@ -2404,7 +2404,7 @@ background-color: black;
   font-weight: 500;
   background: var(--bs-clr-white-1);
   color: var(--bs-clr-h-4);
-  padding: 11px 31px;
+  padding:7px 21px;
   border: 1px solid var(--bs-clr-h-4);
   font-size: 18px;
   line-height: 1.5;
@@ -20402,7 +20402,7 @@ Primary style
 
 
 .property-category-filter button{
-    border: 1px solid #f16218;
+    border: 1px solid #f5e9c8;
 
   height: 40px;
   width: 120px;
@@ -20415,7 +20415,7 @@ Primary style
   justify-content: center;
 }
 .project-filter-btns button{
-  border: 1px solid #f16218;
+  border: 1px solid #f5e9c8;
 }
   .arvies-slider-wrapper {
             position: relative;
