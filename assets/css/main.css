@@ -55,25 +55,14 @@ CSS INDEX
 ******************************************************* 
 *************************************************************** */
 
-@font-face {
-  font-family: 'Montserrat';
-  src: url('./../fonts/Montserrat-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@import url("https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Allura&amp;display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&amp;family=Oswald:wght@200;300;400;500;600;700&amp;display=swap');
 
 :root {
   scroll-behavior: inherit;
-  --bs-font-1: "Montserrat";
-  --bs-font-2: "Montserrat";
-  --bs-font-3: "Montserrat";
-  --allura: "Allura", serif;
+  --bs-font-1: 'Didact Gothic', sans-serif;
+  --bs-font-2: 'Didact Gothic', sans-serif;
+  --bs-font-3: 'Didact Gothic', sans-serif;
+  --oswald: 'Oswald', sans-serif;
   --bs-clr-pr-1: #f5e9c8;
   --lw-clr-sd-1: #C4EF17;
   --bs-clr-h-4: #060606;
@@ -85,10 +74,9 @@ CSS INDEX
 }
 
 body {
-  font-family: var(--bs-font-1)!important;
+  font-family: var(--bs-font-1) !important;
   font-size: 18px;
   font-weight: 400;
-  font-family: 'Helvetica', Arial, sans-serif !important;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   line-height: 28px;
