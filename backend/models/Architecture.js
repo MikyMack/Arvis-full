@@ -4,7 +4,7 @@ const architectureSchema = new mongoose.Schema(
   {
     category: {
       type: String,
-      enum: ['Residential', 'Commercial', 'Industrial', 'Hospitality', 'Urban Design'],
+      enum: ['Residential', 'Commercial', 'Industrial', 'Hospitality', 'Urban Design','Institutional'],
       required: true
     },
     title: {
