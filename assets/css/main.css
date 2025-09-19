@@ -20272,24 +20272,30 @@ Primary style
         }
 
         .project-details {
-      
+      display: flex;
+    padding: 15px;
+      align-items: center!important;
+      text-align: center;
        height: 15px!important; 
-       padding-top: 2rem;
+  
 
         }
         .project-details a {
-          padding-top: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+          
      
         }
 .project-details a h3{
   font-size: 15px;
-  margin-top: 10px;
+
 }
         .project-name {
             font-size: 1.3rem;
             font-weight: bold;
             color: white;
-           margin-top: 1rem!important;
+        
                   display: -webkit-box;
   -webkit-line-clamp: 1; 
   -webkit-box-orient: vertical;
@@ -20795,8 +20801,7 @@ Primary style
     border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border for glass look */
 }
         .project-details {
-          padding-left: 10px;
-          padding-bottom: 5px;
+
             flex: 1 1 auto;
             display: flex;
             align-items: flex-end;
@@ -20808,7 +20813,7 @@ Primary style
             font-weight: normal;
            color: black!important;
             margin: 0;
-            margin-bottom: 5px;
+        
         }
         .project-category-inside-image{
               background: rgba(255, 255, 255, 0.15); 
