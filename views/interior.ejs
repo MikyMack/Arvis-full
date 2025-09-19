@@ -193,9 +193,9 @@
             <div class="container bs-container-2">
 
                 <!-- section-title -->
-                <div class="bs-about-5-sec-title mb-55">
+                <div class="bs-about-5-sec-title mb-55 int-titles">
 
-                    <h2 class="bs-sec-title-4 wa-split-right wa-capitalize" data-cursor="-opaque">Interiors That Define Spaces, Elevate Living.</h2>
+                    <h2 class="bs-sec-title-4 int-titles wa-split-right wa-capitalize text-start" data-cursor="-opaque">Interiors That Define Spaces, Elevate Living.</h2>
                 </div>
 
                 <div class="bs-about-5-wrap">
@@ -307,18 +307,8 @@
                                                 <% }) %>
                                                     <% } %>
                                     </div>
-                                    <button class="slider-nav-buttons slider-prev"
-                                        data-target="<%= sliderId %>">‹</button>
-                                    <button class="slider-nav-buttons slider-next"
-                                        data-target="<%= sliderId %>">›</button>
-                                    <div class="slider-indicators" data-indicators="<%= sliderId %>">
-                                        <% if (interior.images && interior.images.length) { %>
-                                            <% interior.images.forEach(function(img, i) { %>
-                                                <div class="indicator-dot<%= i === 0 ? ' active-indicator' : '' %>"
-                                                    data-slide="<%= i %>"></div>
-                                                <% }) %>
-                                                    <% } %>
-                                    </div>
+
+                             
                                 </div>
                                 <div class="project-details">
                                     <a href="/interior/<%= interior._id %>">
