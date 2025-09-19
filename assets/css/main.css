@@ -20431,7 +20431,12 @@ Primary style
 
 .property-category-filter button{
     border: 1px solid #f5e9c8;
-
+          border: 1px solid #f5e9c8;
+                        background: #181818;
+                        color: #f5e9c8;
+                        padding: 7px 21px;
+                        font-size: 1em;
+                        transition: background 0.2s, color 0.2s;
   height: 40px;
   width: 120px;
  gap: 10px!important;
