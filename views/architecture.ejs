@@ -95,16 +95,9 @@
 
 
                             <!-- offcanvas-btn -->
-                            <button type="button" aria-label="name" class="bs-offcanvas-btn-3  offcanvas_toggle">
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
-                                <span class="line"></span>
+                         <button type="button" aria-label="name" class="bs-offcanvas-btn-3  offcanvas_toggle">
+                                <img src="/img/arvies/menu.png" alt="">
+                           
                             </button>
 
                         </div>
@@ -471,24 +464,13 @@
                                                     class="slider-image">
                                             <% } %>
                                             <% if (arch.category) { %>
-                                                <span class="project-category-inside-image" style="position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,0.6);color:#fff;padding:4px 12px;border-radius:16px;font-size:0.95em;pointer-events:none;">
+                                                <span class="project-category-inside-image" style="position:absolute;top:12px;left:12px;z-index:2;background:white;color:black;padding:4px 12px;font-size:0.95em;pointer-events:none;">
                                                     <%= arch.category %>
                                                 </span>
                                             <% } %>
                                         </div>
                                     </a>
-                                    <% if (arch.images && arch.images.length> 1) { %>
-                                        <button class="slider-nav-buttons slider-prev"
-                                            data-target="slider<%= idx %>">‹</button>
-                                        <button class="slider-nav-buttons slider-next"
-                                            data-target="slider<%= idx %>">›</button>
-                                        <div class="slider-indicators" data-indicators="slider<%= idx %>">
-                                            <% arch.images.forEach(function(img, imgIdx) { %>
-                                                <div class="indicator-dot <%= imgIdx === 0 ? 'active-indicator' : '' %>"
-                                                    data-slide="<%= imgIdx %>"></div>
-                                            <% }) %>
-                                        </div>
-                                    <% } %>
+                            
                                 </div>
                                 <div class="project-details">
                                     <a href="/architectureDetails/<%= arch._id %>">
