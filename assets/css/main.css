@@ -20289,6 +20289,7 @@ Primary style
         }
 .project-details a h3{
   font-size: 15px;
+  color: white!important;
 
 }
         .project-name {
@@ -20805,7 +20806,11 @@ Primary style
             flex: 1 1 auto;
             display: flex;
             align-items: flex-end;
-            background-color: white;
+           /* Glass effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* for Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border for glass look */
+
        
         }
         .project-name {
