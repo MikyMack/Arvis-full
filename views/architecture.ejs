@@ -484,7 +484,7 @@
                         align-items: center;
                     }
                     .archi-btn button {
-                        border: 1px solid #f5e9c8;
+                    
                         background: #181818;
                         color: #f5e9c8;
                         padding: 7px 21px;
@@ -495,7 +495,7 @@
                     .archi-btn button:active,
                     .archi-btn button:focus {
                         background: #f5e9c8;
-                        color: #181818;
+                        color: white;
                     }
                 </style>
 
@@ -515,7 +515,7 @@
                                                     class="slider-image">
                                             <% } %>
                                             <% if (arch.category) { %>
-                                                <span class="project-category-inside-image" style="position:absolute;top:12px;left:12px;z-index:2;color:white;padding:4px 12px;font-size:0.95em;pointer-events:none;">
+                                                <span class="project-category-inside-image project-category-badge" >
                                                     <%= arch.category %>
                                                 </span>
                                             <% } %>

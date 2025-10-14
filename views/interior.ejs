@@ -175,12 +175,7 @@
 
         <!-- about-start -->
         <section class="bs-about-5-area pt-50 pb-50 wa-fix wa-p-relative">
-            <div class="bs-about-5-bg-shape">
-                <img src="/img/about/a5-bg-shape.png" alt="arvies">
-            </div>
-            <div class="bs-about-5-bg-shape-2">
-                <img src="/img/about/a5-bg-shape-2.png" alt="arvies">
-            </div>
+         
 
             <div class="container bs-container-2">
 
@@ -285,22 +280,30 @@
                     </div>
                 </div>
 
-                <div class="project-grid">
+                <div class="project-grid pb-50" id="project-grid">
                     <% if (interiors && interiors.length) { %>
-                        <% interiors.forEach(function(interior, idx) { const sliderId='slider' + (idx + 1); %>
-                            <div class="project-card">
-                                <div class="image-slider-wrapper">
-                                    <div class="image-slider-container" data-slider="<%= sliderId %>">
-                                        <% if (interior.images && interior.images.length) { %>
-                                            <% interior.images.forEach(function(img) { %>
+                        <% interiors.forEach(function(interior, idx) { %>
+                            <div class="project-card" data-category="<%= interior.category %>">
+                                <div class="image-slider-wrapper" style="position:relative;">
+                                    <a href="/interior/<%= interior._id %>">
+                                        <div class="">
+                                            <% if (interior.images && interior.images.length > 0) { 
+                                                var img = interior.images[0]; %>
                                                 <img src="<%= img.url %>"
-                                                    alt="<%= img.seoAlt && img.seoAlt.trim() !== '' ? img.seoAlt : interior.title %>"
+                                                    alt="<%= img.seoAlt && img.seoAlt.trim() !== '' ? img.seoAlt : (interior.title || 'Interior Image') %>"
                                                     class="slider-image">
-                                                <% }) %>
-                                                    <% } %>
-                                    </div>
-
-                             
+                                            <% } else { %>
+                                                <img src="/img/no-image.png" alt="No Image"
+                                                    class="slider-image">
+                                            <% } %>
+                                            <% if (interior.category) { %>
+                                                <span class="project-category-inside-image project-category-badge" >
+                                                    <%= interior.category %>
+                                                </span>
+                                            <% } %>
+                                        </div>
+                                    </a>
+                            
                                 </div>
                                 <div class="project-details">
                                     <a href="/interior/<%= interior._id %>">
@@ -310,7 +313,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <% }) %>
+                        <% }) %>
                                 <% } else { %>
                                     <div class="no-projects-message">
                                         <p>No projects to display at this time.</p>
