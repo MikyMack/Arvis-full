@@ -20439,9 +20439,8 @@ Primary style
 
 
 .property-category-filter button{
-    border: 1px solid #f5e9c8;
-          border: 1px solid #f5e9c8;
-                        background: #181818;
+
+                        background: black;
                         color: #f5e9c8;
                         padding: 7px 21px;
                         font-size: 1em;
