@@ -15355,7 +15355,7 @@ Primary style
 .breadcrumb-list {
   position: relative;
   z-index: 1;
-  background: var(--bs-clr-white-1);
+
   display: inline-block;
   margin-left: auto;
   padding: 16px 32px;
@@ -15366,7 +15366,7 @@ Primary style
   letter-spacing: -0.01em;
   font-family: var(--bs-font-2);
   line-height: 28px;
-  color: var(--bs-clr-h-4);
+  color: white;
   text-transform: uppercase;
   text-decoration: none;
   display: inline-block;
@@ -20180,7 +20180,7 @@ Primary style
         .project-card {
            width: 100%;
           
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
@@ -20195,7 +20195,7 @@ Primary style
         .image-slider-wrapper {
             position: relative;
             height: 300px;
-            overflow: hidden;
+            overflow: visible!important;
         }
 
         .image-slider-container {
@@ -20288,7 +20288,7 @@ Primary style
      
         }
 .project-details a h3{
-  font-size: 15px;
+  font-size: 25px;
   color: white!important;
 
 }
@@ -20383,6 +20383,8 @@ Primary style
           width: 160px;
           background-color: white;
           color:black;
+          border: none!important;
+          background-color: #000!important;
   
        
         }
@@ -20437,9 +20439,8 @@ Primary style
 
 
 .property-category-filter button{
-    border: 1px solid #f5e9c8;
-          border: 1px solid #f5e9c8;
-                        background: #181818;
+
+                        background: black;
                         color: #f5e9c8;
                         padding: 7px 21px;
                         font-size: 1em;
@@ -20455,9 +20456,8 @@ Primary style
   justify-content: center;
 }
 .project-filter-btns button{
-  border: 1px solid #f5e9c8;
-            border: 1px solid #f5e9c8;
-                        background: #181818;
+
+                        background: black;
                         color: #f5e9c8;
                         padding: 7px 21px;
                         font-size: 1em;
@@ -20750,13 +20750,13 @@ Primary style
         }
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 32px;
         }
         .project-card {
             background: #181818;
-   
-            overflow: hidden;
+   height: 500px!important;
+            overflow: visible;
             box-shadow: 0 2px 16px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
@@ -20777,42 +20777,73 @@ Primary style
         }
         .slider-image {
             width: 100%;
-            height: 300px;
+            height: 500px;
             object-fit: cover;
             display: block;
             border-radius: 0;
      
         }
         
-   .project-category-badge {
-    background: rgba(255, 255, 255, 0.15); /* translucent background */
-    color: #fff; /* text color for contrast */
-    font-size: 0.95em;
-    font-weight: normal;
-    padding: 6px 16px;
-
-    z-index: 2;
-    text-transform: capitalize;
-    letter-spacing: 0.5px;
-    pointer-events: none;
-
-    /* Glass effect */
-    backdrop-filter: blur(8px);
+.project-category-badge {
+  position: absolute;
+  top: 20% !important;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  transition: all 0.3s ease;
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: normal;
+  padding: 6px 16px;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+    background: rgba(255, 255, 255, 0.15); 
+                  backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px); /* for Safari */
     border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border for glass look */
 }
-        .project-details {
 
-            flex: 1 1 auto;
-            display: flex;
-            align-items: flex-end;
-           /* Glass effect */
-    backdrop-filter: blur(8px);
+/* Odd cards → badge on right side */
+.project-card:nth-child(odd) .project-category-badge {
+  right: auto;
+  left: -50px!important;
+  text-align: left;
+}
+
+/* Even cards → badge on left side */
+.project-card:nth-child(even) .project-category-badge {
+  left: auto!important;
+  right: -50px!important;
+  text-align: right;
+}
+
+  .project-details {
+  position: absolute;
+  top: 20%;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-end;
+  transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.15); 
+                  backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px); /* for Safari */
     border: 1px solid rgba(255, 255, 255, 0.2); /* subtle border for glass look */
+}
 
-       
-        }
+/* Odd cards → title right */
+.project-card:nth-child(odd) .project-details {
+  left: -50px;
+  right: auto;
+  text-align: left;
+}
+
+/* Even cards → title left */
+.project-card:nth-child(even) .project-details {
+  left: auto;
+  right: -50px;
+  text-align: right;
+}
         .project-name {
             font-size: 1.2em;
             font-weight: normal;
@@ -20833,7 +20864,17 @@ Primary style
                 gap: 24px;
             }
             .slider-image {
-                height: 300px;
+                height: 500px;
+                width: 100%;
+            }
+        }
+          @media (max-width: 1200px) {
+            .project-grid {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 24px;
+            }
+            .slider-image {
+                height: 500px;
                 width: 100%;
             }
         }
@@ -20842,8 +20883,8 @@ Primary style
                 grid-template-columns: 2fr;
                 gap: 20px;
             }
-            .slider-image {
-                height: 300px;
+            .slider-image,.project-card {
+                height: 500px!important;
             }
             .project-details {
                 padding: 16px 10px 12px 10px;
@@ -20855,8 +20896,8 @@ Primary style
             }
         }
         @media (max-width: 480px) {
-            .slider-image {
-                height: 220px;
+            .slider-image,.project-card {
+                height: 220px!important;
             }
             .project-category-badge {
                 font-size: 0.8em;
@@ -20864,6 +20905,32 @@ Primary style
                 top: 8px;
                 left: 8px;
             }
+            .project-card:nth-child(odd) .project-details {
+  left: 0px;
+  right: auto;
+    top: 0px!important;
+  text-align: left;
+}
+
+/* Even cards → title left */
+.project-card:nth-child(even) .project-details {
+  left: auto;
+  right: 0px;
+  top: 0px!important;
+  text-align: right;
+}
+.project-card:nth-child(odd) .project-category-badge {
+  right: auto;
+  left: 0px!important;
+  text-align: left;
+}
+
+/* Even cards → badge on left side */
+.project-card:nth-child(even) .project-category-badge {
+  left: auto!important;
+  right: 0px!important;
+  text-align: right;
+}
         }
 
 /* 
