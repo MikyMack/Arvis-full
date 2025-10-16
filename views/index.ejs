@@ -27,9 +27,24 @@
     <div class="main-wrapper wa-fix">
 
         <!-- start preloader -->
-        <div class="lw-preloader">
-            <div class="loader"><img src="/img/arvies/footer-logo.png" alt="arvies"></div>
+        <div class="arvies-preloader" id="arvies-preloader" style="position: fixed; z-index: 9999; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; display: flex; justify-content: center; align-items: center;">
+            <div style="position: relative; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center;">
+                <div class="arvies-loader" style="position: absolute; top: 0; left: 0; width: 100px; height: 100px; border: 6px solid rgba(255,255,255,0.12); border-top: 6px solid #bfa046; border-radius: 50%; animation: arvies-spin 1s linear infinite;"></div>
+                <img src="/img/arvies/footer-logo.png" alt="arvies" style="width: 60px; height: auto; z-index: 2; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            </div>
         </div>
+        <style>
+            @keyframes arvies-spin {
+                0% { transform: rotate(0deg);}
+                100% {transform: rotate(360deg);}
+            }
+        </style>
+        <script>
+            setTimeout(function() {
+                var preloader = document.getElementById('arvies-preloader');
+                if (preloader) preloader.style.display = 'none';
+            }, 1000);
+        </script>
         <!-- end preloader -->
 
         <!-- header-start -->
