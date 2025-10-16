@@ -21,6 +21,223 @@
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/magnific-popup.css">
     <link rel="stylesheet" href="/css/main.css">
+     <style>
+    
+
+        .services-section {
+        padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+       
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 25px auto 0;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .service-card {
+            flex: 1;
+            min-width: 320px;
+            max-width: 380px;
+            height: 500px;
+          
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            background: white;
+        }
+
+        .service-card:hover {
+  
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .service-card:hover .service-image {
+            transform: scale(1.08);
+        }
+
+        .service-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+            padding: 50px 30px 30px;
+            color: white;
+            text-align: left;
+        }
+
+        .service-icon {
+            position: absolute;
+            top: -25px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #000000, #000000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .service-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .service-features {
+            list-style: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .service-card:hover .service-features {
+            opacity: 1;
+            max-height: 200px;
+        }
+
+        .service-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .service-cta {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+          
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .service-card:hover .service-cta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-cta:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1100px) {
+            .service-card {
+                min-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .service-card {
+                min-width: 100%;
+                max-width: 450px;
+                height: 450px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .service-card {
+                height: 400px;
+            }
+            
+            .service-title {
+                font-size: 1.5rem;
+            }
+            
+            .service-overlay {
+                padding: 40px 20px 20px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 
 <body class="bs-home-4">
@@ -201,71 +418,58 @@
             <div class="bs-hero-4-bg"></div>
         </section>
         <!-- hero-end -->
-
-        <!-- core-feature-start -->
-        <section class="bs-core-features-1-area pt-80">
-            <div class="container bs-container-1">
-                <div class="bs-core-features-1-wrap">
-
-                    <!-- single-item -->
-                    <div class="bs-core-features-1-item">
-                        <div class="icon abt-icon">
-                            <img src="/img/arvies/icons/architecture.png" alt="arvies" style="padding: 5px;">
-                        </div>
-                        <div class="content abt-text">
-                            <h5 class="bs-h-1  item-title">
-                                <a class="" href="/architecture" aria-label="name">architecture</a>
-                            </h5>
-                            <p class="bs-p-1 item-disc">Thoughtful Planning</p>
-                        </div>
-
+   <div class="services-section mt-5">
+ 
+        
+        <div class="services-grid">
+            <!-- Architecture Card -->
+         <a style="height: 100%;" href="/architecture"> <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Architecture Design" class="service-image">
+                <div class="service-overlay">
+                    <div class="service-icon">
+                        <i class="fas fa-drafting-compass"></i>
                     </div>
-
-                    <div class="shape">
-                        <img src="/img/illus/star-shape.png" alt="arvies">
-                    </div>
-
-                    <!-- single-item -->
-                    <div class="bs-core-features-1-item">
-                        <div class="icon">
-                            <img src="/img/arvies/icons/livingroom.png" alt="arvies" style="padding: 5px;">
-                        </div>
-                        <div class="content abt-text">
-                            <h5 class="bs-h-1 item-title">
-                                <a href="/interior" aria-label="name">Interior</a>
-                            </h5>
-                            <p class="bs-p-1 item-disc">Design & Execution</p>
-                        </div>
-
-                    </div>
-
-                    <div class="shape">
-                        <img src="/img/illus/star-shape.png" alt="arvies">
-                    </div>
-
-                    <!-- single-item -->
-                    <div class="bs-core-features-1-item">
-                        <div class="icon">
-                            <img src="/img/arvies/icons/agreement.png" alt="arvies" style="padding: 5px;">
-                        </div>
-                        <div class="content abt-text">
-                            <h5 class="bs-h-1 item-title">
-                                <a href="/realEstate" aria-label="name">Real Estate</a>
-                            </h5>
-                            <p class="bs-p-1 item-disc">Growth and progress</p>
-                        </div>
-
-                    </div>
-
-
-
-
-
-
+                   <a href="/architecture"><h2 class="service-title">Architecture</h2></a> 
+                    <p class="service-description">Innovative architectural designs that blend form, function, and sustainability for residential and commercial projects.</p>
+              
+                    <a href="/architecture" class="service-cta">Learn More</a>
                 </div>
             </div>
-        </section>
-        <!-- core-feature-end -->
+            </a> 
+            
+            <!-- Interior Design Card -->
+            <div class="service-card">
+                <a style="height: 100%;" href="/interior"><img src="/img/arvies/inti-1.jpg" alt="Interior Design" class="service-image"></a>
+                <div class="service-overlay">
+                    <div class="service-icon">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                   <a href="/interior"> <h2 class="service-title">Interior Design</h2></a>
+                    <p class="service-description">Creating beautiful, functional spaces that reflect your personality and enhance your quality of life.</p>
+             
+                    <a href="/interior" class="service-cta">Learn More</a>
+                </div>
+            </div>
+            
+            <!-- Real Estate Card -->
+         <a style="height: 100%;" href="/realEstate"><div class="service-card">
+               <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80" alt="Real Estate" class="service-image">
+                <div class="service-overlay">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                   <a href="/realEstate"> <h2 class="service-title">Real Estate</h2></a>
+                    <p class="service-description">Expert guidance through every step of buying, selling, or investing in properties that match your goals.</p>
+          
+                    <a href="/realEstate" class="service-cta">Learn More</a>
+                </div>
+              
+            </div>
+            </a> 
+            
+        </div>
+    </div>
+   
 
         <!-- about-start -->
         <section class="bs-about-4-area pt-45 pb-125 wa-fix">
@@ -430,13 +634,13 @@ Real Estate Development & Sales – Creating value through property development 
                                     <a href="/interior" aria-label="name" class="wa-line-limit has-line-2">interior</a>
                                 </h4>
                                 <div class="main-img wa-fix wa-img-cover">
-                                    <img src="/img/arvies/interior.jpg" alt="arvies">
+                                    <img src="/img/arvies/int-1.jpg" alt="arvies">
                                 </div>
                                 <p class="bs-p-4 disc wa-line-limit has-line-3">Interior Design & Execution – Transforming spaces with creativity and precision.</p>
                             </div>
                             <div class="default-content">
                                 <div class="img-2 wa-fix wa-img-cover">
-                                    <img src="/img/arvies/interior.jpg" alt="arvies">
+                                    <img src="/img/arvies/int-1.jpg" alt="arvies">
                                 </div>
                                 <h4 class="bs-h-1 title-2 wa-line-limit has-line-1">
                                     interior
@@ -453,13 +657,13 @@ Real Estate Development & Sales – Creating value through property development 
                                         <br>estate</a>
                                 </h4>
                                 <div class="main-img wa-fix wa-img-cover">
-                                    <img src="/img/arvies/real.jpg" alt="arvies">
+                                    <img src="/img/arvies/es-1.jpg" alt="arvies">
                                 </div>
                                 <p class="bs-p-4 disc wa-line-limit has-line-3">Real Estate Development & Sales – Creating value through property development and investments.</p>
                             </div>
                             <div class="default-content">
                                 <div class="img-2 wa-fix wa-img-cover">
-                                    <img src="/img/arvies/real.jpg" alt="arvies">
+                                    <img src="/img/arvies/es-1.jpg" alt="arvies">
                                 </div>
                                 <h4 class="bs-h-1 title-2 wa-line-limit has-line-1">
                                     Real estate
@@ -663,10 +867,12 @@ Real Estate Development & Sales – Creating value through property development 
                                             <div class="slider-image-wrapper">
                                                 <img src="/img/no-image.png" alt="No image" class="slider-image">
                                                 <% if (project.category) { %>
-                                                    <span class="project-category-badge" style="position:absolute;top:16px;left:16px;">
+                                                    <span class="project-category-badge" >
                                                         <%= project.category %>
                                                     </span>
                                                 <% } %>
+
+                                                
                                             </div>
                                         <% } %>
                                     </div>
@@ -961,8 +1167,8 @@ Real Estate Development & Sales – Creating value through property development 
     <!-- contact-start -->
     <section class="bs-contact-4-area wa-fix wa-p-relative">
         <div class="bs-contact-4-bg wa-fix wa-img-cover wa-p-relative">
-            <img class="wa-parallax-img" src="/img/contact/c4-img-1.png" alt="arvies">
-            <img src="/img/contact/c4-grow-1.png" alt="arvies" class="glow-1">
+            <img class="wa-parallax-img" src="/img/arvies/ar.jpg" alt="arvies">
+x
         </div>
         <div class="container bs-container-2">
             <div class="bs-contact-4-wrap">

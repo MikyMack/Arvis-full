@@ -180,35 +180,39 @@
                 </div>
 
                 <% if (architectures && architectures.length > 0) { %>
-                <div class="bs-projects-2-wrap mb-10 d-flex flex-wrap">
+                <div class="project-grid pb-50" id="project-grid">
                     <% architectures.forEach(function(arch, idx) { %>
-                        <div class="bs-projects-2-item  archi-prject" style="width: 33.333%; float: left; padding: 15px 10px; box-sizing: border-box;">
-                            <div class="item-img wa-p-relative wa-fix wa-img-cover" style="height: 270px; overflow: hidden;">
-                                <a href="/architectureDetails/<%= arch._id %>" aria-label="<%= arch.title %>" data-cursor-text="View">
-                                    <% 
-                                        // Use images (array of objects with url) as per schema
-                                        let imgSrc = (arch.images && arch.images.length && arch.images[0].url) 
-                                            ? arch.images[0].url 
-                                            : '/img/arvies/default-architecture.jpg';
-                                        let imgAlt = (arch.images && arch.images.length && arch.images[0].seoAlt && arch.images[0].seoAlt.trim() !== '') 
-                                            ? arch.images[0].seoAlt 
-                                            : arch.title;
-                                    %>
-                                    <img src="<%= imgSrc %>" alt="<%= imgAlt %>" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="project-card" data-category="<%= arch.category %>">
+                            <div class="image-slider-wrapper" style="position:relative;">
+                                <a href="/architectureDetails/<%= arch._id %>">
+                                    <div class="">
+                                        <% if (arch.images && arch.images.length > 0) { 
+                                            var img = arch.images[0]; %>
+                                            <img src="<%= img.url %>"
+                                                alt="<%= img.seoAlt && img.seoAlt.length > 0 ? img.seoAlt : (arch.title || 'Architecture Image') %>"
+                                                class="slider-image">
+                                        <% } else { %>
+                                            <img src="/img/no-image.png" alt="No Image"
+                                                class="slider-image">
+                                        <% } %>
+                                        <% if (arch.category) { %>
+                                            <span class="project-category-inside-image project-category-badge" >
+                                                <%= arch.category %>
+                                            </span>
+                                        <% } %>
+                                    </div>
                                 </a>
+                        
                             </div>
-                            <h4 class="bs-h-1 item-title  mt-3">
-                                <a href="/architectureDetails/<%= arch._id %>" aria-label="<%= arch.title %>"><%= arch.title %></a>
-                            </h4>
-                            <div class="text-muted small mt-1">
-                                <%= arch.category %>
-                                <% if (arch.location) { %> | <%= arch.location %> <% } %>
+                            <div class="project-details">
+                                <a href="/architectureDetails/<%= arch._id %>">
+                                    <h3 class="project-name">
+                                        <%= arch.title %>
+                                    </h3>
+                                </a>
+                                <!-- Category removed from details as per instruction -->
                             </div>
                         </div>
-                        <% /* Add clearfix after every 3 items for row break if needed */ %>
-                        <% if ((idx + 1) % 3 === 0) { %>
-                            <div class="w-100"></div>
-                        <% } %>
                     <% }) %>
                 </div>
                 <% } else { %>

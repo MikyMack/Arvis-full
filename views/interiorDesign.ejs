@@ -169,22 +169,36 @@
                </form>
 
                <% if (interiors && interiors.length > 0) { %>
-               <div class="bs-projects-2-wrap mb-50 row">
-                   <% interiors.forEach(function(interior) { %>
-                       <div class=" mb-4 d-flex">
-                           <div class="bs-projects-2-item  w-100 archi-prject">
-                               <div class="item-img wa-p-relative wa-fix wa-img-cover" style="width: 100%;">
-                                   <a href="/interior/<%= interior._id %>" aria-label="<%= interior.title %>" data-cursor-text="View">
-                                       <% if (interior.images && interior.images.length > 0) { %>
-                                           <img src="<%= interior.images[0].url %>" alt="<%= interior.images[0].seoAlt || interior.title %>">
+               <div class="project-grid pb-50" id="project-grid">
+                   <% interiors.forEach(function(interior, idx) { %>
+                       <div class="project-card" data-category="<%= interior.category %>">
+                           <div class="image-slider-wrapper" style="position:relative;">
+                               <a href="/interior/<%= interior._id %>">
+                                   <div class="">
+                                       <% if (interior.images && interior.images.length > 0) { 
+                                           var img = interior.images[0]; %>
+                                           <img src="<%= img.url %>"
+                                               alt="<%= img.seoAlt && img.seoAlt.length > 0 ? img.seoAlt : (interior.title || 'Interior Image') %>"
+                                               class="slider-image">
                                        <% } else { %>
-                                           <img src="/img/arvies/inti-1.jpg" alt="arvies">
+                                           <img src="/img/no-image.png" alt="No Image"
+                                               class="slider-image">
                                        <% } %>
-                                   </a>
-                               </div>
-                               <h4 class="bs-h-1 item-title  mt-3 ">
-                                   <a href="/interior/<%= interior._id %>" aria-label="<%= interior.title %>"><%= interior.title %></a>
-                               </h4>
+                                       <% if (interior.category) { %>
+                                           <span class="project-category-inside-image project-category-badge" >
+                                               <%= interior.category %>
+                                           </span>
+                                       <% } %>
+                                   </div>
+                               </a>
+                       
+                           </div>
+                           <div class="project-details">
+                               <a href="/interior/<%= interior._id %>">
+                                   <h3 class="project-name">
+                                       <%= interior.title %>
+                                   </h3>
+                               </a>
                            </div>
                        </div>
                    <% }) %>
