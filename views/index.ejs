@@ -244,9 +244,24 @@
     <div class="main-wrapper wa-fix">
 
         <!-- start preloader -->
-        <div class="lw-preloader">
-            <div class="loader"><img src="/img/arvies/footer-logo.png" alt="arvies"></div>
+        <div class="arvies-preloader" id="arvies-preloader" style="position: fixed; z-index: 9999; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; display: flex; justify-content: center; align-items: center;">
+            <div style="position: relative; width: 100px; height: 100px; display: flex; justify-content: center; align-items: center;">
+                <div class="arvies-loader" style="position: absolute; top: 0; left: 0; width: 100px; height: 100px; border: 6px solid rgba(255,255,255,0.12); border-top: 6px solid #bfa046; border-radius: 50%; animation: arvies-spin 1s linear infinite;"></div>
+                <img src="/img/arvies/footer-logo.png" alt="arvies" style="width: 60px; height: auto; z-index: 2; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            </div>
         </div>
+        <style>
+            @keyframes arvies-spin {
+                0% { transform: rotate(0deg);}
+                100% {transform: rotate(360deg);}
+            }
+        </style>
+        <script>
+            setTimeout(function() {
+                var preloader = document.getElementById('arvies-preloader');
+                if (preloader) preloader.style.display = 'none';
+            }, 1000);
+        </script>
         <!-- end preloader -->
 
         <!-- header-start -->
@@ -276,7 +291,7 @@
                                     <ul class="dropdown-menu clearfix">
                                         <li><a href="/architectureDesigns?category=Residential">Residential</a></li>
                                         <li><a href="/architectureDesigns?category=Commercial">Commercial</a></li>
-                                        <li><a href="/architectureDesigns?category=Industrial">Industrial</a></li>
+                                        <li><a href="/architectureDesigns?category=Institutional">Institutional</a></li>
                                         <li><a href="/architectureDesigns?category=Hospitality">Hospitality</a></li>
                                         <li><a href="/architectureDesigns?category=Urban%20Design">Urban Design</a></li>
                                     </ul>
@@ -692,10 +707,9 @@ Real Estate Development & Sales – Creating value through property development 
                     <div class="inner-div">
                         <h2 class="bs-sec-title-4 title wa-split-right wa-capitalize" data-cursor="-opaque">Take a Look
                             at Our Latest projects.</h2>
-                        <div class="btn-wrap wa-fadeInRight mr-btn">
+                        <div class="btn-wrap wa-fadeInRight mr-btn more-projects-desktop-only">
                             <a id="more-projects-link" href="/interiorDesign" aria-label="name" class="bs-pr-btn-2">
                                 <span class="text" id="more-projects-text"></span>
-                          
                                 <span class="box box-1"></span>
                                 <span class="box box-2"></span>
                                 <span class="box box-3"></span>
@@ -796,10 +810,12 @@ Real Estate Development & Sales – Creating value through property development 
                         .filter-swiper .swiper-slide {
                             width: auto !important;
                         }
+                        .more-projects-desktop-only { display: none !important; }
                     }
                     @media (min-width: 601px) {
                         .filter-btns-desktop { display: flex !important; }
                         .filter-btns-mobile { display: none !important; }
+                        .more-projects-desktop-only { display: block !important; }
                     }
                 </style>
                 <div class="project-grid project-grid-responsive">
